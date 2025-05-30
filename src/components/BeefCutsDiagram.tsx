@@ -45,97 +45,35 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-green-50 via-amber-50 to-orange-50 flex flex-col items-center justify-center px-4 py-8">
       
-      {/* Large Interactive Butcher Cut Diagram */}
-      <div className="relative w-full max-w-6xl mb-8 flex-1 flex items-center justify-center">
-        <div className="relative w-full">
-          {/* Large cow cuts image filling most of the space */}
-          <img
-            src="/lovable-uploads/34a51eef-7412-465d-a983-cda5374f8b37.png"
-            alt="Beef Cuts Diagram"
-            className="w-full h-auto max-h-[70vh] object-contain"
-            style={{
-              opacity: getOpacity(),
-              transition: 'opacity 0.3s ease-in-out'
-            }}
-          />
-          
-          {/* Overlay to show share amount visually */}
-          <div 
-            className="absolute inset-0 bg-green-200 mix-blend-multiply"
-            style={{
-              opacity: Math.max(0.1, shareFraction * 0.5),
-              transition: 'opacity 0.3s ease-in-out'
-            }}
-          />
-
-          {/* Cut amount overlays with arrows pointing to the cow image */}
-          {shareFraction > 0 && (
-            <>
-              {/* Ground Beef - lower body area with arrow */}
-              <div className="absolute bottom-[15%] left-[25%] flex items-center">
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-xl border border-green-200">
-                  <div className="text-sm font-medium text-green-800">Ground Beef</div>
-                  <div className="text-xl font-bold text-green-600">{getShareAmount(wholeCowCuts['Ground Beef'])}</div>
-                </div>
-                <div className="w-8 h-0.5 bg-green-600 ml-2"></div>
-                <div className="w-0 h-0 border-l-8 border-l-green-600 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
-              </div>
-
-              {/* Steaks - middle back area with arrow */}
-              <div className="absolute top-[25%] left-[45%] flex items-center">
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-xl border border-green-200">
-                  <div className="text-sm font-medium text-green-800">Steaks</div>
-                  <div className="text-xl font-bold text-green-600">{getShareAmount(wholeCowCuts['Steaks'])}</div>
-                </div>
-                <div className="w-8 h-0.5 bg-green-600 ml-2"></div>
-                <div className="w-0 h-0 border-l-8 border-l-green-600 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
-              </div>
-
-              {/* Roasts - shoulder/chuck area with arrow pointing right */}
-              <div className="absolute top-[20%] right-[70%] flex items-center flex-row-reverse">
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-xl border border-green-200">
-                  <div className="text-sm font-medium text-green-800">Roasts</div>
-                  <div className="text-xl font-bold text-green-600">{getShareAmount(wholeCowCuts['Roasts'])}</div>
-                </div>
-                <div className="w-8 h-0.5 bg-green-600 mr-2"></div>
-                <div className="w-0 h-0 border-r-8 border-r-green-600 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
-              </div>
-
-              {/* Short Ribs & Brisket - chest area with arrow pointing right */}
-              <div className="absolute bottom-[25%] right-[70%] flex items-center flex-row-reverse">
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-xl border border-green-200">
-                  <div className="text-sm font-medium text-green-800">Short Ribs & Brisket</div>
-                  <div className="text-xl font-bold text-green-600">{getShareAmount(wholeCowCuts['Short Ribs & Brisket'])}</div>
-                </div>
-                <div className="w-8 h-0.5 bg-green-600 mr-2"></div>
-                <div className="w-0 h-0 border-r-8 border-r-green-600 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
-              </div>
-
-              {/* Tenderloin - lower back area with arrow */}
-              <div className="absolute top-[45%] left-[50%] flex items-center">
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-xl border border-green-200">
-                  <div className="text-sm font-medium text-green-800">Tenderloin</div>
-                  <div className="text-xl font-bold text-green-600">{getShareAmount(wholeCowCuts['Tenderloin'])}</div>
-                </div>
-                <div className="w-8 h-0.5 bg-green-600 ml-2"></div>
-                <div className="w-0 h-0 border-l-8 border-l-green-600 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
-              </div>
-
-              {/* Flank & Skirt - belly area with arrow */}
-              <div className="absolute bottom-[35%] left-[40%] flex items-center">
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-xl border border-green-200">
-                  <div className="text-sm font-medium text-green-800">Flank & Skirt</div>
-                  <div className="text-xl font-bold text-green-600">{getShareAmount(wholeCowCuts['Flank & Skirt'])}</div>
-                </div>
-                <div className="w-8 h-0.5 bg-green-600 ml-2"></div>
-                <div className="w-0 h-0 border-l-8 border-l-green-600 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
-              </div>
-            </>
-          )}
-        </div>
+      {/* Cow Image at Top */}
+      <div className="w-full max-w-4xl mb-8">
+        <img
+          src="/lovable-uploads/34a51eef-7412-465d-a983-cda5374f8b37.png"
+          alt="Beef Cuts Diagram"
+          className="w-full h-auto max-h-[50vh] object-contain"
+          style={{
+            opacity: getOpacity(),
+            transition: 'opacity 0.3s ease-in-out'
+          }}
+        />
       </div>
 
-      {/* Compact Share Selection at bottom */}
+      {/* Cut Amounts Grid */}
+      {shareFraction > 0 && (
+        <div className="w-full max-w-4xl mb-8">
+          <h3 className="text-2xl font-bold text-green-700 text-center mb-6">Your Monthly Share Breakdown</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {Object.entries(wholeCowCuts).map(([cutName, baseAmount]) => (
+              <div key={cutName} className="bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-green-200 text-center">
+                <div className="text-sm font-medium text-green-800 mb-1">{cutName}</div>
+                <div className="text-xl font-bold text-green-600">{getShareAmount(baseAmount)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Share Selection at bottom */}
       <div className="w-full max-w-4xl">
         <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/50">
           <div className="flex items-center justify-between mb-6">
