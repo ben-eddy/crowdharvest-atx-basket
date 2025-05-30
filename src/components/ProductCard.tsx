@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
@@ -19,12 +20,16 @@ interface ProductCardProps {
   product: Product;
   quantity: number;
   onQuantityChange: (productId: string, quantity: number) => void;
+  onAddToCart: () => void;
+  isInCart: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   quantity,
-  onQuantityChange
+  onQuantityChange,
+  onAddToCart,
+  isInCart
 }) => {
   const { toast } = useToast();
 
@@ -37,6 +42,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
     console.log(`Adding ${quantity} ${product.unit}(s) of ${product.name} to cart`);
     console.log(`Current quantity state: ${quantity}`);
     console.log(`Product ID: ${product.id}`);
+    
+    onAddToCart();
     
     // Show toast notification
     if (quantity > 0) {
@@ -137,10 +144,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <div className="mt-3">
             <Button 
               onClick={handleAddToCart}
-              className="w-full farm-gradient text-white font-medium"
+              className={`w-full font-medium ${
+                isInCart 
+                  ? 'bg-gray-500 hover:bg-gray-600 text-white' 
+                  : 'farm-gradient text-white'
+              }`}
               size="sm"
             >
-              Add to Cart
+              {isInCart ? 'Update Cart' : 'Add to Cart'}
             </Button>
           </div>
         )}

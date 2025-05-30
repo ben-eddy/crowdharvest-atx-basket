@@ -16,8 +16,9 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState('beef');
   const [pickupLocation, setPickupLocation] = useState('');
   
-  // Simplified cart state - just quantity per product
+  // Separate state for cart (actual items added) and preview quantities (slider values)
   const [cart, setCart] = useState<{[productId: string]: { quantity: number }}>({});
+  const [previewQuantities, setPreviewQuantities] = useState<{[productId: string]: number}>({});
 
   // Updated categories
   const categories = [
@@ -195,23 +196,36 @@ const Index = () => {
   // Filter products by category
   const filteredProducts = products.filter(product => product.category === selectedCategory);
 
-  // Modified cart functions to ensure proper updates
-  const handleQuantityChange = (productId: string, quantity: number) => {
-    console.log(`Cart update: ${productId} -> ${quantity}`);
-    setCart(prev => {
-      const newCart = {
-        ...prev,
-        [productId]: { quantity: quantity }
-      };
-      console.log(`New cart state:`, newCart);
-      return newCart;
-    });
+  // Handle slider changes - only updates preview, not cart
+  const handlePreviewQuantityChange = (productId: string, quantity: number) => {
+    console.log(`Preview quantity change: ${productId} -> ${quantity}`);
+    setPreviewQuantities(prev => ({
+      ...prev,
+      [productId]: quantity
+    }));
+  };
+
+  // Handle adding items to cart - this actually updates the cart
+  const handleAddToCart = (productId: string) => {
+    const previewQuantity = previewQuantities[productId] || 0;
+    console.log(`Adding to cart: ${productId} with quantity ${previewQuantity}`);
+    
+    if (previewQuantity > 0) {
+      setCart(prev => {
+        const newCart = {
+          ...prev,
+          [productId]: { quantity: previewQuantity }
+        };
+        console.log(`New cart state:`, newCart);
+        return newCart;
+      });
+    }
   };
 
   // Add function to handle adding beef share to cart
   const handleAddBeefToCart = () => {
-    const beefShareQuantity = cart['beef-shares']?.quantity || 0;
-    handleQuantityChange('beef-shares', beefShareQuantity);
+    const beefShareQuantity = previewQuantities['beef-shares'] || 0;
+    handleAddToCart('beef-shares');
   };
 
   // Create cart items for order summary
@@ -247,8 +261,8 @@ const Index = () => {
 
   // Find beef share product and current selection
   const beefShareProduct = products.find(p => p.id === 'beef-shares');
-  const beefShareQuantity = cart['beef-shares']?.quantity || 0;
-  const isBeefInCart = beefShareQuantity > 0;
+  const beefPreviewQuantity = previewQuantities['beef-shares'] || 0;
+  const isBeefInCart = cart['beef-shares']?.quantity > 0;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -278,7 +292,7 @@ const Index = () => {
             {selectedCategory === 'beef' && beefShareProduct ? (
               // Full-page beef diagram
               <BeefCutsDiagram
-                shareSize={beefShareProduct.shareOptions?.[beefShareQuantity]?.label || beefShareProduct.shareOptions?.[0]?.label || '1/40 share'}
+                shareSize={beefShareProduct.shareOptions?.[beefPreviewQuantity]?.label || beefShareProduct.shareOptions?.[0]?.label || '1/40 share'}
                 shareFraction={{
                   '1/40 share': 1/40,
                   '1/30 share': 1/30,
@@ -288,9 +302,9 @@ const Index = () => {
                   '1/8 share': 1/8,
                   '1/6 share': 1/6,
                   '1/4 share': 1/4
-                }[beefShareProduct.shareOptions?.[beefShareQuantity]?.label || '1/40 share'] || 1/40}
-                onShareChange={(value) => handleQuantityChange('beef-shares', value)}
-                currentShareIndex={beefShareQuantity}
+                }[beefShareProduct.shareOptions?.[beefPreviewQuantity]?.label || '1/40 share'] || 1/40}
+                onShareChange={(value) => handlePreviewQuantityChange('beef-shares', value)}
+                currentShareIndex={beefPreviewQuantity}
                 shareOptions={beefShareProduct.shareOptions || []}
                 onAddToCart={handleAddBeefToCart}
                 isInCart={isBeefInCart}
@@ -311,8 +325,10 @@ const Index = () => {
                       <ProductCard
                         key={product.id}
                         product={product}
-                        quantity={cart[product.id]?.quantity || 0}
-                        onQuantityChange={handleQuantityChange}
+                        quantity={previewQuantities[product.id] || 0}
+                        onQuantityChange={handlePreviewQuantityChange}
+                        onAddToCart={() => handleAddToCart(product.id)}
+                        isInCart={cart[product.id]?.quantity > 0}
                       />
                     ))}
                   </div>
