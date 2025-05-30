@@ -55,7 +55,7 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
                   </span>
                   {remaining > 0 && (
                     <p className="text-farm-earth mt-1">
-                      {remaining} {category.unit} to target
+                      {remaining} {category.unit} Until Sold Out
                     </p>
                   )}
                 </div>
