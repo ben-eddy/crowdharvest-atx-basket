@@ -31,8 +31,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const handleAddToCart = () => {
+    console.log(`Adding ${quantity} ${product.unit}(s) of ${product.name} to cart`);
+    // The quantity is already set by the slider, this confirms the add to cart action
     if (quantity > 0) {
-      // The quantity is already set by the slider, so we just need to ensure it's in the cart
       onQuantityChange(product.id, quantity);
     }
   };
@@ -45,15 +46,33 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const displayPrice = product.price * quantity;
   const displayQuantity = `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''}`;
 
+  // Get symbol for each product category
+  const getProductSymbol = () => {
+    switch (product.category) {
+      case 'poultry':
+        return '🍗';
+      case 'eggs':
+        return '🥚';
+      case 'dairy':
+        if (product.name.toLowerCase().includes('milk')) return '🥛';
+        if (product.name.toLowerCase().includes('cheese')) return '🧀';
+        return '🥛';
+      case 'fruit':
+        if (product.name.toLowerCase().includes('peach')) return '🍑';
+        if (product.name.toLowerCase().includes('watermelon')) return '🍉';
+        return '🍓';
+      default:
+        return '🥕';
+    }
+  };
+
   return (
     <div className="product-card bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
-      {/* Simplified Hero Section */}
-      <div className="relative h-32 bg-gradient-to-br from-green-50 to-blue-50">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover"
-        />
+      {/* Hero Section with Symbol */}
+      <div className="relative h-32 bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
+        <div className="text-6xl">
+          {getProductSymbol()}
+        </div>
       </div>
 
       {/* Product Info */}
