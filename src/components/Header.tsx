@@ -21,13 +21,13 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header className="bg-white shadow-sm border-b border-green-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-64">
           {/* Logo */}
           <div className="flex items-center">
             <img 
               src="/lovable-uploads/29941187-3ae6-4b61-9609-6015cf45aaa4.png" 
               alt="Local Pickup Box" 
-              className="h-12 w-auto object-contain"
+              className="h-60 w-auto object-contain"
             />
           </div>
 
