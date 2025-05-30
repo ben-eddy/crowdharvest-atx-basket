@@ -69,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         return '🍗';
       case 'vegetables':
         if (product.name.toLowerCase().includes('broccoli')) return '🥦';
-        if (product.name.toLowerCase().includes('beet')) return '🟣';
+        if (product.name.toLowerCase().includes('beet')) return null; // Will use image instead
         if (product.name.toLowerCase().includes('onion')) return '🧅';
         if (product.name.toLowerCase().includes('garlic')) return '🧄';
         if (product.name.toLowerCase().includes('celery')) return '🌿';
@@ -104,6 +104,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const isPecanProduct = product.name.toLowerCase().includes('pecan') && !product.name.toLowerCase().includes('butter');
   const isPecanButterProduct = product.name.toLowerCase().includes('pecan') && product.name.toLowerCase().includes('butter');
+  const isBeetProduct = product.name.toLowerCase().includes('beet');
   const productSymbol = getProductSymbol();
 
   return (
@@ -120,6 +121,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <img 
             src="/lovable-uploads/f4cfd1f1-ef92-476e-915e-4c3636c19c54.png" 
             alt="Pecan Butter" 
+            className="w-16 h-16 object-contain"
+          />
+        ) : isBeetProduct ? (
+          <img 
+            src="/lovable-uploads/53cead4f-3b09-4490-86c1-5721cb5706f8.png" 
+            alt="Beets" 
             className="w-16 h-16 object-contain"
           />
         ) : (
