@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({
               className="h-20 w-auto object-contain"
             />
             <h1 className="text-xl font-semibold text-farm-earth">
-              Your Local Farms Subscription Pickup Box
+              All the Local Farms in One Local Box: Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers, Supporting them Directly with your $$ and Saving you Both Time and Hassle.
             </h1>
           </div>
 
