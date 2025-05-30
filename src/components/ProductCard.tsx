@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { MapPin } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
+import BeefCutsDiagram from './BeefCutsDiagram';
 
 interface Product {
   id: string;
@@ -47,6 +47,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const displayQuantity = isBeefShare && shareInfo 
     ? shareInfo.label 
     : `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''}`;
+
+  // Calculate share fraction for beef diagram
+  const getShareFraction = () => {
+    if (!isBeefShare || !shareInfo) return 0;
+    const fractionMap: { [key: string]: number } = {
+      '1/40 share': 1/40,
+      '1/30 share': 1/30,
+      '1/20 share': 1/20,
+      '1/15 share': 1/15,
+      '1/10 share': 1/10,
+      '1/8 share': 1/8,
+      '1/6 share': 1/6,
+      '1/4 share': 1/4
+    };
+    return fractionMap[shareInfo.label] || 0;
+  };
 
   return (
     <div className="product-card bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
@@ -111,6 +127,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
               Monthly: ${displayPrice.toFixed(2)}
             </div>
           </div>
+        )}
+
+        {/* Beef Cuts Diagram - Only show for beef products with quantity > 0 */}
+        {isBeefShare && quantity > 0 && shareInfo && (
+          <BeefCutsDiagram 
+            shareSize={shareInfo.label}
+            shareFraction={getShareFraction()}
+          />
         )}
       </div>
     </div>
