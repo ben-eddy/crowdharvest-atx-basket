@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components/ui/button';
 
 interface BeefCutsDiagramProps {
   shareSize: string;
@@ -8,6 +8,8 @@ interface BeefCutsDiagramProps {
   onShareChange: (value: number) => void;
   currentShareIndex: number;
   shareOptions: { value: number; label: string; priceMultiplier: number }[];
+  onAddToCart: () => void;
+  isInCart: boolean;
 }
 
 const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({ 
@@ -15,7 +17,9 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
   shareFraction, 
   onShareChange, 
   currentShareIndex,
-  shareOptions 
+  shareOptions,
+  onAddToCart,
+  isInCart
 }) => {
   // Base amounts for a whole cow (in pounds)
   const wholeCowCuts = {
@@ -97,6 +101,20 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
               <span>{shareOptions[shareOptions.length - 1]?.label}</span>
             </div>
           </div>
+        </div>
+
+        {/* Add to Cart Button */}
+        <div className="mb-4">
+          <Button
+            onClick={onAddToCart}
+            className={`w-full py-3 text-lg font-semibold ${
+              isInCart 
+                ? 'bg-green-600 hover:bg-green-700 text-white' 
+                : 'bg-green-500 hover:bg-green-600 text-white'
+            }`}
+          >
+            {isInCart ? 'Update Cart' : 'Add to Cart'}
+          </Button>
         </div>
 
         {/* Cut Amounts Grid */}

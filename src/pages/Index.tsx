@@ -213,6 +213,12 @@ const Index = () => {
     }));
   };
 
+  // Add function to handle adding beef share to cart
+  const handleAddBeefToCart = () => {
+    const beefShareQuantity = cart['beef-shares']?.quantity || 0;
+    handleQuantityChange('beef-shares', beefShareQuantity);
+  };
+
   // Create cart items for order summary
   const cartItems = Object.entries(cart)
     .filter(([_, item]) => item.quantity > 0)
@@ -247,6 +253,7 @@ const Index = () => {
   // Find beef share product and current selection
   const beefShareProduct = products.find(p => p.id === 'beef-shares');
   const beefShareQuantity = cart['beef-shares']?.quantity || 0;
+  const isBeefInCart = beefShareQuantity > 0;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -290,6 +297,8 @@ const Index = () => {
                 onShareChange={(value) => handleQuantityChange('beef-shares', value)}
                 currentShareIndex={beefShareQuantity}
                 shareOptions={beefShareProduct.shareOptions || []}
+                onAddToCart={handleAddBeefToCart}
+                isInCart={isBeefInCart}
               />
             ) : (
               // Regular product grid for other categories
