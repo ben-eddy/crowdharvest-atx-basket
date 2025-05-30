@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Progress } from '@/components/ui/progress';
-import { Users, TrendingUp, Beef, Carrot, Egg, Apple, Wheat } from 'lucide-react';
+import { Users, TrendingUp } from 'lucide-react';
 
 interface CategoryProgress {
   category: string;
@@ -10,6 +10,7 @@ interface CategoryProgress {
   targetAmount: number;
   unit: string;
   priceDropAmount: string;
+  emoji: string;
 }
 
 interface CategoryProgressSliderProps {
@@ -19,17 +20,124 @@ interface CategoryProgressSliderProps {
 const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categoryProgress }) => {
   const totalSubscribers = 128;
   
+  // Sample data with emoji representations
+  const sampleCategories = [
+    {
+      category: 'Beef',
+      icon: '🐄',
+      currentAmount: 10,
+      targetAmount: 20,
+      unit: 'cows',
+      priceDropAmount: '$50',
+      emoji: '🐄'
+    },
+    {
+      category: 'Lamb',
+      icon: '🐑',
+      currentAmount: 12,
+      targetAmount: 25,
+      unit: 'lambs',
+      priceDropAmount: '$30',
+      emoji: '🐑'
+    },
+    {
+      category: 'Chicken',
+      icon: '🐔',
+      currentAmount: 35,
+      targetAmount: 60,
+      unit: 'chickens',
+      priceDropAmount: '$15',
+      emoji: '🐔'
+    },
+    {
+      category: 'Turkey',
+      icon: '🦃',
+      currentAmount: 8,
+      targetAmount: 15,
+      unit: 'turkeys',
+      priceDropAmount: '$40',
+      emoji: '🦃'
+    },
+    {
+      category: 'Milk',
+      icon: '🥛',
+      currentAmount: 120,
+      targetAmount: 200,
+      unit: 'gallons',
+      priceDropAmount: '$3',
+      emoji: '🥛'
+    },
+    {
+      category: 'Vegetables',
+      icon: '🥕',
+      currentAmount: 100,
+      targetAmount: 180,
+      unit: 'lbs',
+      priceDropAmount: '$2',
+      emoji: '🥕'
+    },
+    {
+      category: 'Fruit',
+      icon: '🍎',
+      currentAmount: 150,
+      targetAmount: 250,
+      unit: 'lbs',
+      priceDropAmount: '$2',
+      emoji: '🍎'
+    },
+    {
+      category: 'Eggs',
+      icon: '🥚',
+      currentAmount: 150,
+      targetAmount: 300,
+      unit: 'dozen',
+      priceDropAmount: '$1',
+      emoji: '🥚'
+    },
+    {
+      category: 'Cheese',
+      icon: '🧀',
+      currentAmount: 25,
+      targetAmount: 50,
+      unit: 'blocks',
+      priceDropAmount: '$5',
+      emoji: '🧀'
+    },
+    {
+      category: 'Nuts',
+      icon: '🥜',
+      currentAmount: 75,
+      targetAmount: 120,
+      unit: 'lbs',
+      priceDropAmount: '$3',
+      emoji: '🥜'
+    }
+  ];
+
+  const categories = categoryProgress.length > 0 ? categoryProgress : sampleCategories;
+  
   // Calculate total monthly commitment value
-  const totalCommitmentValue = categoryProgress.reduce((sum, category) => {
+  const totalCommitmentValue = categories.reduce((sum, category) => {
     return sum + (category.currentAmount * 15); // Assuming average $15 per unit
   }, 0);
 
-  const categoryIcons = {
-    'Beef': <Beef className="w-5 h-5 text-red-600" />,
-    'Vegetables': <Carrot className="w-5 h-5 text-orange-600" />,
-    'Eggs': <Egg className="w-5 h-5 text-yellow-600" />,
-    'Dairy': <Apple className="w-5 h-5 text-blue-600" />,
-    'Grains': <Wheat className="w-5 h-5 text-amber-600" />
+  const renderEmojiVisual = (category: any) => {
+    const maxDisplay = 20; // Maximum emojis to display for readability
+    const displayCount = Math.min(category.currentAmount, maxDisplay);
+    const emojis = Array(displayCount).fill(category.emoji);
+    
+    return (
+      <div className="flex flex-wrap justify-center gap-1 mb-3">
+        {emojis.map((emoji, index) => (
+          <span key={index} className="text-lg">{emoji}</span>
+        ))}
+        {category.currentAmount > maxDisplay && (
+          <span className="text-sm text-gray-600 ml-2">
+            +{category.currentAmount - maxDisplay} more
+          </span>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -59,8 +167,8 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
         </div>
 
         {/* Visual Category Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {categoryProgress.map((category) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          {categories.map((category) => {
             const percentage = Math.min((category.currentAmount / category.targetAmount) * 100, 100);
             const remaining = Math.max(category.targetAmount - category.currentAmount, 0);
             const subscribersForThis = Math.floor((category.currentAmount / category.targetAmount) * totalSubscribers);
@@ -70,7 +178,7 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
                 {/* Header with icon and stats */}
                 <div className="bg-gradient-to-r from-green-500 to-blue-500 p-4 text-white">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-2xl">{category.icon}</span>
+                    <span className="text-3xl">{category.icon}</span>
                     <div className="text-right">
                       <div className="text-lg font-bold">{subscribersForThis}</div>
                       <div className="text-xs opacity-90">subscribers</div>
@@ -79,8 +187,10 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
                   <h3 className="font-bold text-lg">{category.category}</h3>
                 </div>
 
-                {/* Progress and details */}
+                {/* Emoji Visual Display */}
                 <div className="p-4">
+                  {renderEmojiVisual(category)}
+                  
                   <div className="mb-3">
                     <div className="flex justify-between text-sm mb-1">
                       <span className="font-medium text-farm-green">Progress</span>
@@ -97,7 +207,7 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Target:</span>
+                      <span className="text-gray-600">Available:</span>
                       <span className="font-semibold">
                         {category.targetAmount} {category.unit}
                       </span>
