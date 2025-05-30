@@ -55,6 +55,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onShareChange={(value) => onQuantityChange(product.id, value)}
           currentShareIndex={quantity}
           shareOptions={product.shareOptions}
+          onAddToCart={() => {}} // Empty function since this is embedded
+          isInCart={false} // Always false since this is just for display
         />
       </div>
     );

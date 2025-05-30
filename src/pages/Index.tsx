@@ -80,19 +80,19 @@ const Index = () => {
       name: 'Beef Shares',
       category: 'beef',
       description: 'Get your monthly share of whole grass-fed beef. Includes mix of cuts.',
-      price: 200, // Base price for 1/40 share
+      price: 14, // Changed to $14/lb base price
       unit: 'share',
       image: '/api/placeholder/300/200',
       maxMonthly: 7, // 0-7 index for share options
       shareOptions: [
-        { value: 0, label: '1/40 share', priceMultiplier: 1 },      // $200
-        { value: 1, label: '1/30 share', priceMultiplier: 1.33 },   // $266
-        { value: 2, label: '1/20 share', priceMultiplier: 2 },      // $400
-        { value: 3, label: '1/15 share', priceMultiplier: 2.67 },   // $534
-        { value: 4, label: '1/10 share', priceMultiplier: 4 },      // $800
-        { value: 5, label: '1/8 share', priceMultiplier: 5 },       // $1000
-        { value: 6, label: '1/6 share', priceMultiplier: 6.67 },    // $1334
-        { value: 7, label: '1/4 share', priceMultiplier: 10 }       // $2000
+        { value: 0, label: '1/40 share', priceMultiplier: 9 },      // 9 lbs * $14 = $126
+        { value: 1, label: '1/30 share', priceMultiplier: 12 },     // 12 lbs * $14 = $168
+        { value: 2, label: '1/20 share', priceMultiplier: 18 },     // 18 lbs * $14 = $252
+        { value: 3, label: '1/15 share', priceMultiplier: 24 },     // 24 lbs * $14 = $336
+        { value: 4, label: '1/10 share', priceMultiplier: 36 },     // 36 lbs * $14 = $504
+        { value: 5, label: '1/8 share', priceMultiplier: 45 },      // 45 lbs * $14 = $630
+        { value: 6, label: '1/6 share', priceMultiplier: 60 },      // 60 lbs * $14 = $840
+        { value: 7, label: '1/4 share', priceMultiplier: 90 }       // 90 lbs * $14 = $1260
       ]
     },
     // Poultry
