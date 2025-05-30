@@ -42,10 +42,10 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
     return Math.max(0.3, Math.min(1, shareFraction * 3));
   };
 
-  // Calculate total pounds and use fixed cost per pound
+  // Calculate total pounds and monthly price based on $14/lb
   const totalPounds = Object.values(wholeCowCuts).reduce((a, b) => a + b, 0) * shareFraction;
-  const monthlyPrice = 200 * (shareOptions[currentShareIndex]?.priceMultiplier || 1);
   const costPerPound = 14; // Fixed at $14/lb
+  const monthlyPrice = totalPounds * costPerPound;
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-green-50 via-amber-50 to-orange-50 flex flex-col items-center justify-center px-4 py-4">
