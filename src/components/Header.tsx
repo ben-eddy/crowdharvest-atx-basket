@@ -1,13 +1,10 @@
 
 import React from 'react';
-import { MapPin, Settings, User } from 'lucide-react';
+import { Settings, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface HeaderProps {
-  zipCode: string;
-  setZipCode: (zip: string) => void;
   frequency: string;
   setFrequency: (freq: string) => void;
   city: string;
@@ -15,8 +12,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
-  zipCode,
-  setZipCode,
   frequency,
   setFrequency,
   city,
@@ -71,18 +66,6 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* Controls */}
           <div className="flex items-center gap-4 flex-shrink-0">
-            {/* Zip Code */}
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-farm-earth" />
-              <Input
-                type="text"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-                placeholder="78701"
-                className="w-20 text-sm bg-white"
-              />
-            </div>
-
             {/* Pickup Frequency */}
             <div className="flex items-center gap-2">
               <span className="text-sm text-farm-earth font-medium whitespace-nowrap">Frequency:</span>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -11,7 +10,6 @@ import { useProductData } from '@/hooks/useProductData';
 
 const Index = () => {
   // State management
-  const [zipCode, setZipCode] = useState('78701');
   const [frequency, setFrequency] = useState('weekly');
   const [city, setCity] = useState('Austin');
   const [selectedCategory, setSelectedCategory] = useState('beef');
@@ -95,8 +93,6 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
       <Header
-        zipCode={zipCode}
-        setZipCode={setZipCode}
         frequency={frequency}
         setFrequency={setFrequency}
         city={city}
