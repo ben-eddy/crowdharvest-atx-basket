@@ -293,9 +293,6 @@ const Index = () => {
             ) : (
               // Regular product grid for other categories
               <div className="p-6">
-                {/* Category Progress Slider */}
-                <CategoryProgressSlider categoryProgress={categoryProgress} />
-
                 {/* Products */}
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold text-farm-green mb-4">
@@ -336,6 +333,13 @@ const Index = () => {
 
       {/* Footer */}
       <Footer />
+
+      {/* Community Buy Progress - moved to bottom */}
+      <div className="bg-white border-t border-green-100 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <CategoryProgressSlider categoryProgress={categoryProgress} />
+        </div>
+      </div>
     </div>
   );
 };
