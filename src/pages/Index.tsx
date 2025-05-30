@@ -237,11 +237,13 @@ const Index = () => {
       
       let price = product.price;
       let size = product.unit;
+      let quantity = item.quantity; // Use the actual cart quantity
       
       if (isBeefShare && product.shareOptions) {
         const shareInfo = product.shareOptions[item.quantity] || product.shareOptions[0];
         price = product.price * shareInfo.priceMultiplier;
         size = shareInfo.label;
+        quantity = 1; // For shares, always show quantity as 1
       }
       
       return {
@@ -249,7 +251,7 @@ const Index = () => {
         name: product.name,
         farm: 'Local Farm Collective',
         price: price,
-        quantity: 1, // Always 1 for shares, or actual quantity for others
+        quantity: quantity, // Now uses the correct quantity
         size: size,
         unit: product.unit
       };
