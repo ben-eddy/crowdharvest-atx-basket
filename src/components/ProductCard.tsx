@@ -1,6 +1,7 @@
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 
 interface Product {
   id: string;
@@ -25,14 +26,28 @@ const ProductCard: React.FC<ProductCardProps> = ({
   quantity,
   onQuantityChange
 }) => {
+  const { toast } = useToast();
+
   const handleSliderChange = (values: number[]) => {
+    console.log(`Slider changed for ${product.name}: ${values[0]}`);
     onQuantityChange(product.id, values[0]);
   };
 
   const handleAddToCart = () => {
     console.log(`Adding ${quantity} ${product.unit}(s) of ${product.name} to cart`);
+    console.log(`Current quantity state: ${quantity}`);
+    console.log(`Product ID: ${product.id}`);
+    
     // Force update the cart state by setting the quantity again
     onQuantityChange(product.id, quantity);
+    
+    // Show toast notification
+    if (quantity > 0) {
+      toast({
+        title: "Added to Cart",
+        description: `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''} of ${product.name}`,
+      });
+    }
   };
 
   // Check if this is a chicken product that allows half values
