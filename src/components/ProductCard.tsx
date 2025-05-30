@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
-import BeefCutsDiagram from './BeefCutsDiagram';
 
 interface Product {
   id: string;
@@ -30,39 +29,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     onQuantityChange(product.id, values[0]);
   };
 
-  // For beef shares, use the shareOptions
-  const isBeefShare = product.shareOptions && product.shareOptions.length > 0;
-  
-  // If this is a beef share product, render the special beef diagram instead
-  if (isBeefShare && product.shareOptions) {
-    const shareInfo = product.shareOptions[quantity] || product.shareOptions[0];
-    const shareFraction = {
-      '1/40 share': 1/40,
-      '1/30 share': 1/30,
-      '1/20 share': 1/20,
-      '1/15 share': 1/15,
-      '1/10 share': 1/10,
-      '1/8 share': 1/8,
-      '1/6 share': 1/6,
-      '1/4 share': 1/4
-    }[shareInfo.label] || 0;
-
-    return (
-      <div className="w-full">
-        <BeefCutsDiagram
-          shareSize={shareInfo.label}
-          shareFraction={shareFraction}
-          onShareChange={(value) => onQuantityChange(product.id, value)}
-          currentShareIndex={quantity}
-          shareOptions={product.shareOptions}
-          onAddToCart={() => {}} // Empty function since this is embedded
-          isInCart={false} // Always false since this is just for display
-        />
-      </div>
-    );
-  }
-
-  // Regular product card for non-beef products
+  // Regular product card for all products
   const displayPrice = product.price * quantity;
   const displayQuantity = `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''}`;
 
