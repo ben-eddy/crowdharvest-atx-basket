@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components/ui/button';
 
 interface Product {
   id: string;
@@ -27,6 +28,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const handleSliderChange = (values: number[]) => {
     onQuantityChange(product.id, values[0]);
+  };
+
+  const handleAddToCart = () => {
+    if (quantity > 0) {
+      // The quantity is already set by the slider, so we just need to ensure it's in the cart
+      onQuantityChange(product.id, quantity);
+    }
   };
 
   // Check if this is a chicken product that allows half values
@@ -93,6 +101,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <div className="text-sm font-medium text-farm-green bg-green-50 rounded px-2 py-1">
               Monthly: ${displayPrice.toFixed(2)}
             </div>
+          </div>
+        )}
+
+        {/* Add to Cart Button */}
+        {quantity > 0 && (
+          <div className="mt-3">
+            <Button 
+              onClick={handleAddToCart}
+              className="w-full farm-gradient text-white font-medium"
+              size="sm"
+            >
+              Add to Cart
+            </Button>
           </div>
         )}
       </div>
