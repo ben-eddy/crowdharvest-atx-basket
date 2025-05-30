@@ -55,17 +55,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   // Check if this is a chicken product that allows half values
-  const isChickenProduct = product.category === 'poultry';
+  const isChickenProduct = product.category === 'poultry' && product.id === 'chickens';
   const step = isChickenProduct ? 0.5 : 1;
   
-  // Regular product card for all products
-  const displayPrice = product.price * quantity;
-  const displayQuantity = `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''}`;
+  // Handle share products vs regular products
+  const isShareProduct = product.shareOptions && product.shareOptions.length > 0;
+  let displayPrice, displayQuantity;
+  
+  if (isShareProduct && product.shareOptions) {
+    const shareInfo = product.shareOptions[quantity] || product.shareOptions[0];
+    displayPrice = product.price * shareInfo.priceMultiplier;
+    displayQuantity = shareInfo.label;
+  } else {
+    displayPrice = product.price * quantity;
+    displayQuantity = `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''}`;
+  }
 
   // Get symbol for each product category
   const getProductSymbol = () => {
     switch (product.category) {
+      case 'lamb':
+        return '🐑';
       case 'poultry':
+        if (product.name.toLowerCase().includes('turkey')) return '🦃';
         return '🍗';
       case 'vegetables':
         if (product.name.toLowerCase().includes('broccoli')) return '🥦';
@@ -143,10 +155,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <p className="text-xs text-farm-earth mt-1">{product.description}</p>
           <div className="flex items-center justify-between mt-2">
             <p className="font-bold text-farm-green">
-              ${product.price.toFixed(2)}
+              {isShareProduct ? `Starting at $${displayPrice.toFixed(2)}` : `$${product.price.toFixed(2)}`}
             </p>
             <p className="text-xs text-farm-earth">
-              per {product.unit}
+              {isShareProduct ? 'per share' : `per ${product.unit}`}
             </p>
           </div>
         </div>
@@ -154,7 +166,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {/* Quantity Slider */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-farm-earth">Monthly Amount</span>
+            <span className="text-sm text-farm-earth">
+              {isShareProduct ? 'Share Size' : 'Monthly Amount'}
+            </span>
             <span className="text-sm font-medium text-farm-green">
               {displayQuantity}
             </span>

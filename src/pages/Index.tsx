@@ -23,7 +23,8 @@ const Index = () => {
   // Updated categories
   const categories = [
     { id: 'beef', name: 'Beef', icon: '🐄', count: 1 },
-    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 1 },
+    { id: 'lamb', name: 'Lamb', icon: '🐑', count: 1 },
+    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 2 },
     { id: 'vegetables', name: 'Vegetables', icon: '🥕', count: 6 },
     { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
     { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
@@ -100,7 +101,25 @@ const Index = () => {
         { value: 7, label: '1/4 share', priceMultiplier: 90 }       // 90 lbs * $14 = $1260
       ]
     },
-    // Poultry - single chicken product
+    // Lamb - using shares with 1/8 minimum
+    {
+      id: 'lamb-shares',
+      name: 'Lamb Shares',
+      category: 'lamb',
+      description: 'Get your monthly share of whole grass-fed lamb. Includes mix of cuts.',
+      price: 18, // $18/lb base price for lamb
+      unit: 'share',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 4, // 0-4 index for share options
+      shareOptions: [
+        { value: 0, label: '1/8 share', priceMultiplier: 10 },      // 10 lbs * $18 = $180
+        { value: 1, label: '1/6 share', priceMultiplier: 13 },      // 13 lbs * $18 = $234
+        { value: 2, label: '1/4 share', priceMultiplier: 20 },      // 20 lbs * $18 = $360
+        { value: 3, label: '1/3 share', priceMultiplier: 27 },      // 27 lbs * $18 = $486
+        { value: 4, label: '1/2 share', priceMultiplier: 40 }       // 40 lbs * $18 = $720
+      ]
+    },
+    // Poultry - chickens and turkeys
     {
       id: 'chickens',
       name: 'Chickens',
@@ -110,6 +129,22 @@ const Index = () => {
       unit: 'chicken',
       image: '/api/placeholder/300/200',
       maxMonthly: 12
+    },
+    {
+      id: 'turkey-shares',
+      name: 'Turkey Shares',
+      category: 'poultry',
+      description: 'Get your monthly share of heritage turkey. Perfect for special occasions.',
+      price: 16, // $16/lb base price for turkey
+      unit: 'share',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 3, // 0-3 index for share options
+      shareOptions: [
+        { value: 0, label: '1/4 share', priceMultiplier: 6 },       // 6 lbs * $16 = $96
+        { value: 1, label: '1/3 share', priceMultiplier: 8 },       // 8 lbs * $16 = $128
+        { value: 2, label: '1/2 share', priceMultiplier: 12 },      // 12 lbs * $16 = $192
+        { value: 3, label: 'whole turkey', priceMultiplier: 24 }    // 24 lbs * $16 = $384
+      ]
     },
     // Vegetables
     {
@@ -376,6 +411,12 @@ const Index = () => {
     handleAddToCart('beef-shares');
   };
 
+  // Add function to handle adding lamb share to cart
+  const handleAddLambToCart = () => {
+    const lambShareQuantity = previewQuantities['lamb-shares'] || 0;
+    handleAddToCart('lamb-shares');
+  };
+
   // Create cart items for order summary
   const cartItems = Object.entries(cart)
     .filter(([_, item]) => item.quantity > 0)
@@ -411,6 +452,11 @@ const Index = () => {
   const beefShareProduct = products.find(p => p.id === 'beef-shares');
   const beefPreviewQuantity = previewQuantities['beef-shares'] || 0;
   const isBeefInCart = cart['beef-shares']?.quantity > 0;
+
+  // Find lamb share product and current selection
+  const lambShareProduct = products.find(p => p.id === 'lamb-shares');
+  const lambPreviewQuantity = previewQuantities['lamb-shares'] || 0;
+  const isLambInCart = cart['lamb-shares']?.quantity > 0;
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
