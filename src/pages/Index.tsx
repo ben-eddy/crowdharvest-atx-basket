@@ -177,7 +177,7 @@ const Index = () => {
       name: 'Farm Fresh Eggs',
       category: 'eggs',
       description: 'Pasture-raised eggs from happy hens',
-      price: 4.99,
+      price: 10.00,
       unit: 'dozen',
       image: '/api/placeholder/300/200',
       maxMonthly: 20
