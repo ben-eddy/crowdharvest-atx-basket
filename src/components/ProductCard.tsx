@@ -69,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         return '🍗';
       case 'vegetables':
         if (product.name.toLowerCase().includes('broccoli')) return '🥦';
-        if (product.name.toLowerCase().includes('beet')) return '🪴';
+        if (product.name.toLowerCase().includes('beet')) return '🟣';
         if (product.name.toLowerCase().includes('onion')) return '🧅';
         if (product.name.toLowerCase().includes('garlic')) return '🧄';
         if (product.name.toLowerCase().includes('celery')) return '🌿';
@@ -108,7 +108,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="product-card bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
       {/* Hero Section with Symbol or Image */}
-      <div className="relative h-32 bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
+      <div className={`relative h-32 flex items-center justify-center ${isPecanProduct ? '' : 'bg-gradient-to-br from-green-50 to-blue-50'}`}>
         {isPecanProduct ? (
           <img 
             src="/lovable-uploads/723f4ab5-1d19-4853-a03b-a0d3a0451890.png" 
