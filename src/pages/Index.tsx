@@ -6,6 +6,7 @@ import OrderSummary from '@/components/OrderSummary';
 import CategoryProgressSlider from '@/components/CategoryProgressSlider';
 import FarmerInfo from '@/components/FarmerInfo';
 import Footer from '@/components/Footer';
+import BeefCutsDiagram from '@/components/BeefCutsDiagram';
 
 const Index = () => {
   // State management
@@ -243,6 +244,10 @@ const Index = () => {
     ? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()
     : undefined;
 
+  // Find beef share product and current selection
+  const beefShareProduct = products.find(p => p.id === 'beef-shares');
+  const beefShareQuantity = cart['beef-shares']?.quantity || 0;
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Header */}
@@ -266,36 +271,56 @@ const Index = () => {
 
         {/* Main Content Area */}
         <div className="flex-1 flex">
-          {/* Product Grid */}
-          <div className="flex-1 p-6">
-            {/* Category Progress Slider */}
-            <CategoryProgressSlider categoryProgress={categoryProgress} />
+          {/* Product Grid or Beef Diagram */}
+          <div className="flex-1">
+            {selectedCategory === 'beef' && beefShareProduct ? (
+              // Full-page beef diagram
+              <BeefCutsDiagram
+                shareSize={beefShareProduct.shareOptions?.[beefShareQuantity]?.label || beefShareProduct.shareOptions?.[0]?.label || '1/40 share'}
+                shareFraction={{
+                  '1/40 share': 1/40,
+                  '1/30 share': 1/30,
+                  '1/20 share': 1/20,
+                  '1/15 share': 1/15,
+                  '1/10 share': 1/10,
+                  '1/8 share': 1/8,
+                  '1/6 share': 1/6,
+                  '1/4 share': 1/4
+                }[beefShareProduct.shareOptions?.[beefShareQuantity]?.label || '1/40 share'] || 1/40}
+                onShareChange={(value) => handleQuantityChange('beef-shares', value)}
+                currentShareIndex={beefShareQuantity}
+                shareOptions={beefShareProduct.shareOptions || []}
+              />
+            ) : (
+              // Regular product grid for other categories
+              <div className="p-6">
+                {/* Category Progress Slider */}
+                <CategoryProgressSlider categoryProgress={categoryProgress} />
 
-            {/* Products */}
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-farm-green mb-4">
-                Choose Your Monthly {categories.find(c => c.id === selectedCategory)?.name}
-              </h2>
-              <p className="text-farm-earth mb-6">
-                {selectedCategory === 'beef' 
-                  ? 'Select your monthly beef share. Each share includes a variety of cuts from grass-fed local cattle.'
-                  : 'Use the sliders to select how much you\'d like each month. You can adjust anytime.'
-                }
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {filteredProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    quantity={cart[product.id]?.quantity || 0}
-                    onQuantityChange={handleQuantityChange}
-                  />
-                ))}
+                {/* Products */}
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-farm-green mb-4">
+                    Choose Your Monthly {categories.find(c => c.id === selectedCategory)?.name}
+                  </h2>
+                  <p className="text-farm-earth mb-6">
+                    Use the sliders to select how much you'd like each month. You can adjust anytime.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {filteredProducts.map((product) => (
+                      <ProductCard
+                        key={product.id}
+                        product={product}
+                        quantity={cart[product.id]?.quantity || 0}
+                        onQuantityChange={handleQuantityChange}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Farmer Information */}
+                <FarmerInfo farmers={farmers} />
               </div>
-            </div>
-
-            {/* Farmer Information */}
-            <FarmerInfo farmers={farmers} />
+            )}
           </div>
 
           {/* Order Summary */}
