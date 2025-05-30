@@ -7,6 +7,7 @@ import CategoryProgressSlider from '@/components/CategoryProgressSlider';
 import FarmerInfo from '@/components/FarmerInfo';
 import Footer from '@/components/Footer';
 import BeefCutsDiagram from '@/components/BeefCutsDiagram';
+import HowItWorks from '@/components/HowItWorks';
 
 const Index = () => {
   // State management
@@ -496,12 +497,15 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Community Buy Progress - above footer */}
+      {/* Community Buy Progress - above How It Works */}
       <div className="bg-white border-t border-green-100 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CategoryProgressSlider categoryProgress={categoryProgress} />
         </div>
       </div>
+
+      {/* How It Works Section */}
+      <HowItWorks />
 
       {/* Footer */}
       <Footer />
