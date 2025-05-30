@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -25,7 +26,9 @@ const Index = () => {
     { id: 'poultry', name: 'Poultry', icon: '🍗', count: 1 },
     { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
     { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
-    { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 }
+    { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 },
+    { id: 'bread', name: 'Bread', icon: '🍞', count: 2 },
+    { id: 'honey', name: 'Honey', icon: '🍯', count: 2 }
   ];
 
   // Mock data for category progress - now tracking whole animals
@@ -156,6 +159,48 @@ const Index = () => {
       description: 'Sweet, crisp watermelons (seasonal)',
       price: 8.99,
       unit: 'melon',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 6
+    },
+    // Bread
+    {
+      id: 'cracked-wheat',
+      name: 'Cracked Wheat Bread',
+      category: 'bread',
+      description: 'Hearty, nutritious bread made with cracked wheat',
+      price: 5.99,
+      unit: 'loaf',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 8
+    },
+    {
+      id: 'sourdough',
+      name: 'Sourdough Bread',
+      category: 'bread',
+      description: 'Traditional sourdough with tangy flavor and crisp crust',
+      price: 6.99,
+      unit: 'loaf',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 8
+    },
+    // Honey
+    {
+      id: 'honey',
+      name: 'Raw Honey',
+      category: 'honey',
+      description: 'Pure, unfiltered honey from local beehives',
+      price: 12.99,
+      unit: 'jar',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 4
+    },
+    {
+      id: 'bee-pollen',
+      name: 'Bee Pollen',
+      category: 'honey',
+      description: 'Nutrient-rich bee pollen granules',
+      price: 8.99,
+      unit: '4oz container',
       image: '/api/placeholder/300/200',
       maxMonthly: 6
     }

@@ -77,6 +77,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
         if (product.name.toLowerCase().includes('peach')) return '🍑';
         if (product.name.toLowerCase().includes('watermelon')) return '🍉';
         return '🍓';
+      case 'bread':
+        return '🍞';
+      case 'honey':
+        if (product.name.toLowerCase().includes('pollen')) return '🌼';
+        return '🍯';
       default:
         return '🥕';
     }
