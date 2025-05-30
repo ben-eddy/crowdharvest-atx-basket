@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
 import ProductCard from '@/components/ProductCard';
 import OrderSummary from '@/components/OrderSummary';
-import CommunityProgressBar from '@/components/CommunityProgressBar';
+import CategoryProgressSlider from '@/components/CategoryProgressSlider';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -29,24 +28,47 @@ const Index = () => {
     { id: 'fruit', name: 'Fruit', icon: '🍑', count: 18 }
   ];
 
-  const communityBuys = [
+  // Mock data for category progress
+  const categoryProgress = [
     {
-      animal: 'Whole Cow',
+      category: 'Beef',
+      icon: '🐄',
       currentAmount: 312,
       targetAmount: 400,
       unit: 'lbs',
-      priceDropAmount: '1.25',
-      currentPrice: 8.99,
-      targetPrice: 7.74
+      priceDropAmount: '1.25'
     },
     {
-      animal: 'Spring Lamb',
+      category: 'Lamb',
+      icon: '🐑',
       currentAmount: 16,
       targetAmount: 20,
       unit: 'animals',
-      priceDropAmount: '2.00',
-      currentPrice: 12.99,
-      targetPrice: 10.99
+      priceDropAmount: '2.00'
+    },
+    {
+      category: 'Poultry',
+      icon: '🍗',
+      currentAmount: 120,
+      targetAmount: 150,
+      unit: 'birds',
+      priceDropAmount: '1.50'
+    },
+    {
+      category: 'Dairy',
+      icon: '🥛',
+      currentAmount: 45,
+      targetAmount: 60,
+      unit: 'gallons',
+      priceDropAmount: '0.75'
+    },
+    {
+      category: 'Vegetables',
+      icon: '🥦',
+      currentAmount: 180,
+      targetAmount: 200,
+      unit: 'boxes',
+      priceDropAmount: '3.00'
     }
   ];
 
@@ -61,16 +83,7 @@ const Index = () => {
       unit: 'lb',
       image: '/api/placeholder/300/200',
       badges: ['Grass-Fed', 'Local', 'Hormone-Free'],
-      sizes: ['8 oz', '12 oz', '16 oz'],
-      communityBuy: {
-        animal: 'Beef',
-        currentAmount: 312,
-        targetAmount: 400,
-        unit: 'lbs',
-        priceDropAmount: '1.25',
-        currentPrice: 24.99,
-        targetPrice: 23.74
-      }
+      sizes: ['8 oz', '12 oz', '16 oz']
     },
     {
       id: 'ground-beef',
@@ -82,16 +95,7 @@ const Index = () => {
       unit: 'lb',
       image: '/api/placeholder/300/200',
       badges: ['Grass-Fed', 'Fresh Ground'],
-      sizes: ['1 lb', '2 lb', '5 lb'],
-      communityBuy: {
-        animal: 'Beef',
-        currentAmount: 312,
-        targetAmount: 400,
-        unit: 'lbs',
-        priceDropAmount: '1.25',
-        currentPrice: 8.99,
-        targetPrice: 7.74
-      }
+      sizes: ['1 lb', '2 lb', '5 lb']
     },
     {
       id: 'ny-strip',
@@ -193,20 +197,15 @@ const Index = () => {
         <div className="flex-1 flex">
           {/* Product Grid */}
           <div className="flex-1 p-6">
-            {/* Community Progress Bars */}
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-farm-green mb-4">Active Community Buys</h2>
-              {communityBuys.map((buyData, index) => (
-                <CommunityProgressBar key={index} {...buyData} />
-              ))}
-            </div>
+            {/* Category Progress Slider */}
+            <CategoryProgressSlider categoryProgress={categoryProgress} />
 
             {/* Products */}
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-farm-green mb-4">
                 {categories.find(c => c.id === selectedCategory)?.name} Products
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filteredProducts.map((product) => (
                   <ProductCard
                     key={product.id}
