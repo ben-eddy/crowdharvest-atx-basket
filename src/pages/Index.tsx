@@ -13,6 +13,7 @@ const Index = () => {
   // State management
   const [zipCode, setZipCode] = useState('78701');
   const [frequency, setFrequency] = useState('weekly');
+  const [city, setCity] = useState('Austin');
   const [selectedCategory, setSelectedCategory] = useState('beef');
   const [pickupLocation, setPickupLocation] = useState('');
   
@@ -98,6 +99,8 @@ const Index = () => {
         setZipCode={setZipCode}
         frequency={frequency}
         setFrequency={setFrequency}
+        city={city}
+        setCity={setCity}
       />
 
       {/* Main Content */}
