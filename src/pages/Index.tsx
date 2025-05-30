@@ -271,7 +271,7 @@ const Index = () => {
       name: 'Cracked Wheat Bread',
       category: 'bread',
       description: 'Hearty, nutritious bread made with cracked wheat',
-      price: 5.99,
+      price: 8.00,
       unit: 'loaf',
       image: '/api/placeholder/300/200',
       maxMonthly: 8
@@ -281,7 +281,7 @@ const Index = () => {
       name: 'Sourdough Bread',
       category: 'bread',
       description: 'Traditional sourdough with tangy flavor and crisp crust',
-      price: 6.99,
+      price: 12.00,
       unit: 'loaf',
       image: '/api/placeholder/300/200',
       maxMonthly: 8
