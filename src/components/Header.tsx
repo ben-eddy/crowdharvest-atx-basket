@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({
           {/* Logo */}
           <div className="flex items-center">
             <img 
-              src="/lovable-uploads/29941187-3ae6-4b61-9609-6015cf45aaa4.png" 
+              src="/lovable-uploads/7f0f62f7-f543-4959-8198-e0ce1b9f87e3.png" 
               alt="Local Pickup Box" 
               className="h-60 w-auto object-contain"
             />
