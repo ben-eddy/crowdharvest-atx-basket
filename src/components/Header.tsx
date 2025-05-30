@@ -24,11 +24,15 @@ const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 farm-gradient rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              GG
+            <div className="w-12 h-12 flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/29941187-3ae6-4b61-9609-6015cf45aaa4.png" 
+                alt="Local Pickup Box Logo" 
+                className="w-12 h-12 object-contain"
+              />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-farm-green">Guerrilla Grocers</h1>
+              <h1 className="text-xl font-bold text-farm-green">Local Pickup Box</h1>
               <p className="text-xs text-farm-earth">Austin Pilot</p>
             </div>
           </div>
