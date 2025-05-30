@@ -12,6 +12,7 @@ interface Product {
   unit: string;
   image: string;
   maxMonthly: number;
+  shareOptions?: { value: number; label: string; priceMultiplier: number }[];
 }
 
 interface ProductCardProps {
@@ -28,6 +29,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const handleSliderChange = (values: number[]) => {
     onQuantityChange(product.id, values[0]);
   };
+
+  // For beef shares, use the shareOptions
+  const isBeefShare = product.shareOptions && product.shareOptions.length > 0;
+  
+  const getShareInfo = () => {
+    if (!isBeefShare || !product.shareOptions) return null;
+    const selectedShare = product.shareOptions[quantity] || product.shareOptions[0];
+    return selectedShare;
+  };
+
+  const shareInfo = getShareInfo();
+  const displayPrice = isBeefShare && shareInfo 
+    ? product.price * shareInfo.priceMultiplier 
+    : product.price * quantity;
+
+  const displayQuantity = isBeefShare && shareInfo 
+    ? shareInfo.label 
+    : `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''}`;
 
   return (
     <div className="product-card bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
@@ -46,17 +65,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <h3 className="font-semibold text-farm-green text-sm leading-tight">{product.name}</h3>
           <p className="text-xs text-farm-earth mt-1">{product.description}</p>
           <div className="flex items-center justify-between mt-2">
-            <p className="font-bold text-farm-green">${product.price.toFixed(2)}</p>
-            <p className="text-xs text-farm-earth">per {product.unit}</p>
+            <p className="font-bold text-farm-green">
+              ${isBeefShare ? product.price.toFixed(2) : product.price.toFixed(2)}
+            </p>
+            <p className="text-xs text-farm-earth">
+              {isBeefShare ? 'base per share' : `per ${product.unit}`}
+            </p>
           </div>
         </div>
 
         {/* Quantity Slider */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-farm-earth">Monthly Amount</span>
+            <span className="text-sm text-farm-earth">
+              {isBeefShare ? 'Monthly Share' : 'Monthly Amount'}
+            </span>
             <span className="text-sm font-medium text-farm-green">
-              {quantity} {product.unit}{quantity !== 1 ? 's' : ''}
+              {displayQuantity}
             </span>
           </div>
           
@@ -71,7 +96,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
           
           <div className="flex justify-between text-xs text-gray-400">
             <span>0</span>
-            <span>{product.maxMonthly}</span>
+            {isBeefShare ? (
+              <span>{product.shareOptions?.[product.maxMonthly]?.label || 'Max'}</span>
+            ) : (
+              <span>{product.maxMonthly}</span>
+            )}
           </div>
         </div>
 
@@ -79,7 +108,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         {quantity > 0 && (
           <div className="text-center mt-3">
             <div className="text-sm font-medium text-farm-green bg-green-50 rounded px-2 py-1">
-              Monthly: ${(product.price * quantity).toFixed(2)}
+              Monthly: ${displayPrice.toFixed(2)}
             </div>
           </div>
         )}

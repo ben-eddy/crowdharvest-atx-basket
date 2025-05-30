@@ -20,21 +20,21 @@ const Index = () => {
 
   // Updated categories
   const categories = [
-    { id: 'beef', name: 'Beef', icon: '🐄', count: 4 },
+    { id: 'beef', name: 'Beef', icon: '🐄', count: 1 },
     { id: 'poultry', name: 'Poultry', icon: '🍗', count: 2 },
     { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
     { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
     { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 }
   ];
 
-  // Mock data for category progress
+  // Mock data for category progress - now tracking whole animals
   const categoryProgress = [
     {
       category: 'Beef',
       icon: '🐄',
-      currentAmount: 312,
-      targetAmount: 400,
-      unit: 'lbs',
+      currentAmount: 78,
+      targetAmount: 100,
+      unit: 'animals',
       priceDropAmount: '1.25'
     },
     {
@@ -71,48 +71,28 @@ const Index = () => {
     }
   ];
 
-  // Updated products with monthly focus
+  // Updated products with beef shares and monthly focus
   const products = [
-    // Beef
+    // Beef - now using shares
     {
-      id: 'ground-beef',
-      name: 'Ground Beef',
+      id: 'beef-shares',
+      name: 'Beef Shares',
       category: 'beef',
-      description: '85/15 lean ground beef, perfect for burgers and tacos',
-      price: 8.99,
-      unit: 'lb',
+      description: 'Get your monthly share of whole grass-fed beef. Includes mix of cuts.',
+      price: 200, // Base price for 1/40 share
+      unit: 'share',
       image: '/api/placeholder/300/200',
-      maxMonthly: 20
-    },
-    {
-      id: 'steaks',
-      name: 'Premium Steaks',
-      category: 'beef',
-      description: 'Mix of ribeye, NY strip, and filet cuts',
-      price: 24.99,
-      unit: 'lb',
-      image: '/api/placeholder/300/200',
-      maxMonthly: 10
-    },
-    {
-      id: 'medium-cuts',
-      name: 'Medium Cuts',
-      category: 'beef',
-      description: 'Tri-tip, flank steak, and short ribs',
-      price: 16.99,
-      unit: 'lb',
-      image: '/api/placeholder/300/200',
-      maxMonthly: 15
-    },
-    {
-      id: 'roasts',
-      name: 'Roasts',
-      category: 'beef',
-      description: 'Chuck roast, brisket, and pot roast cuts',
-      price: 12.99,
-      unit: 'lb',
-      image: '/api/placeholder/300/200',
-      maxMonthly: 12
+      maxMonthly: 7, // 0-7 index for share options
+      shareOptions: [
+        { value: 0, label: '1/40 share', priceMultiplier: 1 },      // $200
+        { value: 1, label: '1/30 share', priceMultiplier: 1.33 },   // $266
+        { value: 2, label: '1/20 share', priceMultiplier: 2 },      // $400
+        { value: 3, label: '1/15 share', priceMultiplier: 2.67 },   // $534
+        { value: 4, label: '1/10 share', priceMultiplier: 4 },      // $800
+        { value: 5, label: '1/8 share', priceMultiplier: 5 },       // $1000
+        { value: 6, label: '1/6 share', priceMultiplier: 6.67 },    // $1334
+        { value: 7, label: '1/4 share', priceMultiplier: 10 }       // $2000
+      ]
     },
     // Poultry
     {
@@ -237,13 +217,24 @@ const Index = () => {
     .filter(([_, item]) => item.quantity > 0)
     .map(([productId, item]) => {
       const product = products.find(p => p.id === productId)!;
+      const isBeefShare = product.shareOptions && product.shareOptions.length > 0;
+      
+      let price = product.price;
+      let size = product.unit;
+      
+      if (isBeefShare && product.shareOptions) {
+        const shareInfo = product.shareOptions[item.quantity] || product.shareOptions[0];
+        price = product.price * shareInfo.priceMultiplier;
+        size = shareInfo.label;
+      }
+      
       return {
         productId,
         name: product.name,
-        farm: 'Local Farm Collective', // Generic since we source from multiple farmers
-        price: product.price,
-        quantity: item.quantity,
-        size: product.unit,
+        farm: 'Local Farm Collective',
+        price: price,
+        quantity: 1, // Always 1 for shares, or actual quantity for others
+        size: size,
         unit: product.unit
       };
     });
@@ -286,7 +277,10 @@ const Index = () => {
                 Choose Your Monthly {categories.find(c => c.id === selectedCategory)?.name}
               </h2>
               <p className="text-farm-earth mb-6">
-                Use the sliders to select how much you'd like each month. You can adjust anytime.
+                {selectedCategory === 'beef' 
+                  ? 'Select your monthly beef share. Each share includes a variety of cuts from grass-fed local cattle.'
+                  : 'Use the sliders to select how much you\'d like each month. You can adjust anytime.'
+                }
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filteredProducts.map((product) => (
