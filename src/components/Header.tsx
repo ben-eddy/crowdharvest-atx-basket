@@ -25,10 +25,10 @@ const Header: React.FC<HeaderProps> = ({
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 farm-gradient rounded-lg flex items-center justify-center text-white font-bold text-lg">
-              CH
+              GG
             </div>
             <div>
-              <h1 className="text-xl font-bold text-farm-green">CrowdHarvest</h1>
+              <h1 className="text-xl font-bold text-farm-green">Guerrilla Grocers</h1>
               <p className="text-xs text-farm-earth">Austin Pilot</p>
             </div>
           </div>
