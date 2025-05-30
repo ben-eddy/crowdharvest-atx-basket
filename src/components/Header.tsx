@@ -48,7 +48,20 @@ const Header: React.FC<HeaderProps> = ({
             />
             <div className="text-farm-earth min-w-0 flex-1">
               <h1 className="text-xl font-bold leading-tight mb-1">
-                All the <span className="bg-green-500 text-white px-2 py-1 rounded-md font-semibold">{city}</span> Local Farms in One Local Box
+                All the{' '}
+                <Select value={city} onValueChange={setCity}>
+                  <SelectTrigger className="inline-flex items-center bg-green-500 text-white px-2 py-1 rounded-md font-semibold border-0 h-auto min-h-0 w-auto gap-1">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border shadow-lg z-50">
+                    {cities.map((cityName) => (
+                      <SelectItem key={cityName} value={cityName} className="text-sm">
+                        {cityName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {' '}Local Farms in One Local Box
               </h1>
               <p className="text-sm font-medium text-gray-600 leading-tight">
                 Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers, Supporting them Directly with your $$ and Saving you Both Time and Hassle.
@@ -58,23 +71,6 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* Controls */}
           <div className="flex items-center gap-4 flex-shrink-0">
-            {/* City Selection */}
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-farm-earth font-medium whitespace-nowrap">City:</span>
-              <Select value={city} onValueChange={setCity}>
-                <SelectTrigger className="w-32 text-sm bg-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-white border shadow-lg z-50">
-                  {cities.map((cityName) => (
-                    <SelectItem key={cityName} value={cityName} className="text-sm">
-                      {cityName}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
             {/* Zip Code */}
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-farm-earth" />
