@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Calendar, MapPin, ShoppingBag, Clock, Heart, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -44,8 +45,8 @@ const HowItWorks = () => {
             {/* Left side - Box visualization */}
             <div className="flex-1">
               <div className="relative">
-                {/* Main box container */}
-                <div className="bg-gradient-to-b from-orange-200 to-orange-300 rounded-lg p-8 shadow-lg border-4 border-orange-400">
+                {/* Main box container - changed from orange to light green */}
+                <div className="bg-gradient-to-b from-green-200 to-green-300 rounded-lg p-8 shadow-lg border-4 border-green-400">
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold text-farm-green mb-2">FRESH LOCAL BOX</h3>
                     <p className="text-farm-earth font-semibold">Your Monthly Austin Farm Share</p>
@@ -236,16 +237,16 @@ const HowItWorks = () => {
         {/* Process Steps */}
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((step, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
+            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300 bg-white">
               <CardContent className="p-8">
                 <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-farm-cream rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
                     {step.icon}
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-farm-green mb-3">{step.title}</h3>
                 <p className="text-farm-earth mb-4">{step.description}</p>
-                <div className="bg-farm-lightgreen/10 px-4 py-2 rounded-full">
+                <div className="bg-green-50 px-4 py-2 rounded-full">
                   <span className="text-sm font-semibold text-farm-green">{step.highlight}</span>
                 </div>
               </CardContent>
