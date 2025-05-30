@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Calendar, MapPin, ShoppingBag, Clock } from 'lucide-react';
+import { Calendar, MapPin, ShoppingBag, Clock, Heart, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const HowItWorks = () => {
@@ -154,6 +154,82 @@ const HowItWorks = () => {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Supporting Local Farmers Section */}
+        <div className="mb-16 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-farm-green mb-4">Your Money Goes Directly to Local Farmers</h3>
+            <p className="text-lg text-farm-earth max-w-4xl mx-auto">
+              Every dollar you spend supports Austin-area farmers and strengthens our local food economy. 
+              Skip the big box stores and invest in your community.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Left side - Supporting Local Economy */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-center space-x-3 mb-4">
+                <Heart className="w-6 h-6 text-red-500" />
+                <h4 className="text-xl font-semibold text-farm-green">Supporting Local Economy</h4>
+              </div>
+              <ul className="space-y-3 text-farm-earth">
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>100% of your food budget stays in the Austin community</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>Creates jobs for local farmers, ranchers, and food producers</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>Reduces environmental impact of long-distance food shipping</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>Keeps farmland in production instead of being sold for development</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Right side - Helping Farmers */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <div className="flex items-center space-x-3 mb-4">
+                <Users className="w-6 h-6 text-farm-green" />
+                <h4 className="text-xl font-semibold text-farm-green">Helping Farmers Thrive</h4>
+              </div>
+              <ul className="space-y-3 text-farm-earth">
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>No more weekend farmers market stands - farmers get their time back</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>Predictable monthly income instead of one-off sales</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>Long-term customer relationships for sustainable planning</span>
+                </li>
+                <li className="flex items-start space-x-2">
+                  <span className="text-farm-green font-bold">•</span>
+                  <span>Focus on farming instead of marketing and selling</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="text-center mt-8">
+            <div className="bg-farm-green/10 rounded-lg p-6 inline-block">
+              <p className="text-farm-green font-semibold text-lg">
+                When you choose Guerrilla Grocers, you're not just buying food —
+              </p>
+              <p className="text-farm-earth text-lg">
+                You're investing in sustainable farming, local jobs, and your community's future.
+              </p>
             </div>
           </div>
         </div>
