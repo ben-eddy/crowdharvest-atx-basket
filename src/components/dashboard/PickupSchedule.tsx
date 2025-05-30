@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { MapPin, Clock, Edit } from 'lucide-react';
+import { MapPin, Clock, Edit, Calendar } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';

@@ -3,6 +3,7 @@ import React from 'react';
 import { Settings, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   frequency: string;
@@ -17,6 +18,8 @@ const Header: React.FC<HeaderProps> = ({
   city,
   setCity
 }) => {
+  const navigate = useNavigate();
+
   const cities = [
     'Austin',
     'Dallas',
@@ -86,7 +89,12 @@ const Header: React.FC<HeaderProps> = ({
               <Button variant="ghost" size="sm" className="p-2">
                 <Settings className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" size="sm" className="p-2">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="p-2"
+                onClick={() => navigate('/dashboard')}
+              >
                 <User className="w-4 h-4" />
               </Button>
             </div>
