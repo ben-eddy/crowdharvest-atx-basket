@@ -4,6 +4,7 @@ import CategorySidebar from '@/components/CategorySidebar';
 import ProductCard from '@/components/ProductCard';
 import OrderSummary from '@/components/OrderSummary';
 import CategoryProgressSlider from '@/components/CategoryProgressSlider';
+import FarmerInfo from '@/components/FarmerInfo';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -14,18 +15,16 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState('beef');
   const [pickupLocation, setPickupLocation] = useState('');
   
-  // Cart state
-  const [cart, setCart] = useState<{[productId: string]: { quantity: number; size: string }}>({});
+  // Simplified cart state - just quantity per product
+  const [cart, setCart] = useState<{[productId: string]: { quantity: number }}>({});
 
-  // Mock data
+  // Updated categories
   const categories = [
-    { id: 'beef', name: 'Beef', icon: '🐄', count: 12 },
-    { id: 'lamb', name: 'Lamb', icon: '🐑', count: 8 },
-    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 15 },
-    { id: 'eggs', name: 'Eggs', icon: '🥚', count: 6 },
-    { id: 'dairy', name: 'Dairy', icon: '🥛', count: 10 },
-    { id: 'vegetables', name: 'Vegetables', icon: '🥦', count: 25 },
-    { id: 'fruit', name: 'Fruit', icon: '🍑', count: 18 }
+    { id: 'beef', name: 'Beef', icon: '🐄', count: 4 },
+    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 2 },
+    { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
+    { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
+    { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 }
   ];
 
   // Mock data for category progress
@@ -72,83 +71,164 @@ const Index = () => {
     }
   ];
 
+  // Updated products with monthly focus
   const products = [
-    {
-      id: 'grass-fed-ribeye',
-      name: 'Grass-Fed Ribeye Steak',
-      farm: 'Circle S Ranch',
-      location: 'Bastrop, TX',
-      description: 'Premium grass-finished ribeye from cattle raised on native Texas pastures.',
-      price: 24.99,
-      unit: 'lb',
-      image: '/api/placeholder/300/200',
-      badges: ['Grass-Fed', 'Local', 'Hormone-Free'],
-      sizes: ['8 oz', '12 oz', '16 oz']
-    },
+    // Beef
     {
       id: 'ground-beef',
-      name: 'Ground Beef 85/15',
-      farm: 'Circle S Ranch',
-      location: 'Bastrop, TX',
-      description: 'Fresh ground beef from grass-fed cattle, perfect for burgers and tacos.',
+      name: 'Ground Beef',
+      category: 'beef',
+      description: '85/15 lean ground beef, perfect for burgers and tacos',
       price: 8.99,
       unit: 'lb',
       image: '/api/placeholder/300/200',
-      badges: ['Grass-Fed', 'Fresh Ground'],
-      sizes: ['1 lb', '2 lb', '5 lb']
+      maxMonthly: 20
     },
     {
-      id: 'ny-strip',
-      name: 'New York Strip',
-      farm: 'Hill Country Beef',
-      location: 'Dripping Springs, TX',
-      description: 'Tender, well-marbled steaks cut fresh from grass-finished beef.',
-      price: 19.99,
+      id: 'steaks',
+      name: 'Premium Steaks',
+      category: 'beef',
+      description: 'Mix of ribeye, NY strip, and filet cuts',
+      price: 24.99,
       unit: 'lb',
       image: '/api/placeholder/300/200',
-      badges: ['Grass-Finished', 'Cut Fresh'],
-      sizes: ['8 oz', '10 oz', '12 oz']
+      maxMonthly: 10
     },
     {
-      id: 'brisket',
-      name: 'Whole Packer Brisket',
-      farm: 'Austin BBQ Farms',
-      location: 'Lockhart, TX',
-      description: 'Whole packer brisket perfect for your next BBQ gathering.',
+      id: 'medium-cuts',
+      name: 'Medium Cuts',
+      category: 'beef',
+      description: 'Tri-tip, flank steak, and short ribs',
+      price: 16.99,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 15
+    },
+    {
+      id: 'roasts',
+      name: 'Roasts',
+      category: 'beef',
+      description: 'Chuck roast, brisket, and pot roast cuts',
+      price: 12.99,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 12
+    },
+    // Poultry
+    {
+      id: 'whole-chicken',
+      name: 'Whole Chickens',
+      category: 'poultry',
+      description: 'Free-range whole chickens, 3-4 lbs each',
       price: 6.99,
+      unit: 'chicken',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 8
+    },
+    {
+      id: 'half-chicken',
+      name: 'Half Chickens',
+      category: 'poultry',
+      description: 'Split chickens, perfect for grilling',
+      price: 3.99,
+      unit: 'half',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 12
+    },
+    // Eggs
+    {
+      id: 'eggs',
+      name: 'Farm Fresh Eggs',
+      category: 'eggs',
+      description: 'Pasture-raised eggs from happy hens',
+      price: 4.99,
+      unit: 'dozen',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 20
+    },
+    // Dairy
+    {
+      id: 'milk',
+      name: 'Whole Milk',
+      category: 'dairy',
+      description: 'Fresh, non-homogenized whole milk',
+      price: 6.99,
+      unit: 'gallon',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 10
+    },
+    {
+      id: 'cheese',
+      name: 'Artisan Cheese',
+      category: 'dairy',
+      description: 'Rotating selection of farmstead cheeses',
+      price: 12.99,
+      unit: '8oz block',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 8
+    },
+    // Fruit
+    {
+      id: 'peaches',
+      name: 'Fresh Peaches',
+      category: 'fruit',
+      description: 'Sweet, juicy Texas peaches (seasonal)',
+      price: 4.99,
       unit: 'lb',
       image: '/api/placeholder/300/200',
-      badges: ['BBQ Ready', 'Whole Cut'],
-      sizes: ['10-12 lbs', '12-15 lbs', '15-18 lbs']
+      maxMonthly: 15
+    },
+    {
+      id: 'watermelon',
+      name: 'Watermelons',
+      category: 'fruit',
+      description: 'Sweet, crisp watermelons (seasonal)',
+      price: 8.99,
+      unit: 'melon',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 6
+    }
+  ];
+
+  // Farmers data
+  const farmers = [
+    {
+      id: 'circle-s',
+      name: 'Circle S Ranch',
+      location: 'Bastrop, TX',
+      description: 'Family-owned ranch specializing in grass-fed beef. We rotate our cattle through native Texas pastures, ensuring the healthiest animals and most sustainable practices.',
+      specialties: ['Grass-Fed Beef', 'Rotational Grazing', 'Hormone-Free'],
+      image: '/api/placeholder/60/60',
+      certifications: ['Certified Naturally Grown', 'Texas Organic']
+    },
+    {
+      id: 'hill-country',
+      name: 'Hill Country Poultry',
+      location: 'Dripping Springs, TX',
+      description: 'Raising heritage breed chickens on pasture with mobile coops. Our birds live natural lives with access to fresh grass and insects.',
+      specialties: ['Heritage Breeds', 'Pasture-Raised', 'Mobile Coops'],
+      image: '/api/placeholder/60/60',
+      certifications: ['Animal Welfare Approved', 'Certified Humane']
+    },
+    {
+      id: 'sunshine-dairy',
+      name: 'Sunshine Dairy',
+      location: 'Georgetown, TX',
+      description: 'Small-scale dairy focusing on Jersey cows and artisan cheese making. Our cows graze on organic pastures year-round.',
+      specialties: ['Jersey Cows', 'Artisan Cheese', 'Raw Milk'],
+      image: '/api/placeholder/60/60',
+      certifications: ['USDA Organic', 'Texas Department of Health']
     }
   ];
 
   // Filter products by category
-  const filteredProducts = products.filter(product => {
-    if (selectedCategory === 'beef') return true; // For demo, showing all as beef
-    return false;
-  });
+  const filteredProducts = products.filter(product => product.category === selectedCategory);
 
-  // Cart functions
+  // Simplified cart functions
   const handleQuantityChange = (productId: string, quantity: number) => {
     setCart(prev => ({
       ...prev,
-      [productId]: {
-        ...prev[productId],
-        quantity: quantity,
-        size: prev[productId]?.size || filteredProducts.find(p => p.id === productId)?.sizes[0] || ''
-      }
-    }));
-  };
-
-  const handleSizeChange = (productId: string, size: string) => {
-    setCart(prev => ({
-      ...prev,
-      [productId]: {
-        ...prev[productId],
-        size: size,
-        quantity: prev[productId]?.quantity || 0
-      }
+      [productId]: { quantity: quantity }
     }));
   };
 
@@ -160,10 +240,10 @@ const Index = () => {
       return {
         productId,
         name: product.name,
-        farm: product.farm,
+        farm: 'Local Farm Collective', // Generic since we source from multiple farmers
         price: product.price,
         quantity: item.quantity,
-        size: item.size,
+        size: product.unit,
         unit: product.unit
       };
     });
@@ -203,21 +283,25 @@ const Index = () => {
             {/* Products */}
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-farm-green mb-4">
-                {categories.find(c => c.id === selectedCategory)?.name} Products
+                Choose Your Monthly {categories.find(c => c.id === selectedCategory)?.name}
               </h2>
+              <p className="text-farm-earth mb-6">
+                Use the sliders to select how much you'd like each month. You can adjust anytime.
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filteredProducts.map((product) => (
                   <ProductCard
                     key={product.id}
                     product={product}
                     quantity={cart[product.id]?.quantity || 0}
-                    selectedSize={cart[product.id]?.size || product.sizes[0]}
                     onQuantityChange={handleQuantityChange}
-                    onSizeChange={handleSizeChange}
                   />
                 ))}
               </div>
             </div>
+
+            {/* Farmer Information */}
+            <FarmerInfo farmers={farmers} />
           </div>
 
           {/* Order Summary */}

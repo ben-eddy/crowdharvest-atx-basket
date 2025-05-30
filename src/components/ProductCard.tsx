@@ -1,45 +1,32 @@
 
 import React from 'react';
-import { Minus, Plus, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { MapPin } from 'lucide-react';
+import { Slider } from '@/components/ui/slider';
 
 interface Product {
   id: string;
   name: string;
-  farm: string;
-  location: string;
+  category: string;
   description: string;
   price: number;
   unit: string;
   image: string;
-  badges: string[];
-  sizes: string[];
+  maxMonthly: number;
 }
 
 interface ProductCardProps {
   product: Product;
   quantity: number;
-  selectedSize: string;
   onQuantityChange: (productId: string, quantity: number) => void;
-  onSizeChange: (productId: string, size: string) => void;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   quantity,
-  selectedSize,
-  onQuantityChange,
-  onSizeChange
+  onQuantityChange
 }) => {
-  const handleIncrease = () => {
-    onQuantityChange(product.id, quantity + 1);
-  };
-
-  const handleDecrease = () => {
-    if (quantity > 0) {
-      onQuantityChange(product.id, quantity - 1);
-    }
+  const handleSliderChange = (values: number[]) => {
+    onQuantityChange(product.id, values[0]);
   };
 
   return (
@@ -51,73 +38,48 @@ const ProductCard: React.FC<ProductCardProps> = ({
           alt={product.name}
           className="w-full h-full object-cover"
         />
-        {product.badges.length > 0 && (
-          <span className="absolute top-2 left-2 px-2 py-1 text-xs font-medium bg-white/90 text-farm-green rounded-full">
-            {product.badges[0]}
-          </span>
-        )}
       </div>
 
-      {/* Compact Product Info */}
+      {/* Product Info */}
       <div className="p-4">
-        <div className="flex items-start justify-between mb-2">
-          <div>
-            <h3 className="font-semibold text-farm-green text-sm leading-tight">{product.name}</h3>
-            <div className="flex items-center space-x-1 mt-1">
-              <MapPin className="w-3 h-3 text-farm-earth" />
-              <span className="text-xs text-farm-earth">{product.farm}</span>
-            </div>
-          </div>
-          <div className="text-right">
+        <div className="mb-3">
+          <h3 className="font-semibold text-farm-green text-sm leading-tight">{product.name}</h3>
+          <p className="text-xs text-farm-earth mt-1">{product.description}</p>
+          <div className="flex items-center justify-between mt-2">
             <p className="font-bold text-farm-green">${product.price.toFixed(2)}</p>
             <p className="text-xs text-farm-earth">per {product.unit}</p>
           </div>
         </div>
 
-        {/* Size and Quantity Row */}
-        <div className="flex items-center space-x-3 mb-3">
-          <div className="flex-1">
-            <Select value={selectedSize} onValueChange={(value) => onSizeChange(product.id, value)}>
-              <SelectTrigger className="h-8 text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {product.sizes.map((size) => (
-                  <SelectItem key={size} value={size} className="text-xs">
-                    {size}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        {/* Quantity Slider */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-farm-earth">Monthly Amount</span>
+            <span className="text-sm font-medium text-farm-green">
+              {quantity} {product.unit}{quantity !== 1 ? 's' : ''}
+            </span>
           </div>
           
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleDecrease}
-              disabled={quantity === 0}
-              className="w-6 h-6 p-0"
-            >
-              <Minus className="w-3 h-3" />
-            </Button>
-            <span className="w-6 text-center text-sm font-medium">{quantity}</span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleIncrease}
-              className="w-6 h-6 p-0"
-            >
-              <Plus className="w-3 h-3" />
-            </Button>
+          <Slider
+            value={[quantity]}
+            onValueChange={handleSliderChange}
+            max={product.maxMonthly}
+            min={0}
+            step={1}
+            className="w-full"
+          />
+          
+          <div className="flex justify-between text-xs text-gray-400">
+            <span>0</span>
+            <span>{product.maxMonthly}</span>
           </div>
         </div>
 
-        {/* Total Price */}
+        {/* Monthly Total */}
         {quantity > 0 && (
-          <div className="text-center">
+          <div className="text-center mt-3">
             <div className="text-sm font-medium text-farm-green bg-green-50 rounded px-2 py-1">
-              Total: ${(product.price * quantity).toFixed(2)}
+              Monthly: ${(product.price * quantity).toFixed(2)}
             </div>
           </div>
         )}
