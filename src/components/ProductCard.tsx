@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
@@ -32,10 +31,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const handleAddToCart = () => {
     console.log(`Adding ${quantity} ${product.unit}(s) of ${product.name} to cart`);
-    // The quantity is already set by the slider, this confirms the add to cart action
-    if (quantity > 0) {
-      onQuantityChange(product.id, quantity);
-    }
+    // Force update the cart state by setting the quantity again
+    onQuantityChange(product.id, quantity);
   };
 
   // Check if this is a chicken product that allows half values
