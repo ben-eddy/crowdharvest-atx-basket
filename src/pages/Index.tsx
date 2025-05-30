@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -6,6 +7,8 @@ import CategoryProgressSlider from '@/components/CategoryProgressSlider';
 import Footer from '@/components/Footer';
 import HowItWorks from '@/components/HowItWorks';
 import CategoryContent from '@/components/CategoryContent';
+import ReferralDashboard from '@/components/ReferralDashboard';
+import { ReferralProvider } from '@/contexts/ReferralContext';
 import { useProductData } from '@/hooks/useProductData';
 
 const Index = () => {
@@ -90,66 +93,75 @@ const Index = () => {
   const nextBillingDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString();
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header */}
-      <Header
-        frequency={frequency}
-        setFrequency={setFrequency}
-        city={city}
-        setCity={setCity}
-      />
-
-      {/* Main Content */}
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <CategorySidebar
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
+    <ReferralProvider>
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        {/* Header */}
+        <Header
+          frequency={frequency}
+          setFrequency={setFrequency}
+          city={city}
+          setCity={setCity}
         />
 
-        {/* Main Content Area */}
-        <div className="flex-1 flex">
-          {/* Product Grid or Categories Content */}
-          <div className="flex-1">
-            <CategoryContent 
-              selectedCategory={selectedCategory}
-              products={products}
-              farmers={farmers}
-              categories={categories}
-              previewQuantities={previewQuantities}
-              cart={cart}
-              onPreviewQuantityChange={handlePreviewQuantityChange}
-              onAddToCart={handleAddToCart}
-              onAddBeefToCart={handleAddBeefToCart}
-              onAddLambToCart={handleAddLambToCart}
+        {/* Main Content */}
+        <div className="flex flex-1">
+          {/* Sidebar */}
+          <CategorySidebar
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
+
+          {/* Main Content Area */}
+          <div className="flex-1 flex">
+            {/* Product Grid or Categories Content */}
+            <div className="flex-1">
+              <CategoryContent 
+                selectedCategory={selectedCategory}
+                products={products}
+                farmers={farmers}
+                categories={categories}
+                previewQuantities={previewQuantities}
+                cart={cart}
+                onPreviewQuantityChange={handlePreviewQuantityChange}
+                onAddToCart={handleAddToCart}
+                onAddBeefToCart={handleAddBeefToCart}
+                onAddLambToCart={handleAddLambToCart}
+              />
+            </div>
+
+            {/* Order Summary */}
+            <OrderSummary
+              cartItems={cartItems}
+              pickupLocation={pickupLocation}
+              setPickupLocation={setPickupLocation}
+              frequency={frequency}
+              nextBillingDate={nextBillingDate}
             />
           </div>
-
-          {/* Order Summary */}
-          <OrderSummary
-            cartItems={cartItems}
-            pickupLocation={pickupLocation}
-            setPickupLocation={setPickupLocation}
-            frequency={frequency}
-            nextBillingDate={nextBillingDate}
-          />
         </div>
-      </div>
 
-      {/* Community Buy Progress - above How It Works */}
-      <div className="bg-white border-t border-green-100 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <CategoryProgressSlider categoryProgress={categoryProgress} />
+        {/* Community Buy Progress - above How It Works */}
+        <div className="bg-white border-t border-green-100 py-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <CategoryProgressSlider categoryProgress={categoryProgress} />
+          </div>
         </div>
+
+        {/* Referral Section */}
+        <div className="bg-green-50 border-t border-green-100 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ReferralDashboard />
+          </div>
+        </div>
+
+        {/* How It Works Section */}
+        <HowItWorks />
+
+        {/* Footer */}
+        <Footer />
       </div>
-
-      {/* How It Works Section */}
-      <HowItWorks />
-
-      {/* Footer */}
-      <Footer />
-    </div>
+    </ReferralProvider>
   );
 };
 

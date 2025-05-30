@@ -64,9 +64,12 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
           })}
         </div>
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-6 bg-white rounded-lg p-4 border border-green-200">
+          <p className="text-sm text-farm-earth mb-2">
+            💡 <strong>Spread the word and earn rewards!</strong>
+          </p>
           <p className="text-sm text-farm-earth">
-            When we reach our targets, prices drop for everyone! 🎉
+            Share your unique referral link with friends and family. When they sign up and commit to a monthly subscription, you'll get credit in your account! 🎉
           </p>
         </div>
       </div>
