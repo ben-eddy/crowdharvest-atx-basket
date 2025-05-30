@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -238,9 +237,9 @@ const Index = () => {
     },
     {
       id: 'walnuts',
-      name: 'English Walnuts',
+      name: 'Texas Walnuts',
       category: 'nuts',
-      description: 'Premium English walnuts, halves and pieces',
+      description: 'Premium Texas walnuts, halves and pieces',
       price: 12.99,
       unit: 'lb',
       image: '/api/placeholder/300/200',

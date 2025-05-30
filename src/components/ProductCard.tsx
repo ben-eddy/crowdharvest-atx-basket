@@ -69,10 +69,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
         return '🍗';
       case 'vegetables':
         if (product.name.toLowerCase().includes('broccoli')) return '🥦';
-        if (product.name.toLowerCase().includes('beet')) return '🧅';
+        if (product.name.toLowerCase().includes('beet')) return '🟣';
         if (product.name.toLowerCase().includes('onion')) return '🧅';
         if (product.name.toLowerCase().includes('garlic')) return '🧄';
-        if (product.name.toLowerCase().includes('celery')) return '🥬';
+        if (product.name.toLowerCase().includes('celery')) return '🌿';
         if (product.name.toLowerCase().includes('green')) return '🥬';
         return '🥕';
       case 'eggs':
@@ -86,15 +86,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
         if (product.name.toLowerCase().includes('watermelon')) return '🍉';
         return '🍓';
       case 'nuts':
+        if (product.name.toLowerCase().includes('pecan') && product.name.toLowerCase().includes('butter')) return '🧈';
         if (product.name.toLowerCase().includes('pecan')) return '🥜';
-        if (product.name.toLowerCase().includes('walnut')) return '🥜';
+        if (product.name.toLowerCase().includes('walnut')) return '🌰';
         if (product.name.toLowerCase().includes('cashew')) return '🥜';
-        if (product.name.toLowerCase().includes('butter')) return '🥜';
         return '🥜';
       case 'bread':
+        if (product.name.toLowerCase().includes('sourdough')) return '🥖';
         return '🍞';
       case 'honey':
-        if (product.name.toLowerCase().includes('pollen')) return '🌼';
+        if (product.name.toLowerCase().includes('pollen')) return '🌻';
         return '🍯';
       default:
         return '🥕';
