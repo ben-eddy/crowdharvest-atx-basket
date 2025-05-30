@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 // Define all product-related interfaces
@@ -16,6 +15,7 @@ interface CategoryProgress {
   targetAmount: number;
   unit: string;
   priceDropAmount: string;
+  emoji: string;
 }
 
 interface Product {
@@ -64,42 +64,92 @@ export const useProductData = () => {
     {
       category: 'Beef',
       icon: '🐄',
-      currentAmount: 78,
-      targetAmount: 100,
-      unit: 'animals',
-      priceDropAmount: '1.25'
+      currentAmount: 10,
+      targetAmount: 20,
+      unit: 'cows',
+      priceDropAmount: '$50',
+      emoji: '🐄'
     },
     {
       category: 'Lamb',
       icon: '🐑',
-      currentAmount: 16,
-      targetAmount: 20,
-      unit: 'animals',
-      priceDropAmount: '2.00'
+      currentAmount: 12,
+      targetAmount: 25,
+      unit: 'lambs',
+      priceDropAmount: '$30',
+      emoji: '🐑'
     },
     {
-      category: 'Poultry',
-      icon: '🍗',
-      currentAmount: 120,
-      targetAmount: 150,
-      unit: 'birds',
-      priceDropAmount: '1.50'
-    },
-    {
-      category: 'Dairy',
-      icon: '🥛',
-      currentAmount: 45,
+      category: 'Chicken',
+      icon: '🐔',
+      currentAmount: 35,
       targetAmount: 60,
+      unit: 'chickens',
+      priceDropAmount: '$15',
+      emoji: '🐔'
+    },
+    {
+      category: 'Turkey',
+      icon: '🦃',
+      currentAmount: 8,
+      targetAmount: 15,
+      unit: 'turkeys',
+      priceDropAmount: '$40',
+      emoji: '🦃'
+    },
+    {
+      category: 'Milk',
+      icon: '🥛',
+      currentAmount: 120,
+      targetAmount: 200,
       unit: 'gallons',
-      priceDropAmount: '0.75'
+      priceDropAmount: '$3',
+      emoji: '🥛'
     },
     {
       category: 'Vegetables',
-      icon: '🥦',
-      currentAmount: 180,
-      targetAmount: 200,
-      unit: 'boxes',
-      priceDropAmount: '3.00'
+      icon: '🥕',
+      currentAmount: 100,
+      targetAmount: 180,
+      unit: 'lbs',
+      priceDropAmount: '$2',
+      emoji: '🥕'
+    },
+    {
+      category: 'Fruit',
+      icon: '🍎',
+      currentAmount: 150,
+      targetAmount: 250,
+      unit: 'lbs',
+      priceDropAmount: '$2',
+      emoji: '🍎'
+    },
+    {
+      category: 'Eggs',
+      icon: '🥚',
+      currentAmount: 150,
+      targetAmount: 300,
+      unit: 'dozen',
+      priceDropAmount: '$1',
+      emoji: '🥚'
+    },
+    {
+      category: 'Cheese',
+      icon: '🧀',
+      currentAmount: 25,
+      targetAmount: 50,
+      unit: 'blocks',
+      priceDropAmount: '$5',
+      emoji: '🧀'
+    },
+    {
+      category: 'Nuts',
+      icon: '🥜',
+      currentAmount: 75,
+      targetAmount: 120,
+      unit: 'lbs',
+      priceDropAmount: '$3',
+      emoji: '🥜'
     }
   ]);
 
