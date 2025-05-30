@@ -95,24 +95,14 @@ const Index = () => {
         { value: 7, label: '1/4 share', priceMultiplier: 90 }       // 90 lbs * $14 = $1260
       ]
     },
-    // Poultry
+    // Poultry - single chicken product
     {
-      id: 'whole-chicken',
-      name: 'Whole Chickens',
+      id: 'chickens',
+      name: 'Chickens',
       category: 'poultry',
-      description: 'Free-range whole chickens, 3-4 lbs each',
+      description: 'Free-range chickens, whole or half birds',
       price: 6.99,
       unit: 'chicken',
-      image: '/api/placeholder/300/200',
-      maxMonthly: 8
-    },
-    {
-      id: 'half-chicken',
-      name: 'Half Chickens',
-      category: 'poultry',
-      description: 'Split chickens, perfect for grilling',
-      price: 3.99,
-      unit: 'half',
       image: '/api/placeholder/300/200',
       maxMonthly: 12
     },
