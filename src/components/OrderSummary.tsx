@@ -18,16 +18,14 @@ interface OrderSummaryProps {
   cartItems: CartItem[];
   pickupLocation: string;
   setPickupLocation: (location: string) => void;
-  purchaseType: 'single' | 'subscription';
   frequency: string;
-  nextBillingDate?: string;
+  nextBillingDate: string;
 }
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({
   cartItems,
   pickupLocation,
   setPickupLocation,
-  purchaseType,
   frequency,
   nextBillingDate
 }) => {
@@ -47,13 +45,14 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
       <div className="p-6 border-b border-green-100">
         <div className="flex items-center space-x-2">
           <ShoppingCart className="w-5 h-5 text-farm-green" />
-          <h2 className="text-lg font-semibold text-farm-green">Your Order</h2>
+          <h2 className="text-lg font-semibold text-farm-green">Your Monthly Order</h2>
           {cartItems.length > 0 && (
             <span className="bg-farm-lightgreen text-white text-xs px-2 py-1 rounded-full">
               {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
             </span>
           )}
         </div>
+        <p className="text-xs text-farm-earth mt-1">Pickup {frequency}</p>
       </div>
 
       {/* Cart Items */}
@@ -110,13 +109,11 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             </Select>
           </div>
 
-          {/* Next Billing (for subscriptions) */}
-          {purchaseType === 'subscription' && nextBillingDate && (
-            <div className="flex items-center space-x-2 text-sm text-farm-earth">
-              <Calendar className="w-4 h-4" />
-              <span>Next billing: {nextBillingDate}</span>
-            </div>
-          )}
+          {/* Next Billing */}
+          <div className="flex items-center space-x-2 text-sm text-farm-earth">
+            <Calendar className="w-4 h-4" />
+            <span>Next billing: {nextBillingDate}</span>
+          </div>
 
           {/* Order Summary */}
           <div className="space-y-2 pt-4 border-t border-green-100">
@@ -129,7 +126,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
               <span>${deliveryFee.toFixed(2)}</span>
             </div>
             <div className="flex justify-between font-semibold text-farm-green pt-2 border-t border-green-100">
-              <span>Total</span>
+              <span>Monthly Total</span>
               <span>${total.toFixed(2)}</span>
             </div>
           </div>
@@ -140,7 +137,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
             disabled={!pickupLocation}
           >
             <Truck className="w-4 h-4 mr-2" />
-            {purchaseType === 'subscription' ? 'Save My Slot' : 'Checkout'}
+            Start Subscription
           </Button>
         </div>
       )}

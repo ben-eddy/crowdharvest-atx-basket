@@ -8,8 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 interface HeaderProps {
   zipCode: string;
   setZipCode: (zip: string) => void;
-  purchaseType: 'single' | 'subscription';
-  setPurchaseType: (type: 'single' | 'subscription') => void;
   frequency: string;
   setFrequency: (freq: string) => void;
 }
@@ -17,8 +15,6 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({
   zipCode,
   setZipCode,
-  purchaseType,
-  setPurchaseType,
   frequency,
   setFrequency
 }) => {
@@ -51,30 +47,11 @@ const Header: React.FC<HeaderProps> = ({
               />
             </div>
 
-            {/* Purchase Type Toggle */}
+            {/* Monthly Pickup Frequency */}
             <div className="flex items-center space-x-2">
-              <Button
-                variant={purchaseType === 'single' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setPurchaseType('single')}
-                className="text-xs"
-              >
-                Single Purchase
-              </Button>
-              <Button
-                variant={purchaseType === 'subscription' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setPurchaseType('subscription')}
-                className="text-xs"
-              >
-                Subscription
-              </Button>
-            </div>
-
-            {/* Frequency */}
-            {purchaseType === 'subscription' && (
+              <span className="text-sm text-farm-earth">Pickup frequency:</span>
               <Select value={frequency} onValueChange={setFrequency}>
-                <SelectTrigger className="w-28 text-xs">
+                <SelectTrigger className="w-32 text-xs">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -83,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({
                   <SelectItem value="monthly">Monthly</SelectItem>
                 </SelectContent>
               </Select>
-            )}
+            </div>
 
             {/* User Actions */}
             <div className="flex items-center space-x-2">

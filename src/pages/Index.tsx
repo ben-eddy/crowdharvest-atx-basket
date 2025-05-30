@@ -11,7 +11,6 @@ import BeefCutsDiagram from '@/components/BeefCutsDiagram';
 const Index = () => {
   // State management
   const [zipCode, setZipCode] = useState('78701');
-  const [purchaseType, setPurchaseType] = useState<'single' | 'subscription'>('subscription');
   const [frequency, setFrequency] = useState('weekly');
   const [selectedCategory, setSelectedCategory] = useState('beef');
   const [pickupLocation, setPickupLocation] = useState('');
@@ -257,9 +256,7 @@ const Index = () => {
       };
     });
 
-  const nextBillingDate = purchaseType === 'subscription' 
-    ? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()
-    : undefined;
+  const nextBillingDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString();
 
   // Find beef share product and current selection
   const beefShareProduct = products.find(p => p.id === 'beef-shares');
@@ -272,8 +269,6 @@ const Index = () => {
       <Header
         zipCode={zipCode}
         setZipCode={setZipCode}
-        purchaseType={purchaseType}
-        setPurchaseType={setPurchaseType}
         frequency={frequency}
         setFrequency={setFrequency}
       />
@@ -347,7 +342,6 @@ const Index = () => {
             cartItems={cartItems}
             pickupLocation={pickupLocation}
             setPickupLocation={setPickupLocation}
-            purchaseType={purchaseType}
             frequency={frequency}
             nextBillingDate={nextBillingDate}
           />
