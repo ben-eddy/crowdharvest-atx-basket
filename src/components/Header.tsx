@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapPin, Settings, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,14 +10,31 @@ interface HeaderProps {
   setZipCode: (zip: string) => void;
   frequency: string;
   setFrequency: (freq: string) => void;
+  city: string;
+  setCity: (city: string) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
   zipCode,
   setZipCode,
   frequency,
-  setFrequency
+  setFrequency,
+  city,
+  setCity
 }) => {
+  const cities = [
+    'Austin',
+    'Dallas',
+    'Houston',
+    'San Antonio',
+    'Fort Worth',
+    'El Paso',
+    'Arlington',
+    'Corpus Christi',
+    'Plano',
+    'Lubbock'
+  ];
+
   return (
     <header className="bg-white shadow-sm border-b border-green-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,7 +48,7 @@ const Header: React.FC<HeaderProps> = ({
             />
             <div className="text-farm-earth">
               <h1 className="text-lg font-bold leading-tight">
-                All the Local Farms in One Local Box
+                All the <span className="bg-green-500 text-white px-2 py-1 rounded font-semibold">{city}</span> Local Farms in One Local Box
               </h1>
               <p className="text-sm font-medium mt-1 leading-tight">
                 Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers, Supporting them Directly with your $$ and Saving you Both Time and Hassle.
@@ -40,6 +58,23 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* Controls */}
           <div className="flex items-center space-x-6">
+            {/* City Selection */}
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-farm-earth">City:</span>
+              <Select value={city} onValueChange={setCity}>
+                <SelectTrigger className="w-28 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {cities.map((cityName) => (
+                    <SelectItem key={cityName} value={cityName}>
+                      {cityName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
             {/* Zip Code */}
             <div className="flex items-center space-x-2">
               <MapPin className="w-4 h-4 text-farm-earth" />
