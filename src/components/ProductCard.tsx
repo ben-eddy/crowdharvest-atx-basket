@@ -87,7 +87,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         return '🍓';
       case 'nuts':
         if (product.name.toLowerCase().includes('pecan') && product.name.toLowerCase().includes('butter')) return '🥜';
-        if (product.name.toLowerCase().includes('pecan')) return '🌰';
+        if (product.name.toLowerCase().includes('pecan')) return null; // Will use image instead
         if (product.name.toLowerCase().includes('walnut')) return '🌰';
         if (product.name.toLowerCase().includes('cashew')) return '🥜';
         return '🥜';
@@ -102,13 +102,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  const isPecanProduct = product.name.toLowerCase().includes('pecan') && !product.name.toLowerCase().includes('butter');
+  const productSymbol = getProductSymbol();
+
   return (
     <div className="product-card bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
-      {/* Hero Section with Symbol */}
+      {/* Hero Section with Symbol or Image */}
       <div className="relative h-32 bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center">
-        <div className="text-6xl">
-          {getProductSymbol()}
-        </div>
+        {isPecanProduct ? (
+          <img 
+            src="/lovable-uploads/723f4ab5-1d19-4853-a03b-a0d3a0451890.png" 
+            alt="Pecan" 
+            className="w-16 h-16 object-contain"
+          />
+        ) : (
+          <div className="text-6xl">
+            {productSymbol}
+          </div>
+        )}
       </div>
 
       {/* Product Info */}
