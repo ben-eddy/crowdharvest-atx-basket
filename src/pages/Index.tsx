@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -331,15 +332,15 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <Footer />
-
-      {/* Community Buy Progress - moved to bottom */}
+      {/* Community Buy Progress - above footer */}
       <div className="bg-white border-t border-green-100 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <CategoryProgressSlider categoryProgress={categoryProgress} />
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
