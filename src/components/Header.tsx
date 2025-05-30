@@ -21,14 +21,17 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header className="bg-white shadow-sm border-b border-green-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24">
+        <div className="flex items-center justify-between h-28">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4">
             <img 
               src="/lovable-uploads/7f0f62f7-f543-4959-8198-e0ce1b9f87e3.png" 
               alt="Local Pickup Box" 
-              className="h-20 w-auto object-contain"
+              className="h-26 w-auto object-contain"
             />
+            <h1 className="text-xl font-semibold text-farm-earth">
+              Your Local Farms Subscription Pickup Box
+            </h1>
           </div>
 
           {/* Controls */}
