@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
-import { Calendar, MapPin, Clock, User, MessageSquare, Lightbulb, Users } from 'lucide-react';
+import { Calendar, MapPin, Clock, User, MessageSquare, Lightbulb, Users, ArrowLeft, Home } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 import SubscriptionOverview from '@/components/dashboard/SubscriptionOverview';
 import PickupSchedule from '@/components/dashboard/PickupSchedule';
 import ReferralSection from '@/components/dashboard/ReferralSection';
@@ -10,16 +12,40 @@ import SupportSection from '@/components/dashboard/SupportSection';
 import SuggestionsBox from '@/components/dashboard/SuggestionsBox';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#f0fdf4' }}>
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center space-x-3">
-            <User className="w-8 h-8 text-farm-green" />
-            <div>
-              <h1 className="text-2xl font-bold text-farm-green">My Dashboard</h1>
-              <p className="text-farm-earth">Welcome back! Here's your Local Pickup Box overview.</p>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <User className="w-8 h-8 text-farm-green" />
+              <div>
+                <h1 className="text-2xl font-bold text-farm-green">My Dashboard</h1>
+                <p className="text-farm-earth">Welcome back! Here's your Local Pickup Box overview.</p>
+              </div>
+            </div>
+            
+            {/* Navigation Buttons */}
+            <div className="flex items-center space-x-2">
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/')}
+                className="flex items-center space-x-2"
+              >
+                <Home className="w-4 h-4" />
+                <span>Home</span>
+              </Button>
+              <Button 
+                variant="ghost" 
+                onClick={() => navigate(-1)}
+                className="flex items-center space-x-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Back</span>
+              </Button>
             </div>
           </div>
         </div>
