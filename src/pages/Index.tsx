@@ -22,7 +22,7 @@ const Index = () => {
   // Updated categories
   const categories = [
     { id: 'beef', name: 'Beef', icon: '🐄', count: 1 },
-    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 2 },
+    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 1 },
     { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
     { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
     { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 }
