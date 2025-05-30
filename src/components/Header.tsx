@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Settings, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -34,8 +33,7 @@ const Header: React.FC<HeaderProps> = ({
                 All the Local Farms in One Local Box
               </h1>
               <p className="text-sm font-medium mt-1 leading-tight">
-                Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers,<br />
-                Supporting them Directly with your $$ and Saving you Both Time and Hassle.
+                Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers, Supporting them Directly with your $$ and Saving you Both Time and Hassle.
               </p>
             </div>
           </div>
