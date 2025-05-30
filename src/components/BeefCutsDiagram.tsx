@@ -42,11 +42,16 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
     return Math.max(0.3, Math.min(1, shareFraction * 3));
   };
 
+  // Calculate total pounds and cost per pound
+  const totalPounds = Object.values(wholeCowCuts).reduce((a, b) => a + b, 0) * shareFraction;
+  const monthlyPrice = 200 * (shareOptions[currentShareIndex]?.priceMultiplier || 1);
+  const costPerPound = totalPounds > 0 ? monthlyPrice / totalPounds : 0;
+
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-green-50 via-amber-50 to-orange-50 flex flex-col items-center justify-center px-4 py-4">
       
-      {/* Compact Container - sized to fit cow image */}
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/50 max-w-2xl w-full">
+      {/* Compact Container - sized to fit content */}
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/50 w-full max-w-lg">
         
         {/* Cow Image */}
         <div className="w-full mb-4">
@@ -62,7 +67,7 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
         </div>
 
         {/* Share Selection Slider */}
-        <div className="mb-6">
+        <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
             <div className="text-left">
               <p className="text-lg font-bold text-green-600">{shareSize}</p>
@@ -70,7 +75,7 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
             </div>
             <div className="text-right">
               <p className="text-xl font-bold text-green-600">
-                ${(200 * shareOptions[currentShareIndex]?.priceMultiplier || 200).toFixed(2)}
+                ${monthlyPrice.toFixed(2)}
               </p>
               <p className="text-sm text-gray-600">per month</p>
             </div>
@@ -97,8 +102,8 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
         {/* Cut Amounts Grid */}
         {shareFraction > 0 && (
           <div className="w-full">
-            <h3 className="text-lg font-bold text-green-700 text-center mb-3">Your Monthly Share Breakdown</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <h3 className="text-lg font-bold text-green-700 text-center mb-3">Estimated Monthly Share Breakdown</h3>
+            <div className="grid grid-cols-2 gap-3 mb-4">
               {Object.entries(wholeCowCuts).map(([cutName, baseAmount]) => (
                 <div key={cutName} className="bg-green-50 rounded-lg p-3 text-center border border-green-200">
                   <div className="text-sm font-medium text-green-800 mb-1">{cutName}</div>
@@ -107,14 +112,19 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
               ))}
             </div>
             
-            {/* Total amount summary */}
-            <div className="mt-4 text-center bg-green-100 rounded-lg p-3">
+            {/* Total amount and cost summary */}
+            <div className="text-center bg-green-100 rounded-lg p-3 mb-3">
               <p className="text-base font-bold text-green-700">
-                Total: ~{(Object.values(wholeCowCuts).reduce((a, b) => a + b, 0) * shareFraction).toFixed(1)} lbs per month
+                Total: ~{totalPounds.toFixed(1)} lbs per month • ${costPerPound.toFixed(2)}/lb
               </p>
               <p className="text-sm text-green-600 mt-1">
                 Premium grass-fed beef • Hormone-free • Locally sourced
               </p>
+            </div>
+
+            {/* Disclaimer */}
+            <div className="text-xs text-gray-600 text-center italic bg-gray-50 rounded-lg p-2">
+              *Share breakdown is an estimate. Your particular box and cow share size will always vary organically based on the individual animal and seasonal factors.
             </div>
           </div>
         )}
