@@ -29,6 +29,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
     onQuantityChange(product.id, values[0]);
   };
 
+  // Check if this is a chicken product that allows half values
+  const isChickenProduct = product.category === 'poultry';
+  const step = isChickenProduct ? 0.5 : 1;
+  
   // Regular product card for all products
   const displayPrice = product.price * quantity;
   const displayQuantity = `${quantity} ${product.unit}${quantity !== 1 ? 's' : ''}`;
@@ -73,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             onValueChange={handleSliderChange}
             max={product.maxMonthly}
             min={0}
-            step={1}
+            step={step}
             className="w-full"
           />
           
