@@ -45,9 +45,10 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-green-50 via-amber-50 to-orange-50 flex flex-col items-center justify-center px-8 py-16">
       
-      {/* Butcher Cut Diagram */}
+      {/* Interactive Butcher Cut Diagram */}
       <div className="relative w-full max-w-4xl mb-12">
         <div className="relative">
+          {/* Base cow cuts image */}
           <img
             src="/lovable-uploads/34a51eef-7412-465d-a983-cda5374f8b37.png"
             alt="Beef Cuts Diagram"
@@ -66,6 +67,47 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
               transition: 'opacity 0.3s ease-in-out'
             }}
           />
+
+          {/* Cut amount overlays positioned on the cow image */}
+          {shareFraction > 0 && (
+            <>
+              {/* Ground Beef - lower body area */}
+              <div className="absolute bottom-[15%] left-[25%] bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg border border-green-200">
+                <div className="text-xs font-medium text-green-800">Ground Beef</div>
+                <div className="text-lg font-bold text-green-600">{getShareAmount(wholeCowCuts['Ground Beef'])}</div>
+              </div>
+
+              {/* Steaks - middle back area */}
+              <div className="absolute top-[25%] left-[45%] bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg border border-green-200">
+                <div className="text-xs font-medium text-green-800">Steaks</div>
+                <div className="text-lg font-bold text-green-600">{getShareAmount(wholeCowCuts['Steaks'])}</div>
+              </div>
+
+              {/* Roasts - shoulder/chuck area */}
+              <div className="absolute top-[20%] left-[15%] bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg border border-green-200">
+                <div className="text-xs font-medium text-green-800">Roasts</div>
+                <div className="text-lg font-bold text-green-600">{getShareAmount(wholeCowCuts['Roasts'])}</div>
+              </div>
+
+              {/* Short Ribs & Brisket - chest area */}
+              <div className="absolute bottom-[25%] left-[15%] bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg border border-green-200">
+                <div className="text-xs font-medium text-green-800">Short Ribs & Brisket</div>
+                <div className="text-lg font-bold text-green-600">{getShareAmount(wholeCowCuts['Short Ribs & Brisket'])}</div>
+              </div>
+
+              {/* Tenderloin - lower back area */}
+              <div className="absolute top-[45%] left-[50%] bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg border border-green-200">
+                <div className="text-xs font-medium text-green-800">Tenderloin</div>
+                <div className="text-lg font-bold text-green-600">{getShareAmount(wholeCowCuts['Tenderloin'])}</div>
+              </div>
+
+              {/* Flank & Skirt - belly area */}
+              <div className="absolute bottom-[35%] left-[40%] bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg border border-green-200">
+                <div className="text-xs font-medium text-green-800">Flank & Skirt</div>
+                <div className="text-lg font-bold text-green-600">{getShareAmount(wholeCowCuts['Flank & Skirt'])}</div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
@@ -110,17 +152,6 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
             <p className="text-sm text-green-600 mt-1">
               Premium grass-fed beef • Hormone-free • Locally sourced
             </p>
-          </div>
-
-          {/* Cut breakdown cards */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-            {Object.entries(wholeCowCuts).map(([cut, amount]) => (
-              <div key={cut} className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
-                <h4 className="font-semibold text-green-800 text-sm">{cut}</h4>
-                <p className="text-2xl font-bold text-green-600">{getShareAmount(amount)}</p>
-                <p className="text-xs text-green-600">per month</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>
