@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -24,9 +23,11 @@ const Index = () => {
   const categories = [
     { id: 'beef', name: 'Beef', icon: '🐄', count: 1 },
     { id: 'poultry', name: 'Poultry', icon: '🍗', count: 1 },
+    { id: 'vegetables', name: 'Vegetables', icon: '🥕', count: 0 },
     { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
     { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
     { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 },
+    { id: 'nuts', name: 'Nuts & Seeds', icon: '🥜', count: 0 },
     { id: 'bread', name: 'Bread', icon: '🍞', count: 2 },
     { id: 'honey', name: 'Honey', icon: '🍯', count: 2 }
   ];
