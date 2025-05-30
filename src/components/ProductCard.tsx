@@ -108,7 +108,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="product-card bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
       {/* Hero Section with Symbol or Image */}
-      <div className={`relative h-32 flex items-center justify-center ${isPecanProduct ? '' : 'bg-gradient-to-br from-green-50 to-blue-50'}`}>
+      <div className={`relative h-32 flex items-center justify-center ${isPecanProduct ? 'bg-white' : 'bg-gradient-to-br from-green-50 to-blue-50'}`}>
         {isPecanProduct ? (
           <img 
             src="/lovable-uploads/723f4ab5-1d19-4853-a03b-a0d3a0451890.png" 
