@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -23,11 +24,11 @@ const Index = () => {
   const categories = [
     { id: 'beef', name: 'Beef', icon: '🐄', count: 1 },
     { id: 'poultry', name: 'Poultry', icon: '🍗', count: 1 },
-    { id: 'vegetables', name: 'Vegetables', icon: '🥕', count: 0 },
+    { id: 'vegetables', name: 'Vegetables', icon: '🥕', count: 6 },
     { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
     { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
     { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 },
-    { id: 'nuts', name: 'Nuts & Seeds', icon: '🥜', count: 0 },
+    { id: 'nuts', name: 'Nuts & Seeds', icon: '🥜', count: 4 },
     { id: 'bread', name: 'Bread', icon: '🍞', count: 2 },
     { id: 'honey', name: 'Honey', icon: '🍯', count: 2 }
   ];
@@ -110,6 +111,67 @@ const Index = () => {
       image: '/api/placeholder/300/200',
       maxMonthly: 12
     },
+    // Vegetables
+    {
+      id: 'broccoli',
+      name: 'Fresh Broccoli',
+      category: 'vegetables',
+      description: 'Crisp, green broccoli crowns',
+      price: 3.99,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 10
+    },
+    {
+      id: 'beets',
+      name: 'Red Beets',
+      category: 'vegetables',
+      description: 'Sweet, earthy red beets with greens',
+      price: 2.99,
+      unit: 'bunch',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 8
+    },
+    {
+      id: 'onions',
+      name: 'Yellow Onions',
+      category: 'vegetables',
+      description: 'Storage onions perfect for cooking',
+      price: 2.49,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 15
+    },
+    {
+      id: 'garlic',
+      name: 'Fresh Garlic',
+      category: 'vegetables',
+      description: 'Aromatic hardneck garlic bulbs',
+      price: 8.99,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 5
+    },
+    {
+      id: 'celery',
+      name: 'Celery',
+      category: 'vegetables',
+      description: 'Crisp celery stalks with leaves',
+      price: 2.99,
+      unit: 'bunch',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 6
+    },
+    {
+      id: 'greens',
+      name: 'Mixed Greens',
+      category: 'vegetables',
+      description: 'Seasonal mix of leafy greens and lettuce',
+      price: 4.99,
+      unit: 'bag',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 12
+    },
     // Eggs
     {
       id: 'eggs',
@@ -162,6 +224,47 @@ const Index = () => {
       unit: 'melon',
       image: '/api/placeholder/300/200',
       maxMonthly: 6
+    },
+    // Nuts & Seeds
+    {
+      id: 'pecans',
+      name: 'Texas Pecans',
+      category: 'nuts',
+      description: 'Fresh, local pecans from Texas orchards',
+      price: 14.99,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 4
+    },
+    {
+      id: 'walnuts',
+      name: 'English Walnuts',
+      category: 'nuts',
+      description: 'Premium English walnuts, halves and pieces',
+      price: 12.99,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 4
+    },
+    {
+      id: 'cashews',
+      name: 'Raw Cashews',
+      category: 'nuts',
+      description: 'Whole raw cashews, perfect for snacking',
+      price: 16.99,
+      unit: 'lb',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 3
+    },
+    {
+      id: 'pecan-butter',
+      name: 'Pecan Butter',
+      category: 'nuts',
+      description: 'Smooth, creamy pecan butter made from local pecans',
+      price: 18.99,
+      unit: 'jar',
+      image: '/api/placeholder/300/200',
+      maxMonthly: 3
     },
     // Bread
     {
