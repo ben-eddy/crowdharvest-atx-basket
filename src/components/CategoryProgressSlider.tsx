@@ -136,6 +136,11 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
             +{category.currentAmount - maxDisplay} more
           </span>
         )}
+        <div className="w-full text-center mt-2">
+          <span className="text-sm font-semibold text-green-700">
+            {category.currentAmount} {category.unit} sold
+          </span>
+        </div>
       </div>
     );
   };
