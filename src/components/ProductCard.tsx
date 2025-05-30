@@ -38,9 +38,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     console.log(`Current quantity state: ${quantity}`);
     console.log(`Product ID: ${product.id}`);
     
-    // Force update the cart state by setting the quantity again
-    onQuantityChange(product.id, quantity);
-    
     // Show toast notification
     if (quantity > 0) {
       toast({

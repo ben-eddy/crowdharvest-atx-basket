@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -196,12 +195,17 @@ const Index = () => {
   // Filter products by category
   const filteredProducts = products.filter(product => product.category === selectedCategory);
 
-  // Simplified cart functions
+  // Modified cart functions to ensure proper updates
   const handleQuantityChange = (productId: string, quantity: number) => {
-    setCart(prev => ({
-      ...prev,
-      [productId]: { quantity: quantity }
-    }));
+    console.log(`Cart update: ${productId} -> ${quantity}`);
+    setCart(prev => {
+      const newCart = {
+        ...prev,
+        [productId]: { quantity: quantity }
+      };
+      console.log(`New cart state:`, newCart);
+      return newCart;
+    });
   };
 
   // Add function to handle adding beef share to cart
