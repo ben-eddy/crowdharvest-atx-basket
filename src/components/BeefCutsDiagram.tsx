@@ -45,15 +45,15 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-green-50 via-amber-50 to-orange-50 flex flex-col items-center justify-center px-4 py-4">
       
-      {/* Compact Cow Image and Cut Amounts Container */}
-      <div className="w-full max-w-4xl mb-6 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/50">
+      {/* Compact Container - sized to fit cow image */}
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-white/50 max-w-2xl w-full">
         
         {/* Cow Image */}
         <div className="w-full mb-4">
           <img
             src="/lovable-uploads/34a51eef-7412-465d-a983-cda5374f8b37.png"
             alt="Beef Cuts Diagram"
-            className="w-full h-auto max-h-[40vh] object-contain"
+            className="w-full h-auto object-contain"
             style={{
               opacity: getOpacity(),
               transition: 'opacity 0.3s ease-in-out'
@@ -61,49 +61,22 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
           />
         </div>
 
-        {/* Cut Amounts Grid - Directly Under Cow */}
-        {shareFraction > 0 && (
-          <div className="w-full">
-            <h3 className="text-xl font-bold text-green-700 text-center mb-3">Your Monthly Share Breakdown</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {Object.entries(wholeCowCuts).map(([cutName, baseAmount]) => (
-                <div key={cutName} className="bg-green-50 rounded-lg p-3 text-center border border-green-200">
-                  <div className="text-sm font-medium text-green-800 mb-1">{cutName}</div>
-                  <div className="text-lg font-bold text-green-600">{getShareAmount(baseAmount)}</div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Total amount summary - compact */}
-            <div className="mt-3 text-center bg-green-100 rounded-lg p-3">
-              <p className="text-lg font-bold text-green-700">
-                Total: ~{(Object.values(wholeCowCuts).reduce((a, b) => a + b, 0) * shareFraction).toFixed(1)} lbs per month
-              </p>
-              <p className="text-sm text-green-600 mt-1">
-                Premium grass-fed beef • Hormone-free • Locally sourced
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Share Selection at bottom - more compact */}
-      <div className="w-full max-w-4xl">
-        <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-white/50">
-          <div className="flex items-center justify-between mb-4">
+        {/* Share Selection Slider */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-3">
             <div className="text-left">
-              <p className="text-xl font-bold text-green-600">{shareSize}</p>
+              <p className="text-lg font-bold text-green-600">{shareSize}</p>
               <p className="text-sm text-gray-600">Monthly delivery</p>
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-xl font-bold text-green-600">
                 ${(200 * shareOptions[currentShareIndex]?.priceMultiplier || 200).toFixed(2)}
               </p>
               <p className="text-sm text-gray-600">per month</p>
             </div>
           </div>
           
-          <div className="px-4">
+          <div className="px-2">
             <Slider
               value={[currentShareIndex]}
               onValueChange={handleSliderChange}
@@ -113,13 +86,38 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
               className="w-full h-6"
             />
             
-            <div className="flex justify-between text-sm text-gray-500 mt-3 font-medium">
+            <div className="flex justify-between text-sm text-gray-500 mt-2 font-medium">
               <span>{shareOptions[0]?.label}</span>
               <span className="text-center">Perfect for most families</span>
               <span>{shareOptions[shareOptions.length - 1]?.label}</span>
             </div>
           </div>
         </div>
+
+        {/* Cut Amounts Grid */}
+        {shareFraction > 0 && (
+          <div className="w-full">
+            <h3 className="text-lg font-bold text-green-700 text-center mb-3">Your Monthly Share Breakdown</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {Object.entries(wholeCowCuts).map(([cutName, baseAmount]) => (
+                <div key={cutName} className="bg-green-50 rounded-lg p-3 text-center border border-green-200">
+                  <div className="text-sm font-medium text-green-800 mb-1">{cutName}</div>
+                  <div className="text-base font-bold text-green-600">{getShareAmount(baseAmount)}</div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Total amount summary */}
+            <div className="mt-4 text-center bg-green-100 rounded-lg p-3">
+              <p className="text-base font-bold text-green-700">
+                Total: ~{(Object.values(wholeCowCuts).reduce((a, b) => a + b, 0) * shareFraction).toFixed(1)} lbs per month
+              </p>
+              <p className="text-sm text-green-600 mt-1">
+                Premium grass-fed beef • Hormone-free • Locally sourced
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
