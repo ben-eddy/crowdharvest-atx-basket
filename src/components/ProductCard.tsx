@@ -111,7 +111,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="relative h-32 flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
         {isPecanProduct ? (
           <img 
-            src="/lovable-uploads/723f4ab5-1d19-4853-a03b-a0d3a0451890.png" 
+            src="/lovable-uploads/faf89377-e9a4-40b0-a4d0-0f490c1d824f.png" 
             alt="Pecan" 
             className="w-16 h-16 object-contain"
           />
