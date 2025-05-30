@@ -188,7 +188,7 @@ const Index = () => {
       name: 'Whole Milk',
       category: 'dairy',
       description: 'Fresh, non-homogenized whole milk',
-      price: 6.99,
+      price: 14.00,
       unit: 'gallon',
       image: '/api/placeholder/300/200',
       maxMonthly: 10
