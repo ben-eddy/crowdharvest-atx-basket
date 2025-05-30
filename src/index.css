@@ -17,19 +17,19 @@
     --popover-foreground: 45 80 22;
 
     --primary: 45 80 22;
-    --primary-foreground: 254 252 191;
+    --primary-foreground: 240 253 244;
 
     --secondary: 101 163 13;
     --secondary-foreground: 255 255 255;
 
-    --muted: 245 243 214;
+    --muted: 240 253 244;
     --muted-foreground: 146 64 14;
 
     --accent: 14 165 233;
     --accent-foreground: 255 255 255;
 
     --destructive: 239 68 68;
-    --destructive-foreground: 254 252 191;
+    --destructive-foreground: 240 253 244;
 
     --border: 229 231 235;
     --input: 229 231 235;
