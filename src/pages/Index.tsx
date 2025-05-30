@@ -105,7 +105,7 @@ const Index = () => {
       name: 'Chickens',
       category: 'poultry',
       description: 'Free-range chickens, whole or half birds',
-      price: 6.99,
+      price: 20.00,
       unit: 'chicken',
       image: '/api/placeholder/300/200',
       maxMonthly: 12
