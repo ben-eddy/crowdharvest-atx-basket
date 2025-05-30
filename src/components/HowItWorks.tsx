@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { Calendar, MapPin, ShoppingBag, Clock, Heart, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -237,10 +238,10 @@ const HowItWorks = () => {
         {/* Process Steps */}
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((step, index) => (
-            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300 bg-white">
+            <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300 bg-green-100">
               <CardContent className="p-8">
                 <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-green-200 rounded-full flex items-center justify-center">
                     {step.icon}
                   </div>
                 </div>
@@ -267,3 +268,4 @@ const HowItWorks = () => {
 };
 
 export default HowItWorks;
+
