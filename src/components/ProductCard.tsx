@@ -86,7 +86,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         if (product.name.toLowerCase().includes('watermelon')) return '🍉';
         return '🍓';
       case 'nuts':
-        if (product.name.toLowerCase().includes('pecan') && product.name.toLowerCase().includes('butter')) return '🥜';
+        if (product.name.toLowerCase().includes('pecan') && product.name.toLowerCase().includes('butter')) return null; // Will use image instead
         if (product.name.toLowerCase().includes('pecan')) return null; // Will use image instead
         if (product.name.toLowerCase().includes('walnut')) return '🌰';
         if (product.name.toLowerCase().includes('cashew')) return '🥜';
@@ -103,6 +103,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const isPecanProduct = product.name.toLowerCase().includes('pecan') && !product.name.toLowerCase().includes('butter');
+  const isPecanButterProduct = product.name.toLowerCase().includes('pecan') && product.name.toLowerCase().includes('butter');
   const productSymbol = getProductSymbol();
 
   return (
@@ -113,6 +114,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <img 
             src="/lovable-uploads/faf89377-e9a4-40b0-a4d0-0f490c1d824f.png" 
             alt="Pecan" 
+            className="w-16 h-16 object-contain"
+          />
+        ) : isPecanButterProduct ? (
+          <img 
+            src="/lovable-uploads/f4cfd1f1-ef92-476e-915e-4c3636c19c54.png" 
+            alt="Pecan Butter" 
             className="w-16 h-16 object-contain"
           />
         ) : (
