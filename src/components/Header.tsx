@@ -23,15 +23,21 @@ const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 max-w-2xl">
             <img 
               src="/lovable-uploads/7f0f62f7-f543-4959-8198-e0ce1b9f87e3.png" 
               alt="Local Pickup Box" 
-              className="h-20 w-auto object-contain"
+              className="h-20 w-auto object-contain flex-shrink-0"
             />
-            <h1 className="text-xl font-semibold text-farm-earth">
-              All the Local Farms in One Local Box: Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers, Supporting them Directly with your $$ and Saving you Both Time and Hassle.
-            </h1>
+            <div className="text-farm-earth">
+              <h1 className="text-lg font-bold leading-tight">
+                All the Local Farms in One Local Box
+              </h1>
+              <p className="text-sm font-medium mt-1 leading-tight">
+                Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers,<br />
+                Supporting them Directly with your $$ and Saving you Both Time and Hassle.
+              </p>
+            </div>
           </div>
 
           {/* Controls */}
