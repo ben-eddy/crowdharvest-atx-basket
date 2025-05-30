@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Calendar, MapPin, ShoppingBag, Clock, Heart, Users } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -116,7 +115,7 @@ const HowItWorks = () => {
                 {/* Price badge */}
                 <div className="absolute -top-4 -right-4 bg-farm-green text-white px-4 py-2 rounded-full shadow-lg">
                   <p className="font-bold">$384</p>
-                  <p className="text-xs">30 meals</p>
+                  <p className="text-xs">45 meals</p>
                 </div>
               </div>
             </div>
