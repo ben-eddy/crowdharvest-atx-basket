@@ -177,34 +177,46 @@
     }
     
     /* Mobile category grid improvements */
-    .grid-cols-2 > button {
+    .grid-cols-3 > button {
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 4px;
+      padding: 0.5rem !important;
+      min-height: 40px;
     }
     
     /* Improve category button touch targets */
-    .grid-cols-2 > button {
-      margin-bottom: 8px;
-      border-radius: 8px;
+    .grid-cols-3 > button {
+      border-radius: 6px;
       transition: background-color 0.2s ease;
     }
     
     /* Add active state for better feedback on touch */
-    .grid-cols-2 > button:active {
+    .grid-cols-3 > button:active {
       opacity: 0.8;
       transform: scale(0.98);
     }
     
     /* Ensure category text is readable */
-    .grid-cols-2 > button span {
+    .grid-cols-3 > button span {
       text-align: center;
       word-break: break-word;
       hyphens: auto;
       max-width: 100%;
+    }
+    
+    .grid-cols-3 > button span:first-child {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+    }
+    
+    .grid-cols-3 > button span:last-child {
+      font-size: 0.65rem;
+      line-height: 1.1;
     }
     
     /* Optimize header spacing */

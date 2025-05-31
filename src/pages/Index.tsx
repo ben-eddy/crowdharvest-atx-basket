@@ -120,21 +120,21 @@ const Index = () => {
           <div className="flex-1 flex flex-col md:flex-row">
             {/* Product Grid or Categories Content */}
             <div className="flex-1 px-4 md:px-6 py-4">
-              <div className="md:hidden mb-4">
-                <h3 className="text-lg font-semibold text-farm-green mb-3">Categories</h3>
-                <div className="grid grid-cols-2 gap-2">
+              <div className="md:hidden mb-3">
+                <h3 className="text-lg font-semibold text-farm-green mb-2">Categories</h3>
+                <div className="grid grid-cols-3 gap-1">
                   {categories.map((category) => (
                     <button
                       key={category.id}
                       onClick={() => setSelectedCategory(category.id)}
-                      className={`flex flex-col items-center justify-center p-3 rounded-lg text-center transition-all h-20 ${
+                      className={`flex flex-col items-center justify-center p-2 rounded-lg text-center transition-all h-16 ${
                         selectedCategory === category.id
                           ? 'bg-farm-lightgreen text-white'
                           : 'bg-white hover:bg-green-50 text-farm-green border border-green-100'
                       }`}
                     >
-                      <span className="text-2xl mb-1">{category.icon}</span>
-                      <span className="font-medium text-sm">{category.name}</span>
+                      <span className="text-xl mb-0.5">{category.icon}</span>
+                      <span className="font-medium text-xs">{category.name}</span>
                     </button>
                   ))}
                 </div>
