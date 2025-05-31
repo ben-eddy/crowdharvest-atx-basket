@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ProductGrid from '@/components/ProductGrid';
 import BeefCutsDiagram from '@/components/BeefCutsDiagram';
@@ -8,19 +9,28 @@ import { useIsMobile } from '@/hooks/use-mobile';
 interface Product {
   id: string;
   name: string;
+  category: string;
   description: string;
   price: number;
   unit: string;
-  category: string;
   image: string;
-  shareOptions?: { label: string; priceMultiplier: number }[];
+  maxMonthly: number;
+  shareOptions?: Array<{
+    value: number;
+    label: string;
+    priceMultiplier: number;
+  }>;
 }
 
 interface Farmer {
   id: string;
   name: string;
-  bio: string;
+  location: string;
+  description: string;
+  specialties: string[];
   image: string;
+  certifications: string[];
+  bio: string;
   products: Product[];
 }
 
@@ -117,6 +127,8 @@ const CategoryContent: React.FC<CategoryContentProps> = ({
             </h2>
             <ProductGrid 
               products={categoryProducts}
+              farmers={farmers}
+              categoryName={currentCategory?.name || selectedCategory}
               previewQuantities={previewQuantities}
               cart={cart}
               onPreviewQuantityChange={onPreviewQuantityChange}
@@ -132,8 +144,8 @@ const CategoryContent: React.FC<CategoryContentProps> = ({
               Featured Farmers
             </h2>
             <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
-              {categoryFarmers.map((farmer, index) => (
-                <FarmerInfo key={index} farmer={farmer} />
+              {categoryFarmers.map((farmer) => (
+                <FarmerInfo key={farmer.id} farmer={farmer} />
               ))}
             </div>
           </div>

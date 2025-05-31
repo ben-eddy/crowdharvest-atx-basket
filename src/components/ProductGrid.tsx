@@ -1,7 +1,6 @@
 
 import React from 'react';
 import ProductCard from './ProductCard';
-import FarmerInfo from './FarmerInfo';
 
 interface Product {
   id: string;
@@ -49,30 +48,17 @@ const ProductGrid: React.FC<ProductGridProps> = ({
   onAddToCart
 }) => {
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-farm-green mb-4">
-          Choose Your Monthly {categoryName}
-        </h2>
-        <p className="text-farm-earth mb-6">
-          Use the sliders to select how much you'd like each month. You can adjust anytime.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              quantity={previewQuantities[product.id] || 0}
-              onQuantityChange={onPreviewQuantityChange}
-              onAddToCart={() => onAddToCart(product.id)}
-              isInCart={cart[product.id]?.quantity > 0}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Farmer Information */}
-      <FarmerInfo farmers={farmers} />
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      {products.map((product) => (
+        <ProductCard
+          key={product.id}
+          product={product}
+          quantity={previewQuantities[product.id] || 0}
+          onQuantityChange={onPreviewQuantityChange}
+          onAddToCart={() => onAddToCart(product.id)}
+          isInCart={cart[product.id]?.quantity > 0}
+        />
+      ))}
     </div>
   );
 };
