@@ -121,20 +121,20 @@ const Index = () => {
             {/* Product Grid or Categories Content */}
             <div className="flex-1 px-4 md:px-6 py-4">
               <div className="md:hidden mb-4">
-                <h3 className="text-lg font-semibold text-farm-green mb-2">Categories</h3>
-                <div className="flex overflow-x-auto pb-2 space-x-2">
+                <h3 className="text-lg font-semibold text-farm-green mb-3">Categories</h3>
+                <div className="grid grid-cols-2 gap-2">
                   {categories.map((category) => (
                     <button
                       key={category.id}
                       onClick={() => setSelectedCategory(category.id)}
-                      className={`whitespace-nowrap flex items-center space-x-2 p-2 rounded-lg text-left transition-all ${
+                      className={`flex flex-col items-center justify-center p-3 rounded-lg text-center transition-all h-20 ${
                         selectedCategory === category.id
                           ? 'bg-farm-lightgreen text-white'
-                          : 'bg-white hover:bg-green-50 text-farm-green'
+                          : 'bg-white hover:bg-green-50 text-farm-green border border-green-100'
                       }`}
                     >
-                      <span className="text-xl">{category.icon}</span>
-                      <span className="font-medium">{category.name}</span>
+                      <span className="text-2xl mb-1">{category.icon}</span>
+                      <span className="font-medium text-sm">{category.name}</span>
                     </button>
                   ))}
                 </div>
