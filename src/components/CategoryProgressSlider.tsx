@@ -22,7 +22,7 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
   const isMobile = useIsMobile();
   const totalSubscribers = 128;
   
-  // Sample data with emoji representations
+  // Sample data without emoji representations
   const sampleCategories = [
     {
       category: 'Beef',
@@ -123,31 +123,6 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
     return sum + (category.currentAmount * 15); // Assuming average $15 per unit
   }, 0);
 
-  const renderEmojiVisual = (category: any) => {
-    // Adjust max display based on screen size
-    const maxDisplay = isMobile ? 8 : 15;
-    const displayCount = Math.min(category.currentAmount, maxDisplay);
-    const emojis = Array(displayCount).fill(category.emoji);
-    
-    return (
-      <div className="flex flex-wrap justify-center gap-0.5 sm:gap-1 mb-2 sm:mb-3">
-        {emojis.map((emoji, index) => (
-          <span key={index} className="text-xs sm:text-lg">{emoji}</span>
-        ))}
-        {category.currentAmount > maxDisplay && (
-          <span className="text-xs text-gray-600 ml-1 sm:ml-2">
-            +{category.currentAmount - maxDisplay} more
-          </span>
-        )}
-        <div className="w-full text-center mt-1 sm:mt-2">
-          <span className="text-xs font-semibold text-green-700">
-            {category.currentAmount} {category.unit} sold
-          </span>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <section className="bg-gradient-to-br from-green-50 to-blue-50 py-4 sm:py-12">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
@@ -160,7 +135,7 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
               </div>
             </div>
             <h2 className="text-lg sm:text-3xl font-bold text-farm-green mb-1 sm:mb-2">
-              {totalSubscribers} Austin Subscribers Strong! 🎉
+              {totalSubscribers} Austin Subscribers Strong!
             </h2>
             <p className="text-xs sm:text-lg text-farm-earth mb-2 sm:mb-4">
               {isMobile ? 'Committed to buying local monthly' : 'Our community is committed to buying this much from local farms every month'}
@@ -174,7 +149,7 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
           </div>
         </div>
 
-        {/* Visual Category Grid - Optimized for mobile */}
+        {/* Category Grid - Clean design without emojis */}
         <div className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'} gap-2 sm:gap-6`}>
           {categories.map((category) => {
             const percentage = Math.min((category.currentAmount / category.targetAmount) * 100, 100);
@@ -183,22 +158,20 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
 
             return (
               <div key={category.category} className="bg-white rounded-lg shadow-lg border border-green-100 overflow-hidden transform hover:scale-105 transition-transform duration-300">
-                {/* Header with icon and stats */}
+                {/* Header with category name and stats */}
                 <div className="bg-gradient-to-r from-green-500 to-blue-500 p-2 sm:p-4 text-white">
                   <div className="flex items-center justify-between mb-1 sm:mb-2">
-                    <span className="text-lg sm:text-3xl">{category.icon}</span>
+                    <h3 className="font-bold text-xs sm:text-lg">{category.category}</h3>
                     <div className="text-right">
                       <div className="text-xs sm:text-lg font-bold">{subscribersForThis}</div>
                       <div className="text-xs opacity-90">{isMobile ? 'subs' : 'subscribers'}</div>
                     </div>
                   </div>
-                  <h3 className="font-bold text-xs sm:text-lg">{category.category}</h3>
                 </div>
 
-                {/* Emoji Visual Display */}
+                {/* Content without emoji display */}
                 <div className="p-2 sm:p-4">
-                  {renderEmojiVisual(category)}
-                  
+                  {/* Progress section */}
                   <div className="mb-2 sm:mb-3">
                     <div className="flex justify-between text-xs mb-1">
                       <span className="font-medium text-farm-green">Progress</span>
@@ -235,11 +208,11 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
           })}
         </div>
 
-        {/* Community Impact Banner - Mobile optimized */}
+        {/* Community Impact Banner */}
         <div className="mt-4 sm:mt-8 bg-white rounded-lg shadow-lg p-3 sm:p-6 border border-green-200">
           <div className="text-center">
             <h3 className="text-base sm:text-xl font-bold text-farm-green mb-2">
-              💡 Community Impact
+              Community Impact
             </h3>
             <p className="text-xs sm:text-base text-farm-earth mb-2 sm:mb-4">
               {isMobile ? 'Supporting local Austin farms!' : 'Our 128 subscribers are supporting local Austin farms with guaranteed monthly purchases!'}
@@ -259,7 +232,7 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
               </div>
             </div>
             <p className="text-xs text-farm-earth mt-2 sm:mt-4">
-              <strong>Spread the word!</strong> {isMobile ? 'Share & earn $25' : 'Share your referral link and earn $25 when friends join our community'} 🎉
+              <strong>Spread the word!</strong> {isMobile ? 'Share & earn $25' : 'Share your referral link and earn $25 when friends join our community'}
             </p>
           </div>
         </div>
