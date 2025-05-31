@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
 import OrderSummary from '@/components/OrderSummary';
+import MobileCartButton from '@/components/MobileCartButton';
 import CategoryProgressSlider from '@/components/CategoryProgressSlider';
 import Footer from '@/components/Footer';
 import HowItWorks from '@/components/HowItWorks';
@@ -130,7 +130,7 @@ const Index = () => {
               />
             </div>
 
-            {/* Order Summary */}
+            {/* Order Summary - hidden on mobile */}
             <OrderSummary
               cartItems={cartItems}
               pickupLocation={pickupLocation}
@@ -140,6 +140,15 @@ const Index = () => {
             />
           </div>
         </div>
+
+        {/* Mobile Cart Button - only shows on mobile */}
+        <MobileCartButton
+          cartItems={cartItems}
+          pickupLocation={pickupLocation}
+          setPickupLocation={setPickupLocation}
+          frequency={frequency}
+          nextBillingDate={nextBillingDate}
+        />
 
         {/* Community Buy Progress - above How It Works */}
         <div className="bg-white border-t border-green-100 py-6">

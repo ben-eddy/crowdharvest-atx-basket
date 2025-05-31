@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { ShoppingCart, MapPin, Calendar, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface CartItem {
   productId: string;
@@ -29,6 +29,11 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   frequency,
   nextBillingDate
 }) => {
+  const isMobile = useIsMobile();
+  
+  // Hide on mobile - the MobileCartButton will handle cart functionality
+  if (isMobile) return null;
+
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const deliveryFee = 5.99;
   const total = subtotal + deliveryFee;
