@@ -5,10 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const SupportSection = () => {
   const [message, setMessage] = useState('');
   const [category, setCategory] = useState('');
+  const isMobile = useIsMobile();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,37 +49,48 @@ const SupportSection = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Contact Methods */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className={`grid grid-cols-1 ${isMobile ? 'gap-3' : 'md:grid-cols-3 gap-4'}`}>
         <Card>
-          <CardContent className="pt-6 text-center">
-            <MessageSquare className="w-8 h-8 text-farm-green mx-auto mb-3" />
-            <h3 className="font-semibold mb-2">Live Chat</h3>
-            <p className="text-sm text-gray-600 mb-3">Available Mon-Fri 9AM-6PM</p>
-            <Button size="sm" className="bg-farm-green hover:bg-farm-green/90">
+          <CardContent className="pt-4 sm:pt-6 text-center">
+            <MessageSquare className="w-6 h-6 sm:w-8 sm:h-8 text-farm-green mx-auto mb-2 sm:mb-3" />
+            <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Live Chat</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">Available Mon-Fri 9AM-6PM</p>
+            <Button 
+              size={isMobile ? "sm" : "default"} 
+              className="bg-farm-green hover:bg-farm-green/90 text-xs sm:text-sm"
+            >
               Start Chat
             </Button>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6 text-center">
-            <Phone className="w-8 h-8 text-farm-green mx-auto mb-3" />
-            <h3 className="font-semibold mb-2">Phone Support</h3>
-            <p className="text-sm text-gray-600 mb-3">(512) 555-FARM</p>
-            <Button variant="outline" size="sm">
+          <CardContent className="pt-4 sm:pt-6 text-center">
+            <Phone className="w-6 h-6 sm:w-8 sm:h-8 text-farm-green mx-auto mb-2 sm:mb-3" />
+            <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Phone Support</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">(512) 555-FARM</p>
+            <Button 
+              variant="outline" 
+              size={isMobile ? "sm" : "default"}
+              className="text-xs sm:text-sm"
+            >
               Call Now
             </Button>
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="pt-6 text-center">
-            <Mail className="w-8 h-8 text-farm-green mx-auto mb-3" />
-            <h3 className="font-semibold mb-2">Email Support</h3>
-            <p className="text-sm text-gray-600 mb-3">support@localpickupbox.com</p>
-            <Button variant="outline" size="sm">
+          <CardContent className="pt-4 sm:pt-6 text-center">
+            <Mail className="w-6 h-6 sm:w-8 sm:h-8 text-farm-green mx-auto mb-2 sm:mb-3" />
+            <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Email Support</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">support@localpickupbox.com</p>
+            <Button 
+              variant="outline" 
+              size={isMobile ? "sm" : "default"}
+              className="text-xs sm:text-sm"
+            >
               Send Email
             </Button>
           </CardContent>
@@ -87,7 +100,7 @@ const SupportSection = () => {
       {/* Support Form */}
       <Card>
         <CardHeader>
-          <CardTitle>Send Us a Message</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Send Us a Message</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -113,7 +126,8 @@ const SupportSection = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="How can we help you today?"
-                rows={4}
+                rows={isMobile ? 3 : 4}
+                className="text-sm"
               />
             </div>
 
@@ -121,6 +135,7 @@ const SupportSection = () => {
               type="submit" 
               className="bg-farm-green hover:bg-farm-green/90"
               disabled={!category || !message}
+              size={isMobile ? "sm" : "default"}
             >
               <Send className="w-4 h-4 mr-2" />
               Send Message
@@ -132,14 +147,14 @@ const SupportSection = () => {
       {/* FAQ Section */}
       <Card>
         <CardHeader>
-          <CardTitle>Frequently Asked Questions</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Frequently Asked Questions</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="border-b border-gray-100 pb-4 last:border-b-0">
-                <h4 className="font-medium text-farm-green mb-2">{faq.question}</h4>
-                <p className="text-sm text-gray-600">{faq.answer}</p>
+              <div key={index} className="border-b border-gray-100 pb-3 sm:pb-4 last:border-b-0">
+                <h4 className="font-medium text-farm-green mb-1 sm:mb-2 text-sm sm:text-base">{faq.question}</h4>
+                <p className="text-xs sm:text-sm text-gray-600">{faq.answer}</p>
               </div>
             ))}
           </div>

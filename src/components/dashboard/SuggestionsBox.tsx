@@ -5,10 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const SuggestionsBox = () => {
   const [suggestion, setSuggestion] = useState('');
   const [category, setCategory] = useState('');
+  const isMobile = useIsMobile();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,12 +70,12 @@ const SuggestionsBox = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Submit Suggestion */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            <Lightbulb className="w-5 h-5 text-farm-green" />
+          <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
+            <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-farm-green" />
             <span>Share Your Ideas</span>
           </CardTitle>
         </CardHeader>
@@ -101,7 +103,8 @@ const SuggestionsBox = () => {
                 value={suggestion}
                 onChange={(e) => setSuggestion(e.target.value)}
                 placeholder="Tell us your idea to improve Local Pickup Box..."
-                rows={4}
+                rows={isMobile ? 3 : 4}
+                className="text-sm"
               />
             </div>
 
@@ -109,6 +112,7 @@ const SuggestionsBox = () => {
               type="submit" 
               className="bg-farm-green hover:bg-farm-green/90"
               disabled={!category || !suggestion}
+              size={isMobile ? "sm" : "default"}
             >
               <Send className="w-4 h-4 mr-2" />
               Submit Suggestion
@@ -120,30 +124,32 @@ const SuggestionsBox = () => {
       {/* Community Suggestions */}
       <Card>
         <CardHeader>
-          <CardTitle>Community Suggestions</CardTitle>
-          <p className="text-sm text-gray-600">See what other customers are suggesting and vote on ideas you like!</p>
+          <CardTitle className="text-lg sm:text-xl">Community Suggestions</CardTitle>
+          <p className="text-xs sm:text-sm text-gray-600">
+            {isMobile ? 'See and vote on community ideas!' : 'See what other customers are suggesting and vote on ideas you like!'}
+          </p>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {recentSuggestions.map((item) => (
-              <div key={item.id} className="border rounded-lg p-4">
+              <div key={item.id} className="border rounded-lg p-3 sm:p-4">
                 <div className="flex justify-between items-start mb-2">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(item.status)}`}>
                     {item.status}
                   </span>
-                  <span className="text-sm text-gray-500">{item.category}</span>
+                  <span className="text-xs sm:text-sm text-gray-500">{item.category}</span>
                 </div>
                 
-                <p className="text-gray-800 mb-3">{item.text}</p>
+                <p className="text-xs sm:text-sm text-gray-800 mb-3">{item.text}</p>
                 
-                <div className="flex items-center space-x-4">
-                  <Button variant="outline" size="sm">
-                    <ThumbsUp className="w-4 h-4 mr-2" />
+                <div className={`flex items-center ${isMobile ? 'space-x-2' : 'space-x-4'}`}>
+                  <Button variant="outline" size="sm" className="text-xs">
+                    <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                     {item.votes}
                   </Button>
-                  <Button variant="ghost" size="sm">
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    Comment
+                  <Button variant="ghost" size="sm" className="text-xs">
+                    <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    {isMobile ? '' : 'Comment'}
                   </Button>
                 </div>
               </div>
@@ -155,10 +161,10 @@ const SuggestionsBox = () => {
       {/* Suggestion Guidelines */}
       <Card>
         <CardHeader>
-          <CardTitle>Suggestion Guidelines</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">Suggestion Guidelines</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-2 text-sm text-gray-600">
+          <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-600">
             <p>• Be specific and detailed in your suggestions</p>
             <p>• Check existing suggestions before submitting duplicates</p>
             <p>• Vote on suggestions you'd like to see implemented</p>
