@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Progress } from '@/components/ui/progress';
 import { Users, TrendingUp } from 'lucide-react';
@@ -171,10 +170,10 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
 
                 {/* Content without emoji display */}
                 <div className="p-2 sm:p-4">
-                  {/* Progress section */}
+                  {/* Supply section */}
                   <div className="mb-2 sm:mb-3">
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="font-medium text-farm-green">Progress</span>
+                      <span className="font-medium text-farm-green">Supply</span>
                       <span className="text-farm-earth">{Math.round(percentage)}%</span>
                     </div>
                     <Progress value={percentage} className="h-1.5 sm:h-3" />
