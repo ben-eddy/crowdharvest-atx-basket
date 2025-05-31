@@ -1,10 +1,7 @@
-
 import React from 'react';
-import ProductGrid from '@/components/ProductGrid';
-import BeefCutsDiagram from '@/components/BeefCutsDiagram';
-import LambCutsDiagram from '@/components/LambCutsDiagram';
-import FarmerInfo from '@/components/FarmerInfo';
-import { useIsMobile } from '@/hooks/use-mobile';
+import ProductGrid from './ProductGrid';
+import BeefCutsDiagram from './BeefCutsDiagram';
+import LambCutsDiagram from './LambCutsDiagram';
 
 interface Product {
   id: string;
@@ -30,16 +27,13 @@ interface Farmer {
   specialties: string[];
   image: string;
   certifications: string[];
-  bio: string;
-  products: Product[];
 }
 
 interface Category {
   id: string;
   name: string;
-  icon: React.ComponentType<any>;
-  color: string;
-  progress: number;
+  icon: string;
+  count: number;
 }
 
 interface CategoryContentProps {
@@ -47,8 +41,8 @@ interface CategoryContentProps {
   products: Product[];
   farmers: Farmer[];
   categories: Category[];
-  previewQuantities: { [productId: string]: number };
-  cart: { [productId: string]: { quantity: number } };
+  previewQuantities: {[productId: string]: number};
+  cart: {[productId: string]: { quantity: number }};
   onPreviewQuantityChange: (productId: string, quantity: number) => void;
   onAddToCart: (productId: string) => void;
   onAddBeefToCart: () => void;
@@ -67,91 +61,71 @@ const CategoryContent: React.FC<CategoryContentProps> = ({
   onAddBeefToCart,
   onAddLambToCart
 }) => {
-  const isMobile = useIsMobile();
-  const currentCategory = categories.find(cat => cat.id === selectedCategory);
-  const categoryProducts = products.filter(product => product.category === selectedCategory);
-  const categoryFarmers = farmers.filter(farmer => 
-    farmer.products.some(product => product.category === selectedCategory)
-  );
+  const filteredProducts = products.filter(product => product.category === selectedCategory);
+  const categoryName = categories.find(c => c.id === selectedCategory)?.name || "";
+  
+  // Find beef share product and current selection
+  const beefShareProduct = products.find(p => p.id === 'beef-shares');
+  const beefPreviewQuantity = previewQuantities['beef-shares'] || 0;
+  const isBeefInCart = cart['beef-shares']?.quantity > 0;
+  
+  const lambShareProduct = products.find(p => p.id === 'lamb-shares');
+  const lambPreviewQuantity = previewQuantities['lamb-shares'] || 0;
+  const isLambInCart = cart['lamb-shares']?.quantity > 0;
 
+  if (selectedCategory === 'beef' && beefShareProduct) {
+    return (
+      <BeefCutsDiagram
+        shareSize={beefShareProduct.shareOptions?.[beefPreviewQuantity]?.label || beefShareProduct.shareOptions?.[0]?.label || '1/40 share'}
+        shareFraction={{
+          '1/40 share': 1/40,
+          '1/30 share': 1/30,
+          '1/20 share': 1/20,
+          '1/15 share': 1/15,
+          '1/10 share': 1/10,
+          '1/8 share': 1/8,
+          '1/6 share': 1/6,
+          '1/4 share': 1/4
+        }[beefShareProduct.shareOptions?.[beefPreviewQuantity]?.label || '1/40 share'] || 1/40}
+        onShareChange={(value) => onPreviewQuantityChange('beef-shares', value)}
+        currentShareIndex={beefPreviewQuantity}
+        shareOptions={beefShareProduct.shareOptions || []}
+        onAddToCart={onAddBeefToCart}
+        isInCart={isBeefInCart}
+      />
+    );
+  } 
+  
+  if (selectedCategory === 'lamb' && lambShareProduct) {
+    return (
+      <LambCutsDiagram
+        shareSize={lambShareProduct.shareOptions?.[lambPreviewQuantity]?.label || lambShareProduct.shareOptions?.[0]?.label || '1/8 share'}
+        shareFraction={{
+          '1/8 share': 1/8,
+          '1/6 share': 1/6,
+          '1/4 share': 1/4,
+          '1/2 share': 1/2
+        }[lambShareProduct.shareOptions?.[lambPreviewQuantity]?.label || '1/8 share'] || 1/8}
+        onShareChange={(value) => onPreviewQuantityChange('lamb-shares', value)}
+        currentShareIndex={lambPreviewQuantity}
+        shareOptions={lambShareProduct.shareOptions || []}
+        onAddToCart={onAddLambToCart}
+        isInCart={isLambInCart}
+      />
+    );
+  }
+  
+  // For all other categories, show the regular product grid
   return (
-    <div className={`${isMobile ? 'h-full flex flex-col' : 'p-6'}`}>
-      {/* Category Header */}
-      <div className={`${isMobile ? 'p-4 pb-2' : 'mb-6'}`}>
-        <div className="flex items-center space-x-3 mb-2">
-          {currentCategory && (
-            <>
-              <currentCategory.icon className="w-6 h-6 text-farm-lightgreen" />
-              <h1 className="text-2xl font-bold text-farm-green">{currentCategory.name}</h1>
-            </>
-          )}
-        </div>
-        <p className={`text-gray-600 ${isMobile ? 'text-sm' : ''}`}>
-          {selectedCategory === 'beef' && 'Premium grass-fed beef from local ranches'}
-          {selectedCategory === 'lamb' && 'Pasture-raised lamb from heritage breeds'}
-          {selectedCategory === 'seafood' && 'Fresh, sustainable seafood from Gulf waters'}
-          {selectedCategory === 'produce' && 'Seasonal fruits and vegetables from local farms'}
-          {selectedCategory === 'dairy' && 'Fresh dairy products from local creameries'}
-          {selectedCategory === 'pantry' && 'Artisanal pantry staples and preserves'}
-        </p>
-      </div>
-
-      {/* Scrollable Content Area */}
-      <div className={`${isMobile ? 'flex-1 overflow-auto px-4' : ''}`}>
-        {/* Special sections for beef and lamb */}
-        {selectedCategory === 'beef' && (
-          <div className={`${isMobile ? 'mb-4' : 'mb-8'}`}>
-            <BeefCutsDiagram 
-              onAddToCart={onAddBeefToCart}
-              previewQuantities={previewQuantities}
-              onPreviewQuantityChange={onPreviewQuantityChange}
-            />
-          </div>
-        )}
-
-        {selectedCategory === 'lamb' && (
-          <div className={`${isMobile ? 'mb-4' : 'mb-8'}`}>
-            <LambCutsDiagram 
-              onAddToCart={onAddLambToCart}
-              previewQuantities={previewQuantities}
-              onPreviewQuantityChange={onPreviewQuantityChange}
-            />
-          </div>
-        )}
-
-        {/* Products Grid */}
-        {categoryProducts.length > 0 && (
-          <div className={`${isMobile ? 'mb-4' : 'mb-8'}`}>
-            <h2 className={`font-semibold text-farm-green mb-4 ${isMobile ? 'text-lg' : 'text-xl'}`}>
-              Available Products
-            </h2>
-            <ProductGrid 
-              products={categoryProducts}
-              farmers={farmers}
-              categoryName={currentCategory?.name || selectedCategory}
-              previewQuantities={previewQuantities}
-              cart={cart}
-              onPreviewQuantityChange={onPreviewQuantityChange}
-              onAddToCart={onAddToCart}
-            />
-          </div>
-        )}
-
-        {/* Farmer Information */}
-        {categoryFarmers.length > 0 && (
-          <div className={`${isMobile ? 'mb-20' : ''}`}>
-            <h2 className={`font-semibold text-farm-green mb-4 ${isMobile ? 'text-lg' : 'text-xl'}`}>
-              Featured Farmers
-            </h2>
-            <div className={`grid gap-6 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
-              {categoryFarmers.map((farmer) => (
-                <FarmerInfo key={farmer.id} farmer={farmer} />
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+    <ProductGrid
+      products={filteredProducts}
+      farmers={farmers}
+      categoryName={categoryName}
+      previewQuantities={previewQuantities}
+      cart={cart}
+      onPreviewQuantityChange={onPreviewQuantityChange}
+      onAddToCart={onAddToCart}
+    />
   );
 };
 

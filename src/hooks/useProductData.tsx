@@ -1,13 +1,12 @@
+
 import { useState } from 'react';
-import { Beef, Fish, Wheat, Apple, Milk, Egg } from 'lucide-react';
 
 // Define all product-related interfaces
 interface Category {
   id: string;
   name: string;
-  icon: React.ComponentType<any>;
-  color: string;
-  progress: number;
+  icon: string;
+  count: number;
 }
 
 interface CategoryProgress {
@@ -44,23 +43,21 @@ interface Farmer {
   specialties: string[];
   image: string;
   certifications: string[];
-  bio: string;
-  products: Product[];
 }
 
 export const useProductData = () => {
-  // Categories - restored all original categories with proper icons
+  // Categories
   const [categories] = useState<Category[]>([
-    { id: 'beef', name: 'Beef', icon: Beef, color: 'bg-red-500', progress: 75 },
-    { id: 'lamb', name: 'Lamb', icon: Beef, color: 'bg-purple-500', progress: 60 },
-    { id: 'poultry', name: 'Poultry', icon: Beef, color: 'bg-yellow-500', progress: 80 },
-    { id: 'vegetables', name: 'Vegetables', icon: Apple, color: 'bg-green-500', progress: 90 },
-    { id: 'eggs', name: 'Eggs', icon: Egg, color: 'bg-orange-500', progress: 85 },
-    { id: 'dairy', name: 'Dairy', icon: Milk, color: 'bg-blue-500', progress: 70 },
-    { id: 'fruit', name: 'Fruit', icon: Apple, color: 'bg-pink-500', progress: 65 },
-    { id: 'nuts', name: 'Nuts & Seeds', icon: Wheat, color: 'bg-amber-500', progress: 50 },
-    { id: 'bread', name: 'Bread', icon: Wheat, color: 'bg-amber-700', progress: 55 },
-    { id: 'honey', name: 'Honey', icon: Wheat, color: 'bg-yellow-600', progress: 40 }
+    { id: 'beef', name: 'Beef', icon: '🐄', count: 1 },
+    { id: 'lamb', name: 'Lamb', icon: '🐑', count: 1 },
+    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 2 },
+    { id: 'vegetables', name: 'Vegetables', icon: '🥕', count: 6 },
+    { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
+    { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
+    { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 },
+    { id: 'nuts', name: 'Nuts & Seeds', icon: '🥜', count: 4 },
+    { id: 'bread', name: 'Bread', icon: '🍞', count: 2 },
+    { id: 'honey', name: 'Honey', icon: '🍯', count: 2 }
   ]);
 
   // Category Progress
@@ -157,7 +154,7 @@ export const useProductData = () => {
     }
   ]);
 
-  // Products - fixed lamb share calculations
+  // Products
   const [products] = useState<Product[]>([
     // Beef - now using shares
     {
@@ -180,7 +177,7 @@ export const useProductData = () => {
         { value: 7, label: '1/4 share', priceMultiplier: 90 }       // 90 lbs * $14 = $1260
       ]
     },
-    // Lamb - fixed with correct share amounts that match the diagram
+    // Lamb - using shares with accurate weights and new image
     {
       id: 'lamb-shares',
       name: 'Lamb Shares',
@@ -192,7 +189,7 @@ export const useProductData = () => {
       maxMonthly: 3, // 0-3 index for share options (1/8, 1/6, 1/4, 1/2)
       shareOptions: [
         { value: 0, label: '1/8 share', priceMultiplier: 5 },       // 5 lbs * $18 = $90
-        { value: 1, label: '1/6 share', priceMultiplier: 7 },       // 7 lbs * $18 = $126
+        { value: 1, label: '1/6 share', priceMultiplier: 7 },       // 6-7 lbs * $18 = $126
         { value: 2, label: '1/4 share', priceMultiplier: 10 },      // 10 lbs * $18 = $180
         { value: 3, label: '1/2 share', priceMultiplier: 20 }       // 20 lbs * $18 = $360
       ]
@@ -424,33 +421,27 @@ export const useProductData = () => {
       name: 'Circle S Ranch',
       location: 'Bastrop, TX',
       description: 'Family-owned ranch specializing in grass-fed beef. We rotate our cattle through native Texas pastures, ensuring the healthiest animals and most sustainable practices.',
-      bio: 'Family-owned ranch specializing in grass-fed beef. We rotate our cattle through native Texas pastures, ensuring the healthiest animals and most sustainable practices.',
       specialties: ['Grass-Fed Beef', 'Rotational Grazing', 'Hormone-Free'],
       image: '/api/placeholder/60/60',
-      certifications: ['Certified Naturally Grown', 'Texas Organic'],
-      products: products.filter(p => p.category === 'beef')
+      certifications: ['Certified Naturally Grown', 'Texas Organic']
     },
     {
       id: 'hill-country',
       name: 'Hill Country Poultry',
       location: 'Dripping Springs, TX',
       description: 'Raising heritage breed chickens on pasture with mobile coops. Our birds live natural lives with access to fresh grass and insects.',
-      bio: 'Raising heritage breed chickens on pasture with mobile coops. Our birds live natural lives with access to fresh grass and insects.',
       specialties: ['Heritage Breeds', 'Pasture-Raised', 'Mobile Coops'],
       image: '/api/placeholder/60/60',
-      certifications: ['Animal Welfare Approved', 'Certified Humane'],
-      products: products.filter(p => p.category === 'poultry')
+      certifications: ['Animal Welfare Approved', 'Certified Humane']
     },
     {
       id: 'sunshine-dairy',
       name: 'Sunshine Dairy',
       location: 'Georgetown, TX',
       description: 'Small-scale dairy focusing on Jersey cows and artisan cheese making. Our cows graze on organic pastures year-round.',
-      bio: 'Small-scale dairy focusing on Jersey cows and artisan cheese making. Our cows graze on organic pastures year-round.',
       specialties: ['Jersey Cows', 'Artisan Cheese', 'Raw Milk'],
       image: '/api/placeholder/60/60',
-      certifications: ['USDA Organic', 'Texas Department of Health'],
-      products: products.filter(p => p.category === 'dairy')
+      certifications: ['USDA Organic', 'Texas Department of Health']
     }
   ]);
 

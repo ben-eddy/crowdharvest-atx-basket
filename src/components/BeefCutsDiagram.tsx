@@ -1,35 +1,26 @@
-
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 
 interface BeefCutsDiagramProps {
+  shareSize: string;
+  shareFraction: number;
+  onShareChange: (value: number) => void;
+  currentShareIndex: number;
+  shareOptions: { value: number; label: string; priceMultiplier: number }[];
   onAddToCart: () => void;
-  previewQuantities: { [productId: string]: number };
-  onPreviewQuantityChange: (productId: string, quantity: number) => void;
+  isInCart: boolean;
 }
 
 const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({ 
+  shareSize, 
+  shareFraction, 
+  onShareChange, 
+  currentShareIndex,
+  shareOptions,
   onAddToCart,
-  previewQuantities,
-  onPreviewQuantityChange
+  isInCart
 }) => {
-  // Share options for beef
-  const shareOptions = [
-    { value: 0, label: '1/40 share', priceMultiplier: 9 },
-    { value: 1, label: '1/30 share', priceMultiplier: 12 },
-    { value: 2, label: '1/20 share', priceMultiplier: 18 },
-    { value: 3, label: '1/15 share', priceMultiplier: 24 },
-    { value: 4, label: '1/10 share', priceMultiplier: 36 },
-    { value: 5, label: '1/8 share', priceMultiplier: 45 },
-    { value: 6, label: '1/6 share', priceMultiplier: 60 },
-    { value: 7, label: '1/4 share', priceMultiplier: 90 }
-  ];
-
-  const currentShareIndex = previewQuantities['beef-shares'] || 0;
-  const currentShare = shareOptions[currentShareIndex];
-  const shareFraction = currentShare.priceMultiplier / (360 / 14); // Convert to fraction of whole cow
-  
   // Base amounts for a whole cow (in pounds)
   const wholeCowCuts = {
     'Ground Beef': 120,
@@ -47,7 +38,7 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
   };
 
   const handleSliderChange = (values: number[]) => {
-    onPreviewQuantityChange('beef-shares', values[0]);
+    onShareChange(values[0]);
   };
 
   // Calculate opacity for visual feedback based on share size
@@ -83,7 +74,7 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
         <div className="mb-4">
           <div className="flex items-center justify-between mb-3">
             <div className="text-left">
-              <p className="text-lg font-bold text-green-600">{currentShare.label}</p>
+              <p className="text-lg font-bold text-green-600">{shareSize}</p>
               <p className="text-sm text-gray-600">Monthly delivery</p>
             </div>
             <div className="text-right">
@@ -116,9 +107,13 @@ const BeefCutsDiagram: React.FC<BeefCutsDiagramProps> = ({
         <div className="mb-4">
           <Button
             onClick={onAddToCart}
-            className="w-full py-3 text-lg font-semibold bg-green-500 hover:bg-green-600 text-white"
+            className={`w-full py-3 text-lg font-semibold ${
+              isInCart 
+                ? 'bg-green-600 hover:bg-green-700 text-white' 
+                : 'bg-green-500 hover:bg-green-600 text-white'
+            }`}
           >
-            Add to Cart
+            {isInCart ? 'Update Cart' : 'Add to Cart'}
           </Button>
         </div>
 

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import CategorySidebar from '@/components/CategorySidebar';
@@ -11,11 +10,8 @@ import CategoryContent from '@/components/CategoryContent';
 import ReferralDashboard from '@/components/ReferralDashboard';
 import { ReferralProvider } from '@/contexts/ReferralContext';
 import { useProductData } from '@/hooks/useProductData';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index = () => {
-  const isMobile = useIsMobile();
-  
   // State management
   const [frequency, setFrequency] = useState('weekly');
   const [city, setCity] = useState('Austin');
@@ -98,7 +94,7 @@ const Index = () => {
 
   return (
     <ReferralProvider>
-      <div className={`min-h-screen bg-gray-50 flex flex-col ${isMobile ? 'pb-20' : ''}`}>
+      <div className="min-h-screen bg-gray-50 flex flex-col">
         {/* Header */}
         <Header
           frequency={frequency}
@@ -107,21 +103,19 @@ const Index = () => {
           setCity={setCity}
         />
 
-        {/* Main Content - Full height with proper mobile layout */}
-        <div className={`flex flex-1 ${isMobile ? 'flex-col min-h-0' : ''}`}>
-          {/* Sidebar - Mobile: horizontal scroll, Desktop: fixed width */}
-          <div className={isMobile ? 'flex-shrink-0' : 'flex-shrink-0 w-64'}>
-            <CategorySidebar
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onSelectCategory={setSelectedCategory}
-            />
-          </div>
+        {/* Main Content */}
+        <div className="flex flex-1">
+          {/* Sidebar */}
+          <CategorySidebar
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+          />
 
-          {/* Main Content Area - Fills remaining space */}
-          <div className={`flex flex-1 ${isMobile ? 'flex-col min-h-0' : ''}`}>
+          {/* Main Content Area */}
+          <div className="flex-1 flex">
             {/* Product Grid or Categories Content */}
-            <div className={`flex-1 ${isMobile ? 'min-h-0 overflow-auto' : ''}`}>
+            <div className="flex-1">
               <CategoryContent 
                 selectedCategory={selectedCategory}
                 products={products}
@@ -156,30 +150,25 @@ const Index = () => {
           nextBillingDate={nextBillingDate}
         />
 
-        {/* Bottom sections - Only show on desktop or when content is scrolled */}
-        {!isMobile && (
-          <>
-            {/* Community Buy Progress */}
-            <div className="bg-white border-t border-green-100 py-6">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <CategoryProgressSlider categoryProgress={categoryProgress} />
-              </div>
-            </div>
+        {/* Community Buy Progress - above How It Works */}
+        <div className="bg-white border-t border-green-100 py-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <CategoryProgressSlider categoryProgress={categoryProgress} />
+          </div>
+        </div>
 
-            {/* Referral Section */}
-            <div className="bg-green-50 border-t border-green-100 py-8">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <ReferralDashboard />
-              </div>
-            </div>
+        {/* Referral Section */}
+        <div className="bg-green-50 border-t border-green-100 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ReferralDashboard />
+          </div>
+        </div>
 
-            {/* How It Works Section */}
-            <HowItWorks />
+        {/* How It Works Section */}
+        <HowItWorks />
 
-            {/* Footer */}
-            <Footer />
-          </>
-        )}
+        {/* Footer */}
+        <Footer />
       </div>
     </ReferralProvider>
   );
