@@ -1,12 +1,13 @@
-
 import { useState } from 'react';
+import { Beef, Fish, Wheat, Apple, Milk, Egg } from 'lucide-react';
 
 // Define all product-related interfaces
 interface Category {
   id: string;
   name: string;
-  icon: string;
-  count: number;
+  icon: React.ComponentType<any>;
+  color: string;
+  progress: number;
 }
 
 interface CategoryProgress {
@@ -43,21 +44,23 @@ interface Farmer {
   specialties: string[];
   image: string;
   certifications: string[];
+  bio: string;
+  products: Product[];
 }
 
 export const useProductData = () => {
   // Categories
   const [categories] = useState<Category[]>([
-    { id: 'beef', name: 'Beef', icon: '🐄', count: 1 },
-    { id: 'lamb', name: 'Lamb', icon: '🐑', count: 1 },
-    { id: 'poultry', name: 'Poultry', icon: '🍗', count: 2 },
-    { id: 'vegetables', name: 'Vegetables', icon: '🥕', count: 6 },
-    { id: 'eggs', name: 'Eggs', icon: '🥚', count: 1 },
-    { id: 'dairy', name: 'Dairy', icon: '🥛', count: 2 },
-    { id: 'fruit', name: 'Fruit', icon: '🍑', count: 2 },
-    { id: 'nuts', name: 'Nuts & Seeds', icon: '🥜', count: 4 },
-    { id: 'bread', name: 'Bread', icon: '🍞', count: 2 },
-    { id: 'honey', name: 'Honey', icon: '🍯', count: 2 }
+    { id: 'beef', name: 'Beef', icon: Beef, color: 'bg-red-500', progress: 75 },
+    { id: 'lamb', name: 'Lamb', icon: Beef, color: 'bg-purple-500', progress: 60 },
+    { id: 'poultry', name: 'Poultry', icon: Wheat, color: 'bg-yellow-500', progress: 80 },
+    { id: 'vegetables', name: 'Vegetables', icon: Apple, color: 'bg-green-500', progress: 90 },
+    { id: 'eggs', name: 'Eggs', icon: Egg, color: 'bg-orange-500', progress: 85 },
+    { id: 'dairy', name: 'Dairy', icon: Milk, color: 'bg-blue-500', progress: 70 },
+    { id: 'fruit', name: 'Fruit', icon: Apple, color: 'bg-pink-500', progress: 65 },
+    { id: 'nuts', name: 'Nuts & Seeds', icon: Wheat, color: 'bg-amber-500', progress: 50 },
+    { id: 'bread', name: 'Bread', icon: Wheat, color: 'bg-amber-700', progress: 55 },
+    { id: 'honey', name: 'Honey', icon: Wheat, color: 'bg-yellow-600', progress: 40 }
   ]);
 
   // Category Progress
@@ -421,27 +424,33 @@ export const useProductData = () => {
       name: 'Circle S Ranch',
       location: 'Bastrop, TX',
       description: 'Family-owned ranch specializing in grass-fed beef. We rotate our cattle through native Texas pastures, ensuring the healthiest animals and most sustainable practices.',
+      bio: 'Family-owned ranch specializing in grass-fed beef. We rotate our cattle through native Texas pastures, ensuring the healthiest animals and most sustainable practices.',
       specialties: ['Grass-Fed Beef', 'Rotational Grazing', 'Hormone-Free'],
       image: '/api/placeholder/60/60',
-      certifications: ['Certified Naturally Grown', 'Texas Organic']
+      certifications: ['Certified Naturally Grown', 'Texas Organic'],
+      products: products.filter(p => p.category === 'beef')
     },
     {
       id: 'hill-country',
       name: 'Hill Country Poultry',
       location: 'Dripping Springs, TX',
       description: 'Raising heritage breed chickens on pasture with mobile coops. Our birds live natural lives with access to fresh grass and insects.',
+      bio: 'Raising heritage breed chickens on pasture with mobile coops. Our birds live natural lives with access to fresh grass and insects.',
       specialties: ['Heritage Breeds', 'Pasture-Raised', 'Mobile Coops'],
       image: '/api/placeholder/60/60',
-      certifications: ['Animal Welfare Approved', 'Certified Humane']
+      certifications: ['Animal Welfare Approved', 'Certified Humane'],
+      products: products.filter(p => p.category === 'poultry')
     },
     {
       id: 'sunshine-dairy',
       name: 'Sunshine Dairy',
       location: 'Georgetown, TX',
       description: 'Small-scale dairy focusing on Jersey cows and artisan cheese making. Our cows graze on organic pastures year-round.',
+      bio: 'Small-scale dairy focusing on Jersey cows and artisan cheese making. Our cows graze on organic pastures year-round.',
       specialties: ['Jersey Cows', 'Artisan Cheese', 'Raw Milk'],
       image: '/api/placeholder/60/60',
-      certifications: ['USDA Organic', 'Texas Department of Health']
+      certifications: ['USDA Organic', 'Texas Department of Health'],
+      products: products.filter(p => p.category === 'dairy')
     }
   ]);
 
