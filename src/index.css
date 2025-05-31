@@ -170,5 +170,57 @@
     .category-icon {
       padding: 0.75rem !important;
     }
+    
+    /* Mobile header optimizations */
+    header h1 {
+      line-height: 1.2;
+    }
+    
+    /* Mobile category grid improvements */
+    .grid-cols-2 > button {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    /* Improve category button touch targets */
+    .grid-cols-2 > button {
+      margin-bottom: 8px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+    }
+    
+    /* Add active state for better feedback on touch */
+    .grid-cols-2 > button:active {
+      opacity: 0.8;
+      transform: scale(0.98);
+    }
+    
+    /* Ensure category text is readable */
+    .grid-cols-2 > button span {
+      text-align: center;
+      word-break: break-word;
+      hyphens: auto;
+      max-width: 100%;
+    }
+    
+    /* Optimize header spacing */
+    header .flex-col h1, 
+    header .flex-col p {
+      padding: 0;
+      margin: 0;
+      line-height: 1.3;
+    }
+    
+    /* Ensure city selector is properly sized */
+    header select,
+    header [role="combobox"] {
+      padding-top: 2px;
+      padding-bottom: 2px;
+      line-height: 1.2;
+    }
   }
 }

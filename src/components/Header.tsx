@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Settings, User, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -47,48 +46,71 @@ const Header: React.FC<HeaderProps> = ({
               className="h-10 sm:h-16 w-auto object-contain flex-shrink-0"
             />
             <div className="text-farm-earth min-w-0 flex-1">
-              <h1 className="text-sm sm:text-xl font-bold leading-tight mb-1">
-                All the{' '}
-                <Select value={city} onValueChange={setCity}>
-                  <SelectTrigger className="inline-flex items-center bg-green-500 text-white px-1 sm:px-2 py-0.5 sm:py-1 rounded-md font-semibold border-0 h-auto min-h-0 w-auto gap-1 text-xs sm:text-base">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white border shadow-lg z-50">
-                    {cities.map((cityName) => (
-                      <SelectItem key={cityName} value={cityName} className="text-sm">
-                        {cityName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {' '}Local Farms in One Local Box
-              </h1>
-              {!isMobile && (
-                <p className="text-xs sm:text-sm font-medium text-gray-600 leading-tight">
-                  Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers, Supporting them Directly with your $$ and Saving you Both Time and Hassle.
-                </p>
+              {isMobile ? (
+                <div className="flex flex-col">
+                  <h1 className="text-sm font-bold leading-tight">
+                    All the{' '}
+                    <Select value={city} onValueChange={setCity}>
+                      <SelectTrigger className="inline-flex items-center bg-green-500 text-white px-1 py-0.5 rounded-md font-semibold border-0 h-auto min-h-0 w-auto gap-1 text-xs">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white border shadow-lg z-50">
+                        {cities.map((cityName) => (
+                          <SelectItem key={cityName} value={cityName} className="text-sm">
+                            {cityName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </h1>
+                  <p className="text-xs font-medium leading-tight">
+                    Local Farms in One Local Box
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <h1 className="text-sm sm:text-xl font-bold leading-tight mb-1">
+                    All the{' '}
+                    <Select value={city} onValueChange={setCity}>
+                      <SelectTrigger className="inline-flex items-center bg-green-500 text-white px-1 sm:px-2 py-0.5 sm:py-1 rounded-md font-semibold border-0 h-auto min-h-0 w-auto gap-1 text-xs sm:text-base">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white border shadow-lg z-50">
+                        {cities.map((cityName) => (
+                          <SelectItem key={cityName} value={cityName} className="text-sm">
+                            {cityName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {' '}Local Farms in One Local Box
+                  </h1>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600 leading-tight">
+                    Subscribe to Meet Your Monthly Staple Needs Direct from Local Farmers, Supporting them Directly with your $$ and Saving you Both Time and Hassle.
+                  </p>
+                </>
               )}
             </div>
           </div>
 
           {/* Controls */}
           <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-            {/* Pickup Frequency - Hide label on mobile */}
-            <div className="flex items-center gap-1 sm:gap-2">
-              {!isMobile && (
+            {/* Pickup Frequency - Hide on mobile */}
+            {!isMobile && (
+              <div className="flex items-center gap-1 sm:gap-2">
                 <span className="text-xs sm:text-sm text-farm-earth font-medium whitespace-nowrap">Frequency:</span>
-              )}
-              <Select value={frequency} onValueChange={setFrequency}>
-                <SelectTrigger className="w-20 sm:w-32 text-xs sm:text-sm bg-white">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-white border shadow-lg z-50">
-                  <SelectItem value="weekly" className="text-xs sm:text-sm">Weekly</SelectItem>
-                  <SelectItem value="biweekly" className="text-xs sm:text-sm">Bi-weekly</SelectItem>
-                  <SelectItem value="monthly" className="text-xs sm:text-sm">Monthly</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+                <Select value={frequency} onValueChange={setFrequency}>
+                  <SelectTrigger className="w-20 sm:w-32 text-xs sm:text-sm bg-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border shadow-lg z-50">
+                    <SelectItem value="weekly" className="text-xs sm:text-sm">Weekly</SelectItem>
+                    <SelectItem value="biweekly" className="text-xs sm:text-sm">Bi-weekly</SelectItem>
+                    <SelectItem value="monthly" className="text-xs sm:text-sm">Monthly</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             {/* User Actions */}
             <div className="flex items-center gap-1">
