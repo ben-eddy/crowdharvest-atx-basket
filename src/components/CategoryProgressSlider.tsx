@@ -122,22 +122,23 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
   }, 0);
 
   const renderEmojiVisual = (category: any) => {
-    const maxDisplay = 20; // Maximum emojis to display for readability
+    // Adjust max display based on screen size
+    const maxDisplay = 15; // Reduced for mobile
     const displayCount = Math.min(category.currentAmount, maxDisplay);
     const emojis = Array(displayCount).fill(category.emoji);
     
     return (
-      <div className="flex flex-wrap justify-center gap-1 mb-3">
+      <div className="flex flex-wrap justify-center gap-0.5 sm:gap-1 mb-2 sm:mb-3">
         {emojis.map((emoji, index) => (
-          <span key={index} className="text-lg">{emoji}</span>
+          <span key={index} className="text-sm sm:text-lg">{emoji}</span>
         ))}
         {category.currentAmount > maxDisplay && (
-          <span className="text-sm text-gray-600 ml-2">
+          <span className="text-xs sm:text-sm text-gray-600 ml-1 sm:ml-2">
             +{category.currentAmount - maxDisplay} more
           </span>
         )}
-        <div className="w-full text-center mt-2">
-          <span className="text-sm font-semibold text-green-700">
+        <div className="w-full text-center mt-1 sm:mt-2">
+          <span className="text-xs sm:text-sm font-semibold text-green-700">
             {category.currentAmount} {category.unit} sold
           </span>
         </div>
@@ -146,65 +147,65 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
   };
 
   return (
-    <section className="bg-gradient-to-br from-green-50 to-blue-50 py-12">
+    <section className="bg-gradient-to-br from-green-50 to-blue-50 py-6 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Subscriber Stats */}
-        <div className="text-center mb-8">
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-green-200">
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
-                <Users className="w-10 h-10 text-white" />
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-8 mb-6 sm:mb-8 border border-green-200">
+            <div className="flex items-center justify-center mb-3 sm:mb-4">
+              <div className="w-12 h-12 sm:w-20 sm:h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                <Users className="w-6 h-6 sm:w-10 sm:h-10 text-white" />
               </div>
             </div>
-            <h2 className="text-3xl font-bold text-farm-green mb-2">
+            <h2 className="text-xl sm:text-3xl font-bold text-farm-green mb-2">
               {totalSubscribers} Austin Subscribers Strong! 🎉
             </h2>
-            <p className="text-lg text-farm-earth mb-4">
+            <p className="text-sm sm:text-lg text-farm-earth mb-3 sm:mb-4">
               Our community is committed to buying this much from local farms every month
             </p>
-            <div className="bg-green-100 rounded-lg p-4 inline-block">
-              <span className="text-2xl font-bold text-green-800">
+            <div className="bg-green-100 rounded-lg p-3 sm:p-4 inline-block">
+              <span className="text-lg sm:text-2xl font-bold text-green-800">
                 ${totalCommitmentValue.toLocaleString()}/month
               </span>
-              <p className="text-sm text-green-700 mt-1">Total Monthly Commitment</p>
+              <p className="text-xs sm:text-sm text-green-700 mt-1">Total Monthly Commitment</p>
             </div>
           </div>
         </div>
 
-        {/* Visual Category Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        {/* Visual Category Grid - More mobile-friendly */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-6">
           {categories.map((category) => {
             const percentage = Math.min((category.currentAmount / category.targetAmount) * 100, 100);
             const remaining = Math.max(category.targetAmount - category.currentAmount, 0);
             const subscribersForThis = Math.floor((category.currentAmount / category.targetAmount) * totalSubscribers);
 
             return (
-              <div key={category.category} className="bg-white rounded-xl shadow-lg border border-green-100 overflow-hidden transform hover:scale-105 transition-transform duration-300">
+              <div key={category.category} className="bg-white rounded-lg sm:rounded-xl shadow-lg border border-green-100 overflow-hidden transform hover:scale-105 transition-transform duration-300">
                 {/* Header with icon and stats */}
-                <div className="bg-gradient-to-r from-green-500 to-blue-500 p-4 text-white">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-3xl">{category.icon}</span>
+                <div className="bg-gradient-to-r from-green-500 to-blue-500 p-2 sm:p-4 text-white">
+                  <div className="flex items-center justify-between mb-1 sm:mb-2">
+                    <span className="text-xl sm:text-3xl">{category.icon}</span>
                     <div className="text-right">
-                      <div className="text-lg font-bold">{subscribersForThis}</div>
+                      <div className="text-sm sm:text-lg font-bold">{subscribersForThis}</div>
                       <div className="text-xs opacity-90">subscribers</div>
                     </div>
                   </div>
-                  <h3 className="font-bold text-lg">{category.category}</h3>
+                  <h3 className="font-bold text-sm sm:text-lg">{category.category}</h3>
                 </div>
 
                 {/* Emoji Visual Display */}
-                <div className="p-4">
+                <div className="p-2 sm:p-4">
                   {renderEmojiVisual(category)}
                   
-                  <div className="mb-3">
-                    <div className="flex justify-between text-sm mb-1">
+                  <div className="mb-2 sm:mb-3">
+                    <div className="flex justify-between text-xs sm:text-sm mb-1">
                       <span className="font-medium text-farm-green">Progress</span>
                       <span className="text-farm-earth">{Math.round(percentage)}%</span>
                     </div>
-                    <Progress value={percentage} className="h-3" />
+                    <Progress value={percentage} className="h-2 sm:h-3" />
                   </div>
 
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Committed:</span>
                       <span className="font-semibold text-green-600">
@@ -218,9 +219,9 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
                       </span>
                     </div>
                     {remaining > 0 && (
-                      <div className="bg-orange-50 rounded-lg p-2 mt-2">
+                      <div className="bg-orange-50 rounded-lg p-1.5 sm:p-2 mt-1 sm:mt-2">
                         <div className="text-orange-800 text-xs text-center">
-                          <TrendingUp className="w-3 h-3 inline mr-1" />
+                          <TrendingUp className="w-2 h-2 sm:w-3 sm:h-3 inline mr-1" />
                           {remaining} {category.unit} until sold out!
                         </div>
                       </div>
@@ -232,30 +233,30 @@ const CategoryProgressSlider: React.FC<CategoryProgressSliderProps> = ({ categor
           })}
         </div>
 
-        {/* Community Impact Banner */}
-        <div className="mt-8 bg-white rounded-xl shadow-lg p-6 border border-green-200">
+        {/* Community Impact Banner - Mobile optimized */}
+        <div className="mt-6 sm:mt-8 bg-white rounded-xl shadow-lg p-4 sm:p-6 border border-green-200">
           <div className="text-center">
-            <h3 className="text-xl font-bold text-farm-green mb-2">
+            <h3 className="text-lg sm:text-xl font-bold text-farm-green mb-2">
               💡 Community Impact
             </h3>
-            <p className="text-farm-earth mb-4">
+            <p className="text-sm sm:text-base text-farm-earth mb-3 sm:mb-4">
               Our {totalSubscribers} subscribers are supporting local Austin farms with guaranteed monthly purchases!
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="bg-green-50 rounded-lg p-3">
-                <div className="font-semibold text-green-800">Farmers Supported</div>
-                <div className="text-2xl font-bold text-green-600">12+</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm">
+              <div className="bg-green-50 rounded-lg p-2 sm:p-3">
+                <div className="font-semibold text-green-800 text-xs sm:text-sm">Farmers Supported</div>
+                <div className="text-lg sm:text-2xl font-bold text-green-600">12+</div>
               </div>
-              <div className="bg-blue-50 rounded-lg p-3">
-                <div className="font-semibold text-blue-800">Monthly Revenue</div>
-                <div className="text-2xl font-bold text-blue-600">${totalCommitmentValue.toLocaleString()}</div>
+              <div className="bg-blue-50 rounded-lg p-2 sm:p-3">
+                <div className="font-semibold text-blue-800 text-xs sm:text-sm">Monthly Revenue</div>
+                <div className="text-lg sm:text-2xl font-bold text-blue-600">${totalCommitmentValue.toLocaleString()}</div>
               </div>
-              <div className="bg-orange-50 rounded-lg p-3">
-                <div className="font-semibold text-orange-800">Referral Rewards</div>
-                <div className="text-2xl font-bold text-orange-600">Earn $25</div>
+              <div className="bg-orange-50 rounded-lg p-2 sm:p-3">
+                <div className="font-semibold text-orange-800 text-xs sm:text-sm">Referral Rewards</div>
+                <div className="text-lg sm:text-2xl font-bold text-orange-600">Earn $25</div>
               </div>
             </div>
-            <p className="text-sm text-farm-earth mt-4">
+            <p className="text-xs sm:text-sm text-farm-earth mt-3 sm:mt-4">
               <strong>Spread the word!</strong> Share your referral link and earn $25 when friends join our community 🎉
             </p>
           </div>
