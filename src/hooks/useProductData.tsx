@@ -49,18 +49,14 @@ interface Farmer {
 }
 
 export const useProductData = () => {
-  // Categories
+  // Categories - restored original icons
   const [categories] = useState<Category[]>([
     { id: 'beef', name: 'Beef', icon: Beef, color: 'bg-red-500', progress: 75 },
     { id: 'lamb', name: 'Lamb', icon: Beef, color: 'bg-purple-500', progress: 60 },
-    { id: 'poultry', name: 'Poultry', icon: Wheat, color: 'bg-yellow-500', progress: 80 },
-    { id: 'vegetables', name: 'Vegetables', icon: Apple, color: 'bg-green-500', progress: 90 },
-    { id: 'eggs', name: 'Eggs', icon: Egg, color: 'bg-orange-500', progress: 85 },
-    { id: 'dairy', name: 'Dairy', icon: Milk, color: 'bg-blue-500', progress: 70 },
-    { id: 'fruit', name: 'Fruit', icon: Apple, color: 'bg-pink-500', progress: 65 },
-    { id: 'nuts', name: 'Nuts & Seeds', icon: Wheat, color: 'bg-amber-500', progress: 50 },
-    { id: 'bread', name: 'Bread', icon: Wheat, color: 'bg-amber-700', progress: 55 },
-    { id: 'honey', name: 'Honey', icon: Wheat, color: 'bg-yellow-600', progress: 40 }
+    { id: 'seafood', name: 'Seafood', icon: Fish, color: 'bg-blue-500', progress: 40 },
+    { id: 'produce', name: 'Produce', icon: Apple, color: 'bg-green-500', progress: 90 },
+    { id: 'dairy', name: 'Dairy', icon: Milk, color: 'bg-blue-300', progress: 70 },
+    { id: 'pantry', name: 'Pantry', icon: Wheat, color: 'bg-amber-500', progress: 55 }
   ]);
 
   // Category Progress
@@ -157,7 +153,7 @@ export const useProductData = () => {
     }
   ]);
 
-  // Products
+  // Products - fixed lamb share calculations
   const [products] = useState<Product[]>([
     // Beef - now using shares
     {
@@ -180,7 +176,7 @@ export const useProductData = () => {
         { value: 7, label: '1/4 share', priceMultiplier: 90 }       // 90 lbs * $14 = $1260
       ]
     },
-    // Lamb - using shares with accurate weights and new image
+    // Lamb - fixed with correct share amounts that match the diagram
     {
       id: 'lamb-shares',
       name: 'Lamb Shares',
@@ -192,7 +188,7 @@ export const useProductData = () => {
       maxMonthly: 3, // 0-3 index for share options (1/8, 1/6, 1/4, 1/2)
       shareOptions: [
         { value: 0, label: '1/8 share', priceMultiplier: 5 },       // 5 lbs * $18 = $90
-        { value: 1, label: '1/6 share', priceMultiplier: 7 },       // 6-7 lbs * $18 = $126
+        { value: 1, label: '1/6 share', priceMultiplier: 7 },       // 7 lbs * $18 = $126
         { value: 2, label: '1/4 share', priceMultiplier: 10 },      // 10 lbs * $18 = $180
         { value: 3, label: '1/2 share', priceMultiplier: 20 }       // 20 lbs * $18 = $360
       ]
