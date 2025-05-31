@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface Category {
   id: string;
@@ -19,6 +19,8 @@ const CategorySidebar: React.FC<CategorySidebarProps> = ({
   selectedCategory,
   onSelectCategory
 }) => {
+  const isMobile = useIsMobile();
+
   return (
     <aside className="w-64 bg-white border-r border-green-100 h-full">
       <div className="p-6">
@@ -38,7 +40,7 @@ const CategorySidebar: React.FC<CategorySidebarProps> = ({
                 <span className="text-2xl">{category.icon}</span>
                 <span className="font-medium">{category.name}</span>
               </div>
-              <span className={`text-xs px-2 py-1 rounded-full ${
+              <span className={`hidden md:inline-block text-xs px-2 py-1 rounded-full ${
                 selectedCategory === category.id
                   ? 'bg-white/20 text-white'
                   : 'bg-green-100 text-farm-earth'

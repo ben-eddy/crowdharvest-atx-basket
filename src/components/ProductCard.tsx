@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface Product {
   id: string;
@@ -32,6 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isInCart
 }) => {
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const handleSliderChange = (values: number[]) => {
     console.log(`Slider changed for ${product.name}: ${values[0]}`);
@@ -122,35 +123,35 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className="product-card bg-white rounded-lg shadow-sm border border-green-100 overflow-hidden">
       {/* Hero Section with Symbol or Image */}
-      <div className="relative h-32 flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
+      <div className="relative h-28 md:h-32 flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
         {isPecanProduct ? (
           <img 
             src="/lovable-uploads/faf89377-e9a4-40b0-a4d0-0f490c1d824f.png" 
             alt="Pecan" 
-            className="w-16 h-16 object-contain"
+            className="w-14 h-14 md:w-16 md:h-16 object-contain"
           />
         ) : isPecanButterProduct ? (
           <img 
             src="/lovable-uploads/f4cfd1f1-ef92-476e-915e-4c3636c19c54.png" 
             alt="Pecan Butter" 
-            className="w-16 h-16 object-contain"
+            className="w-14 h-14 md:w-16 md:h-16 object-contain"
           />
         ) : isBeetProduct ? (
           <img 
             src="/lovable-uploads/53cead4f-3b09-4490-86c1-5721cb5706f8.png" 
             alt="Beets" 
-            className="w-16 h-16 object-contain"
+            className="w-14 h-14 md:w-16 md:h-16 object-contain"
           />
         ) : (
-          <div className="text-6xl">
+          <div className="text-5xl md:text-6xl">
             {productSymbol}
           </div>
         )}
       </div>
 
       {/* Product Info */}
-      <div className="p-4">
-        <div className="mb-3">
+      <div className="p-3 md:p-4">
+        <div className="mb-2 md:mb-3">
           <h3 className="font-semibold text-farm-green text-sm leading-tight">{product.name}</h3>
           <p className="text-xs text-farm-earth mt-1">{product.description}</p>
           <div className="flex items-center justify-between mt-2">
@@ -164,7 +165,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Quantity Slider */}
-        <div className="space-y-3">
+        <div className="space-y-2 md:space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-sm text-farm-earth">
               {isShareProduct ? 'Share Size' : 'Monthly Amount'}
@@ -174,14 +175,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
             </span>
           </div>
           
-          <Slider
-            value={[quantity]}
-            onValueChange={handleSliderChange}
-            max={product.maxMonthly}
-            min={0}
-            step={step}
-            className="w-full"
-          />
+          <div className={`py-2 ${isMobile ? 'py-3' : ''}`}>
+            <Slider
+              value={[quantity]}
+              onValueChange={handleSliderChange}
+              max={product.maxMonthly}
+              min={0}
+              step={step}
+              className="w-full"
+            />
+          </div>
           
           <div className="flex justify-between text-xs text-gray-400">
             <span>0</span>
@@ -191,7 +194,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Monthly Total */}
         {quantity > 0 && (
-          <div className="text-center mt-3">
+          <div className="text-center mt-2 md:mt-3">
             <div className="text-sm font-medium text-farm-green bg-green-50 rounded px-2 py-1">
               Monthly: ${displayPrice.toFixed(2)}
             </div>
@@ -200,15 +203,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Add to Cart Button */}
         {quantity > 0 && (
-          <div className="mt-3">
+          <div className="mt-2 md:mt-3">
             <Button 
               onClick={handleAddToCart}
-              className={`w-full font-medium ${
+              className={`w-full font-medium py-2 ${
                 isInCart 
                   ? 'bg-gray-500 hover:bg-gray-600 text-white' 
                   : 'farm-gradient text-white'
               }`}
-              size="sm"
+              size={isMobile ? "default" : "sm"}
             >
               {isInCart ? 'Update Cart' : 'Add to Cart'}
             </Button>
