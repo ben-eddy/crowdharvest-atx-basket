@@ -1,7 +1,7 @@
-
 import React from 'react';
 import ProductCard from './ProductCard';
 import FarmerInfo from './FarmerInfo';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface Product {
   id: string;
@@ -48,16 +48,18 @@ const ProductGrid: React.FC<ProductGridProps> = ({
   onPreviewQuantityChange,
   onAddToCart
 }) => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-farm-green mb-4">
+    <div className={`p-3 md:p-6`}>
+      <div className="mb-4 md:mb-6">
+        <h2 className="text-xl md:text-2xl font-bold text-farm-green mb-2 md:mb-4">
           Choose Your Monthly {categoryName}
         </h2>
-        <p className="text-farm-earth mb-6">
+        <p className="text-sm md:text-base text-farm-earth mb-4 md:mb-6">
           Use the sliders to select how much you'd like each month. You can adjust anytime.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
           {products.map((product) => (
             <ProductCard
               key={product.id}

@@ -10,6 +10,7 @@ import CategoryContent from '@/components/CategoryContent';
 import ReferralDashboard from '@/components/ReferralDashboard';
 import { ReferralProvider } from '@/contexts/ReferralContext';
 import { useProductData } from '@/hooks/useProductData';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Index = () => {
   // State management
@@ -17,6 +18,7 @@ const Index = () => {
   const [city, setCity] = useState('Austin');
   const [selectedCategory, setSelectedCategory] = useState('beef');
   const [pickupLocation, setPickupLocation] = useState('');
+  const isMobile = useIsMobile();
   
   // Separate state for cart (actual items added) and preview quantities (slider values)
   const [cart, setCart] = useState<{[productId: string]: { quantity: number }}>({});
@@ -104,18 +106,39 @@ const Index = () => {
         />
 
         {/* Main Content */}
-        <div className="flex flex-1">
-          {/* Sidebar */}
-          <CategorySidebar
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
+        <div className="flex flex-col md:flex-row flex-1">
+          {/* Sidebar - hidden on mobile */}
+          <div className="hidden md:block">
+            <CategorySidebar
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onSelectCategory={setSelectedCategory}
+            />
+          </div>
 
           {/* Main Content Area */}
-          <div className="flex-1 flex">
+          <div className="flex-1 flex flex-col md:flex-row">
             {/* Product Grid or Categories Content */}
-            <div className="flex-1">
+            <div className="flex-1 px-4 md:px-6 py-4">
+              <div className="md:hidden mb-4">
+                <h3 className="text-lg font-semibold text-farm-green mb-2">Categories</h3>
+                <div className="flex overflow-x-auto pb-2 space-x-2">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`whitespace-nowrap flex items-center space-x-2 p-2 rounded-lg text-left transition-all ${
+                        selectedCategory === category.id
+                          ? 'bg-farm-lightgreen text-white'
+                          : 'bg-white hover:bg-green-50 text-farm-green'
+                      }`}
+                    >
+                      <span className="text-xl">{category.icon}</span>
+                      <span className="font-medium">{category.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
               <CategoryContent 
                 selectedCategory={selectedCategory}
                 products={products}
@@ -151,14 +174,14 @@ const Index = () => {
         />
 
         {/* Community Buy Progress - above How It Works */}
-        <div className="bg-white border-t border-green-100 py-6">
+        <div className="bg-white border-t border-green-100 py-4 md:py-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <CategoryProgressSlider categoryProgress={categoryProgress} />
           </div>
         </div>
 
         {/* Referral Section */}
-        <div className="bg-green-50 border-t border-green-100 py-8">
+        <div className="bg-green-50 border-t border-green-100 py-6 md:py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <ReferralDashboard />
           </div>
