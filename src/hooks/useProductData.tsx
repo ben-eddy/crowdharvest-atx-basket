@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 
 // Define all product-related interfaces
@@ -176,7 +177,7 @@ export const useProductData = () => {
         { value: 7, label: '1/4 share', priceMultiplier: 90 }       // 90 lbs * $14 = $1260
       ]
     },
-    // Lamb - using shares with 1/8 minimum
+    // Lamb - using shares with accurate weights and new image
     {
       id: 'lamb-shares',
       name: 'Lamb Shares',
@@ -184,14 +185,13 @@ export const useProductData = () => {
       description: 'Get your monthly share of whole grass-fed lamb. Includes mix of cuts.',
       price: 18, // $18/lb base price for lamb
       unit: 'share',
-      image: '/api/placeholder/300/200',
-      maxMonthly: 4, // 0-4 index for share options
+      image: '/lovable-uploads/2e5c1eea-1c0a-4833-882b-af15026a881f.png',
+      maxMonthly: 3, // 0-3 index for share options (1/8, 1/6, 1/4, 1/2)
       shareOptions: [
-        { value: 0, label: '1/8 share', priceMultiplier: 10 },      // 10 lbs * $18 = $180
-        { value: 1, label: '1/6 share', priceMultiplier: 13 },      // 13 lbs * $18 = $234
-        { value: 2, label: '1/4 share', priceMultiplier: 20 },      // 20 lbs * $18 = $360
-        { value: 3, label: '1/3 share', priceMultiplier: 27 },      // 27 lbs * $18 = $486
-        { value: 4, label: '1/2 share', priceMultiplier: 40 }       // 40 lbs * $18 = $720
+        { value: 0, label: '1/8 share', priceMultiplier: 5 },       // 5 lbs * $18 = $90
+        { value: 1, label: '1/6 share', priceMultiplier: 7 },       // 6-7 lbs * $18 = $126
+        { value: 2, label: '1/4 share', priceMultiplier: 10 },      // 10 lbs * $18 = $180
+        { value: 3, label: '1/2 share', priceMultiplier: 20 }       // 20 lbs * $18 = $360
       ]
     },
     // Poultry - chickens and turkeys

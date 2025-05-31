@@ -97,8 +97,7 @@ const CategoryContent: React.FC<CategoryContentProps> = ({
   } 
   
   if (selectedCategory === 'lamb' && lambShareProduct) {
-    // For now, we'll use the same beef diagram UI for lamb shares
-    // In a real application, you'd likely have a different diagram for lamb
+    // For lamb shares, using the new fractions based on the updated share options
     return (
       <BeefCutsDiagram
         shareSize={lambShareProduct.shareOptions?.[lambPreviewQuantity]?.label || lambShareProduct.shareOptions?.[0]?.label || '1/8 share'}
@@ -106,7 +105,6 @@ const CategoryContent: React.FC<CategoryContentProps> = ({
           '1/8 share': 1/8,
           '1/6 share': 1/6,
           '1/4 share': 1/4,
-          '1/3 share': 1/3,
           '1/2 share': 1/2
         }[lambShareProduct.shareOptions?.[lambPreviewQuantity]?.label || '1/8 share'] || 1/8}
         onShareChange={(value) => onPreviewQuantityChange('lamb-shares', value)}
