@@ -49,14 +49,18 @@ interface Farmer {
 }
 
 export const useProductData = () => {
-  // Categories - restored original icons
+  // Categories - restored all original categories with proper icons
   const [categories] = useState<Category[]>([
     { id: 'beef', name: 'Beef', icon: Beef, color: 'bg-red-500', progress: 75 },
     { id: 'lamb', name: 'Lamb', icon: Beef, color: 'bg-purple-500', progress: 60 },
-    { id: 'seafood', name: 'Seafood', icon: Fish, color: 'bg-blue-500', progress: 40 },
-    { id: 'produce', name: 'Produce', icon: Apple, color: 'bg-green-500', progress: 90 },
-    { id: 'dairy', name: 'Dairy', icon: Milk, color: 'bg-blue-300', progress: 70 },
-    { id: 'pantry', name: 'Pantry', icon: Wheat, color: 'bg-amber-500', progress: 55 }
+    { id: 'poultry', name: 'Poultry', icon: Beef, color: 'bg-yellow-500', progress: 80 },
+    { id: 'vegetables', name: 'Vegetables', icon: Apple, color: 'bg-green-500', progress: 90 },
+    { id: 'eggs', name: 'Eggs', icon: Egg, color: 'bg-orange-500', progress: 85 },
+    { id: 'dairy', name: 'Dairy', icon: Milk, color: 'bg-blue-500', progress: 70 },
+    { id: 'fruit', name: 'Fruit', icon: Apple, color: 'bg-pink-500', progress: 65 },
+    { id: 'nuts', name: 'Nuts & Seeds', icon: Wheat, color: 'bg-amber-500', progress: 50 },
+    { id: 'bread', name: 'Bread', icon: Wheat, color: 'bg-amber-700', progress: 55 },
+    { id: 'honey', name: 'Honey', icon: Wheat, color: 'bg-yellow-600', progress: 40 }
   ]);
 
   // Category Progress
