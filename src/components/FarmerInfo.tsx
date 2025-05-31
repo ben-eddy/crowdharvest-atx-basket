@@ -81,10 +81,10 @@ const FarmerInfo: React.FC<FarmerInfoProps> = ({ farmer }) => {
                     </span>
                   ))}
                 </div>
-              )}
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
