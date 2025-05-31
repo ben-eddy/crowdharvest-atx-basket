@@ -1,7 +1,7 @@
-
 import React from 'react';
 import ProductGrid from './ProductGrid';
 import BeefCutsDiagram from './BeefCutsDiagram';
+import LambCutsDiagram from './LambCutsDiagram';
 
 interface Product {
   id: string;
@@ -97,9 +97,8 @@ const CategoryContent: React.FC<CategoryContentProps> = ({
   } 
   
   if (selectedCategory === 'lamb' && lambShareProduct) {
-    // For lamb shares, using the new fractions based on the updated share options
     return (
-      <BeefCutsDiagram
+      <LambCutsDiagram
         shareSize={lambShareProduct.shareOptions?.[lambPreviewQuantity]?.label || lambShareProduct.shareOptions?.[0]?.label || '1/8 share'}
         shareFraction={{
           '1/8 share': 1/8,
